@@ -34,7 +34,7 @@ struct ODriveStatus; // hack to prevent teensy compile error
 
 Motors motors;
 
-// Instantiate ODrive objects
+// // Instantiate ODrive objects
 ODriveCAN odrv0(wrap_can_intf(can_intf), ODRV0_NODE_ID); // Standard CAN message ID
 ODriveCAN* odrives[] = {&odrv0}; // Make sure all ODriveCAN instances are accounted for here
 
@@ -94,8 +94,11 @@ void setup() {
   Serial.println("Starting ODriveCAN demo");
 
   // Register callbacks for the heartbeat and encoder feedback messages
-  odrv0.onFeedback(onFeedback, &odrv0_user_data);
-  odrv0.onStatus(onHeartbeat, &odrv0_user_data);
+  // odrv0.onFeedback(onFeedback, &odrv0_user_data);                              BIG CHANGE HERE
+  // odrv0.onStatus(onHeartbeat, &odrv0_user_data);
+  motors.setFeedback(0, onFeedback, &odrv0_user_data);
+  motors.setStatus(0, onHeartbeat, &odrv0_user_data);
+
 
   // Configure and initialize the CAN bus interface. This function depends on
   // your hardware and the CAN stack that you're using.
@@ -111,24 +114,18 @@ void setup() {
 
   Serial.println("found ODrive");
 
-  // request bus voltage and current (1sec timeout)
-  Serial.println("attempting to read bus voltage and current");
-  Get_Bus_Voltage_Current_msg_t vbus;
-  if (!odrv0.request(vbus, 1000)) {
-    Serial.println("vbus request failed!");
-    while (true); // spin indefinitely
-  }
+
 
   Serial.print("DC voltage [V]: ");
-  Serial.println(vbus.Bus_Voltage);
+  Serial.println(motors.getMotorBusVoltage(0));
   Serial.print("DC current [A]: ");
-  Serial.println(vbus.Bus_Current);
+  Serial.println(motors.getMotorBusCurrent(0));
 
   Serial.println("Enabling closed loop control...");
   while (odrv0_user_data.last_heartbeat.Axis_State != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
-    odrv0.clearErrors();
+    motors.clearMotorErrors(0);
     delay(1);
-    odrv0.setState(ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
+    motors.setMotorState(0, ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
 
     // Pump events for 150ms. This delay is needed for two reasons;
     // 1. If there is an error condition, such as missing DC power, the ODrive might
@@ -161,7 +158,8 @@ void loop() {
   
   float phase = t * (TWO_PI / SINE_PERIOD);
 
-  odrv0.setPosition(
+  motors.setMotorPosition(
+    0,
     sin(phase), // position
     cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
   );

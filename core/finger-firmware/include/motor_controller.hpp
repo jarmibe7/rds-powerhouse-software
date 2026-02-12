@@ -5,6 +5,7 @@
 #include <vector>
 #include "ODriveCAN.h"
 #include <Arduino.h>  
+#include <FlexCAN_T4.h>
 
 
 // #include "ODriveFlexCAN.hpp"
@@ -23,8 +24,8 @@ void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data);
 class Motor_Controller {
   public:
     Motor_Controller(ODriveCAN* odrive, int node_id);
-    void setFeedback(void (*callback)(Get_Encoder_Estimates_msg_t& feedback, void* user_data));
-    void setStatus(void (*callback)(Heartbeat_msg_t& feedback, void* user_data));
+    void setFeedback();
+    void setStatus();
     float getBusVoltage();
     float getBusCurrent();
     void clearErrors();
@@ -36,6 +37,7 @@ class Motor_Controller {
     float getMotorVelocity();
     uint8_t getMotorState();
     bool checkHeartbeat();
+    bool checkFeedback();
     ODriveCAN* getODrive();
   private:
     int nodeId;
@@ -49,8 +51,8 @@ class Motors {
   public:
     Motors();
     void addMotor(Motor_Controller& motor);
-    void setFeedback(uint8_t motorID, void (*callback)(Get_Encoder_Estimates_msg_t& feedback, void* user_data));
-    void setStatus(uint8_t motorID, void (*callback)(Heartbeat_msg_t& feedback, void* user_data));
+    void setFeedback();
+    void setStatus();
     float getMotorBusVoltage(uint8_t motorID);
     float getMotorBusCurrent(uint8_t motorID);
     void clearMotorErrors(uint8_t motorID);
@@ -62,6 +64,7 @@ class Motors {
     float getMotorVelocity(uint8_t motorID);
     uint8_t getMotorState(uint8_t  motorID);
     bool checkHeartbeat(uint8_t motorID);
+    bool checkFeedback(uint8_t motorID);
     template <typename T>
     void applyToODrives(T& msg);
   private:

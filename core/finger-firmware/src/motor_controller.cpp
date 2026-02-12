@@ -5,12 +5,12 @@ Motor_Controller::Motor_Controller(ODriveCAN* odrive, int node_id) {
     this->odrive = odrive;
 }
 
-void Motor_Controller::setFeedback(void (*callback)(Get_Encoder_Estimates_msg_t& feedback, void* user_data)) {
-    this->odrive->onFeedback(callback, &(this->user_data));
+void Motor_Controller::setFeedback() {
+    this->odrive->onFeedback(onFeedback, &(this->user_data));
 }
 
-void Motor_Controller::setStatus(void (*callback)(Heartbeat_msg_t& feedback, void* user_data)) {
-    this->odrive->onStatus(callback, &(this->user_data));
+void Motor_Controller::setStatus() {
+    this->odrive->onStatus(onHeartbeat, &(this->user_data));
 }
 
 float Motor_Controller::getBusVoltage() {
@@ -65,9 +65,34 @@ bool Motor_Controller::checkHeartbeat() {
     return heartbeat;
 }
 
+bool Motor_Controller::checkFeedback() {
+    bool feedback = this->user_data.received_feedback;
+    this->user_data.received_feedback = false;
+    return feedback;
+}
+
 ODriveCAN* Motor_Controller::getODrive() {
     return this->odrive;
 }
+
+// Called every time a Heartbeat message arrives from the ODrive
+void onHeartbeat(Heartbeat_msg_t& msg, void* user_data) {
+  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
+  odrv_user_data->last_heartbeat = msg;
+  odrv_user_data->received_heartbeat = true;
+}
+
+// Called every time a feedback message arrives from the ODrive
+void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data) {
+  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
+  odrv_user_data->last_feedback = msg;
+  odrv_user_data->received_feedback = true;
+}
+
+
+
+
+
 
 
 
@@ -81,12 +106,16 @@ void Motors::addMotor(Motor_Controller& motor) {
     this->numMotors++;
 }
 
-void Motors::setFeedback(uint8_t motorID, void (*callback)(Get_Encoder_Estimates_msg_t& feedback, void* user_data)) {
-    (this->motor_list[motorID]).setFeedback(callback);
+void Motors::setFeedback() {
+    for(auto motor : this->motor_list) {
+        motor.setFeedback();
+    }
 }
 
-void Motors::setStatus(uint8_t motorID, void (*callback)(Heartbeat_msg_t& feedback, void* user_data)) {
-    (this->motor_list[motorID]).setStatus(callback);
+void Motors::setStatus() {
+    for(auto motor : this->motor_list) {
+        motor.setStatus();
+    }
 }
 
 float Motors::getMotorBusVoltage(uint8_t motorID) {
@@ -133,18 +162,7 @@ bool Motors::checkHeartbeat(uint8_t motorID) {
     return (this->motor_list[motorID]).checkHeartbeat();
 }
 
-
-
-// Called every time a Heartbeat message arrives from the ODrive
-void onHeartbeat(Heartbeat_msg_t& msg, void* user_data) {
-  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
-  odrv_user_data->last_heartbeat = msg;
-  odrv_user_data->received_heartbeat = true;
+bool Motors::checkFeedback(uint8_t motorID) {
+    return (this->motor_list[motorID]).checkFeedback();
 }
 
-// Called every time a feedback message arrives from the ODrive
-void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data) {
-  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
-  odrv_user_data->last_feedback = msg;
-  odrv_user_data->received_feedback = true;
-}

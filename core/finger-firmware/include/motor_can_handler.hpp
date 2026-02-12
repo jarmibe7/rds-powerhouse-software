@@ -13,27 +13,25 @@
 
 FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> can_intf;
 
-void onCanMessage(const CanMsg& msg);
-
-
 Motors motors;
+
+// Instantiate ODrive objects
+ODriveCAN odrv0(wrap_can_intf(can_intf), ODRV0_NODE_ID); // Standard CAN message ID
+ODriveCAN* odrives[] = {&odrv0}; // Make sure all ODriveCAN instances are accounted for here
+
+Motor_Controller mc0(&odrv0, ODRV0_NODE_ID);
+
 
 template<>
 void Motors::applyToODrives<const CanMsg>(const CanMsg& msg) {
     for(auto motor_controller : this->motor_list) {
-        // motor_controller.getODrive()->onReceive(msg.id | (msg.flags.extended ? 0x80000000 : 0), msg.len, msg.buf);
         onReceive(msg, *(motor_controller.getODrive()));
     }
 }
 
 // Called for every message that arrives on the CAN bus
 void onCanMessage(const CanMsg& msg) {
-
     motors.applyToODrives(msg);
-
-//     for (auto odrive: odrives) {
-//         onReceive(msg, *odrive);
-//     }
 }
 
 bool setupCan() {

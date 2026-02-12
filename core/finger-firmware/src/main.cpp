@@ -1,8 +1,5 @@
 
 #include <Arduino.h>
-// #include "arduino_freertos.h"
-// #include "ODriveCAN.h"
-// #include "motor_controller.hpp"
 #include "motor_can_handler.hpp"
 
 
@@ -10,50 +7,10 @@
 // https://docs.odriverobotics.com/v/latest/guides/arduino-can-guide.html
 
 
-/* Configuration of example sketch -------------------------------------------*/
-
-// CAN bus baudrate. Make sure this matches for every device on the bus
-
-
-// Uncomment below the line that corresponds to your hardware.
-// See also "Board-specific settings" to adapt the details for your hardware setup.
-
-#define IS_TEENSY_BUILTIN // Teensy boards with built-in CAN interface (e.g. Teensy 4.1). See below to select which interface to use.
-// #define IS_ARDUINO_BUILTIN // Arduino boards with built-in CAN interface (e.g. Arduino Uno R4 Minima)
-// #define IS_MCP2515 // Any board with external MCP2515 based extension module. See below to configure the module.
-
-
-/* Board-specific includes ---------------------------------------------------*/
-
-
-// struct ODriveStatus; // hack to prevent teensy compile error
-
-
-
-/* Example sketch ------------------------------------------------------------*/
-
-
-
-// // Instantiate ODrive objects
-ODriveCAN odrv0(wrap_can_intf(can_intf), ODRV0_NODE_ID); // Standard CAN message ID
-ODriveCAN* odrives[] = {&odrv0}; // Make sure all ODriveCAN instances are accounted for here
-
-Motor_Controller mc0(&odrv0, ODRV0_NODE_ID);
-
-
-
-// Keep some application-specific user data for every ODrive.
-ODriveUserData odrv0_user_data;
-
-
-
-
 
 void setup() {
 
-  motors.addMotor(mc0);
-
-
+  motors.addMotor(mc0); //TODO: make support for constructing Motor_Controller objects in Motor constructor
 
   Serial.begin(115200);
 
@@ -68,10 +25,8 @@ void setup() {
   Serial.println("Starting ODriveCAN demo");
 
   // Register callbacks for the heartbeat and encoder feedback messages
-  // odrv0.onFeedback(onFeedback, &odrv0_user_data);                              BIG CHANGE HERE
-  // odrv0.onStatus(onHeartbeat, &odrv0_user_data);
-  motors.setFeedback(0, onFeedback);
-  motors.setStatus(0, onHeartbeat);
+  motors.setFeedback();
+  motors.setStatus();
 
 
   // Configure and initialize the CAN bus interface. This function depends on
@@ -140,8 +95,7 @@ void loop() {
   );
 
   // print position and velocity for Serial Plotter
-  if (odrv0_user_data.received_feedback) {
-    odrv0_user_data.received_feedback = false;
+  if (motors.checkFeedback(0)) {
     Serial.print("ODrive 0 Position: ");
     Serial.print(motors.getMotorPosition(0));
     Serial.print(",");

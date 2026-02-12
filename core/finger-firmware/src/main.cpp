@@ -24,10 +24,6 @@ void setup() {
 
   Serial.println("Starting ODriveCAN demo");
 
-  // Register callbacks for the heartbeat and encoder feedback messages
-  // motors.setFeedback();
-  // motors.setStatus();
-
   // Configure and initialize the CAN bus interface. This function depends on
   // your hardware and the CAN stack that you're using.
   if (!setupCan()) {

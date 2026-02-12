@@ -9,8 +9,9 @@ Motors::Motors(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can
     this->numMotors = numMotors;
 
     for(int i = 0; i < numMotors; i++) {
-        // ODriveCAN odrive(wrap_can_intf(can_intf), i); // Standard CAN message ID
         (this->motor_list).emplace_back(can_intf, i);
+
+        // Register callbacks for the heartbeat and encoder feedback messages
         (this->motor_list[i]).setFeedback();
         (this->motor_list[i]).setStatus();
     }

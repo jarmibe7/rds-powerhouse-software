@@ -9,8 +9,6 @@
 #include "ODriveFlexCAN.hpp"
 
 
-// #include "ODriveFlexCAN.hpp"
-
 struct ODriveUserData {
   Heartbeat_msg_t last_heartbeat;
   bool received_heartbeat = false;

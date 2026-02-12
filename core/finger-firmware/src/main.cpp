@@ -2,8 +2,8 @@
 #include <Arduino.h>
 // #include "arduino_freertos.h"
 // #include "ODriveCAN.h"
-#include "motor_controller.hpp"
-#include "can_handler.hpp"
+// #include "motor_controller.hpp"
+#include "motor_can_handler.hpp"
 
 
 // Documentation for this example can be found here:
@@ -26,13 +26,13 @@
 /* Board-specific includes ---------------------------------------------------*/
 
 
-struct ODriveStatus; // hack to prevent teensy compile error
+// struct ODriveStatus; // hack to prevent teensy compile error
 
 
 
 /* Example sketch ------------------------------------------------------------*/
 
-Motors motors;
+
 
 // // Instantiate ODrive objects
 ODriveCAN odrv0(wrap_can_intf(can_intf), ODRV0_NODE_ID); // Standard CAN message ID
@@ -42,38 +42,12 @@ Motor_Controller mc0(&odrv0, ODRV0_NODE_ID);
 
 
 
-
-
-struct ODriveUserData {
-  Heartbeat_msg_t last_heartbeat;
-  bool received_heartbeat = false;
-  Get_Encoder_Estimates_msg_t last_feedback;
-  bool received_feedback = false;
-};
-
 // Keep some application-specific user data for every ODrive.
 ODriveUserData odrv0_user_data;
 
-// Called every time a Heartbeat message arrives from the ODrive
-void onHeartbeat(Heartbeat_msg_t& msg, void* user_data) {
-  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
-  odrv_user_data->last_heartbeat = msg;
-  odrv_user_data->received_heartbeat = true;
-}
 
-// Called every time a feedback message arrives from the ODrive
-void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data) {
-  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
-  odrv_user_data->last_feedback = msg;
-  odrv_user_data->received_feedback = true;
-}
 
-// Called for every message that arrives on the CAN bus
-void onCanMessage(const CanMsg& msg) {
-  for (auto odrive: odrives) {
-    onReceive(msg, *odrive);
-  }
-}
+
 
 void setup() {
 
@@ -96,8 +70,8 @@ void setup() {
   // Register callbacks for the heartbeat and encoder feedback messages
   // odrv0.onFeedback(onFeedback, &odrv0_user_data);                              BIG CHANGE HERE
   // odrv0.onStatus(onHeartbeat, &odrv0_user_data);
-  motors.setFeedback(0, onFeedback, &odrv0_user_data);
-  motors.setStatus(0, onHeartbeat, &odrv0_user_data);
+  motors.setFeedback(0, onFeedback);
+  motors.setStatus(0, onHeartbeat);
 
 
   // Configure and initialize the CAN bus interface. This function depends on
@@ -108,7 +82,8 @@ void setup() {
   }
 
   Serial.println("Waiting for ODrive...");
-  while (!odrv0_user_data.received_heartbeat) {
+  // NEED TO FIX THIS SO THAT onHeartbeat actually updates the object's heartbeat state
+  while (!motors.checkHeartbeat(0)) {
     pumpEvents(can_intf);
   }
 
@@ -122,7 +97,7 @@ void setup() {
   Serial.println(motors.getMotorBusCurrent(0));
 
   Serial.println("Enabling closed loop control...");
-  while (odrv0_user_data.last_heartbeat.Axis_State != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
+  while (motors.getMotorState(0) != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
     motors.clearMotorErrors(0);
     delay(1);
     motors.setMotorState(0, ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
@@ -166,12 +141,11 @@ void loop() {
 
   // print position and velocity for Serial Plotter
   if (odrv0_user_data.received_feedback) {
-    Get_Encoder_Estimates_msg_t feedback = odrv0_user_data.last_feedback;
     odrv0_user_data.received_feedback = false;
-    Serial.print("odrv0-pos:");
-    Serial.print(feedback.Pos_Estimate);
+    Serial.print("ODrive 0 Position: ");
+    Serial.print(motors.getMotorPosition(0));
     Serial.print(",");
-    Serial.print("odrv0-vel:");
-    Serial.println(feedback.Vel_Estimate);
+    Serial.print("ODrive 0 Velocity: ");
+    Serial.println(motors.getMotorVelocity(0));
   }
 }

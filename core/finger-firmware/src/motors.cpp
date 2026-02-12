@@ -76,3 +76,14 @@ void Motors::setupOnReceive(const CanMsg& msg) {
     }
 }
 
+void Motors::setTorque(std::vector<float> torque) {
+    this->torque = torque;
+
+    for(int i = 0; i < this-> numMotors; i++) {
+        (this->motor_list[i]).setTorque(torque[i]);
+    }
+}
+
+std::vector<float> Motors::getTorque() {
+    return this->torque;
+}

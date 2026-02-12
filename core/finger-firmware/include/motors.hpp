@@ -7,8 +7,6 @@ class Motors {
     Motors();
     Motors(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf);
     void addMotor(Motor_Controller& motor);
-    void setFeedback();
-    void setStatus();
     float getMotorBusVoltage(uint8_t motorID);
     float getMotorBusCurrent(uint8_t motorID);
     void clearMotorErrors(uint8_t motorID);
@@ -22,7 +20,10 @@ class Motors {
     bool checkHeartbeat(uint8_t motorID);
     bool checkFeedback(uint8_t motorID);
     void setupOnReceive(const CanMsg& msg);
+    void setTorque(std::vector<float> torque);
+    std::vector<float> getTorque();
   private:
     std::vector<Motor_Controller> motor_list;
     int numMotors;
+    std::vector<float> torque;
 };

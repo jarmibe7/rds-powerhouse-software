@@ -16,7 +16,6 @@ struct ODriveUserData {
   bool received_feedback = false;
 };
 
-
 void onHeartbeat(Heartbeat_msg_t& msg, void* user_data);
 void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data);
 

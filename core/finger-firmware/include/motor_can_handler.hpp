@@ -4,7 +4,7 @@
 #include "ODriveCAN.h"
 #include <FlexCAN_T4.h>
 #include "ODriveFlexCAN.hpp"
-#include "motor_controller.hpp"
+#include "motors.hpp"
 
 #define CAN_BAUDRATE 250000
 

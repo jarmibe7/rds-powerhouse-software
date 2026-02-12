@@ -1,11 +1,11 @@
 #pragma once
 #include "motor_controller.hpp"
-#include "ODriveFlexCAN.hpp"
 
 
 class Motors {
   public:
     Motors();
+    Motors(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf);
     void addMotor(Motor_Controller& motor);
     void setFeedback();
     void setStatus();
@@ -21,8 +21,7 @@ class Motors {
     uint8_t getMotorState(uint8_t  motorID);
     bool checkHeartbeat(uint8_t motorID);
     bool checkFeedback(uint8_t motorID);
-    template <typename T>
-    void applyToODrives(T& msg);
+    void setupOnReceive(const CanMsg& msg);
   private:
     std::vector<Motor_Controller> motor_list;
     int numMotors;

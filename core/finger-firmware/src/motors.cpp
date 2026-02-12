@@ -4,6 +4,16 @@ Motors::Motors() {
     this->numMotors = 0;
 }
 
+
+Motors::Motors(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf) {
+    this->numMotors = numMotors;
+
+    for(int i = 0; i < numMotors; i++) {
+        // ODriveCAN odrive(wrap_can_intf(can_intf), i); // Standard CAN message ID
+        (this->motor_list).emplace_back(can_intf, i);
+    }
+}
+
 void Motors::addMotor(Motor_Controller& motor) {
     this->motor_list.push_back(motor);
     this->numMotors++;
@@ -67,5 +77,11 @@ bool Motors::checkHeartbeat(uint8_t motorID) {
 
 bool Motors::checkFeedback(uint8_t motorID) {
     return (this->motor_list[motorID]).checkFeedback();
+}
+
+void Motors::setupOnReceive(const CanMsg& msg) {
+    for(auto motor_controller : this->motor_list) {
+        onReceive(msg, *(motor_controller.getODrive()));
+    }
 }
 

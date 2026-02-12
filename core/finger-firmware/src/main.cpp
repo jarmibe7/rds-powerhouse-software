@@ -10,7 +10,7 @@
 
 void setup() {
 
-  motors.addMotor(mc0); //TODO: make support for constructing Motor_Controller objects in Motor constructor
+  // motors.addMotor(mc0); //TODO: make support for constructing Motor_Controller objects in Motor constructor
 
   Serial.begin(115200);
 

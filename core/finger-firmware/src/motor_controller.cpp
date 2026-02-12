@@ -1,50 +1,52 @@
 #include "motor_controller.hpp"
 
-Motor_Controller::Motor_Controller(ODriveCAN* odrive, int node_id) {
+
+Motor_Controller::Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id) : odrive(wrap_can_intf(can_intf), node_id) {
+    
+    // ODriveCAN odrive(wrap_can_intf(can_intf), node_id); // Standard CAN message ID
     this->nodeId = node_id;
-    this->odrive = odrive;
 }
 
 void Motor_Controller::setFeedback() {
-    this->odrive->onFeedback(onFeedback, &(this->user_data));
+    this->odrive.onFeedback(onFeedback, &(this->user_data));
 }
 
 void Motor_Controller::setStatus() {
-    this->odrive->onStatus(onHeartbeat, &(this->user_data));
+    this->odrive.onStatus(onHeartbeat, &(this->user_data));
 }
 
 float Motor_Controller::getBusVoltage() {
     Serial.println("starting voltage read");
-    if (!((this->odrive)->request(this->vbus, 1000))) {
+    if (!((this->odrive).request(this->vbus, 1000))) {
         Serial.println("vbus request failed!");
     }
     return this->vbus.Bus_Voltage;
 }
 float Motor_Controller::getBusCurrent() {
-    if (!((this->odrive)->request(this->vbus, 1000))) {
+    if (!((this->odrive).request(this->vbus, 1000))) {
         Serial.println("vbus request failed!");
     }
     return this->vbus.Bus_Voltage;
 }
 
 void Motor_Controller::clearErrors() {
-    this->odrive->clearErrors();
+    this->odrive.clearErrors();
 }
 
 void Motor_Controller::setMotorState(enum ODriveAxisState state) {
-    this->odrive->setState(state);
+    this->odrive.setState(state);
 }
 
 void Motor_Controller::setPosition(float position, float velocity_feedforward, float torque_feedforward) {
-    this->odrive->setPosition(position, velocity_feedforward, torque_feedforward);
+    this->odrive.setPosition(position, velocity_feedforward, torque_feedforward);
 }
 
 void Motor_Controller::setVelocity(float velocity, float torque_feedforward) {
-    this->odrive->setVelocity(velocity, torque_feedforward);
+    this->odrive.setVelocity(velocity, torque_feedforward);
 }
 
 void Motor_Controller::setTorque(float torque) {
-    this->odrive->setTorque(torque);
+    this->odrive.setTorque(torque);
 }
 
 float Motor_Controller::getMotorPosition() {
@@ -72,7 +74,7 @@ bool Motor_Controller::checkFeedback() {
 }
 
 ODriveCAN* Motor_Controller::getODrive() {
-    return this->odrive;
+    return &(this->odrive);
 }
 
 // Called every time a Heartbeat message arrives from the ODrive

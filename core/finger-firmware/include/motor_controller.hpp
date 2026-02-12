@@ -6,6 +6,7 @@
 #include "ODriveCAN.h"
 #include <Arduino.h>  
 #include <FlexCAN_T4.h>
+#include "ODriveFlexCAN.hpp"
 
 
 // #include "ODriveFlexCAN.hpp"
@@ -23,7 +24,7 @@ void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data);
 
 class Motor_Controller {
   public:
-    Motor_Controller(ODriveCAN* odrive, int node_id);
+    Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id);
     void setFeedback();
     void setStatus();
     float getBusVoltage();
@@ -41,7 +42,7 @@ class Motor_Controller {
     ODriveCAN* getODrive();
   private:
     int nodeId;
-    ODriveCAN* odrive;
+    ODriveCAN odrive;
     Get_Bus_Voltage_Current_msg_t vbus;
     ODriveUserData user_data;
 };

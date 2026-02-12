@@ -11,24 +11,14 @@ Motors::Motors(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can
     for(int i = 0; i < numMotors; i++) {
         // ODriveCAN odrive(wrap_can_intf(can_intf), i); // Standard CAN message ID
         (this->motor_list).emplace_back(can_intf, i);
+        (this->motor_list[i]).setFeedback();
+        (this->motor_list[i]).setStatus();
     }
 }
 
 void Motors::addMotor(Motor_Controller& motor) {
     this->motor_list.push_back(motor);
     this->numMotors++;
-}
-
-void Motors::setFeedback() {
-    for(auto motor : this->motor_list) {
-        motor.setFeedback();
-    }
-}
-
-void Motors::setStatus() {
-    for(auto motor : this->motor_list) {
-        motor.setStatus();
-    }
 }
 
 float Motors::getMotorBusVoltage(uint8_t motorID) {

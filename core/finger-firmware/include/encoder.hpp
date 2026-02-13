@@ -25,7 +25,7 @@ class Encoder {
 
 class AS5147 : public Encoder {
     public:
-        AS5147();
+        AS5147(const bool inverted = false);
         void setup() override;
         void takeMeasurement() override;
     private:
@@ -33,4 +33,5 @@ class AS5147 : public Encoder {
         uint16_t dataFrame(uint16_t address);
         uint16_t getParity(uint16_t val);
         JointAngle measuredAngle;
+        const bool inverted;
 };

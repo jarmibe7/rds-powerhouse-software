@@ -38,7 +38,7 @@ JointAngle Encoder::getAngle() {
     return this->measuredAngle;
 }
 
-AS5147::AS5147() : settings(2000000, MSBFIRST, SPI_MODE1) {}
+AS5147::AS5147(const bool inverted) : settings(2000000, MSBFIRST, SPI_MODE1), inverted(inverted) {}
 
 void AS5147::setup() {
     pinMode(AS5147_CS, OUTPUT);
@@ -61,7 +61,10 @@ void AS5147::takeMeasurement() {
     digitalWrite(AS5147_CS, HIGH);
     SPI.endTransaction();
 
-    this->measuredAngle.angle = (2 * M_PI * ((float)rawAngle)) / ((1 << 14) - 1);
+    float angle = (2 * M_PI * ((float)rawAngle)) / ((1 << 14) - 1);
+
+    if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
+    else this->measuredAngle.angle = angle;
     this->updateVelocity();
 }
 

@@ -4,7 +4,7 @@
 #include "ODriveCAN.h"
 #include <FlexCAN_T4.h>
 // #include "ODriveFlexCAN.hpp"
-#include "motors.hpp"
+#include "motor_controller.hpp"
 
 #define CAN_BAUDRATE 250000
 
@@ -15,7 +15,7 @@
 FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> can_intf;
 
 // Create motor controller object
-Motors motors(1, can_intf);
+MotorController motors(1, can_intf);
 
 // Called for every message that arrives on the CAN bus
 void onCanMessage(const CanMsg& msg) {

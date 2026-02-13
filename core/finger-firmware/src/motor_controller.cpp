@@ -1,94 +1,89 @@
 #include "motor_controller.hpp"
 
-
-// Motor_Controller::Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id) : odrive(wrap_can_intf(can_intf), node_id) {
-    
-//     // ODriveCAN odrive(wrap_can_intf(can_intf), node_id); // Standard CAN message ID
-//     this->nodeId = node_id;
-// }
-
-Motor_Controller::Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id) : can_intf(can_intf), nodeId(node_id) {}
-
-void Motor_Controller::setFeedback() {
-    this->odrive.onFeedback(onFeedback, &(this->user_data));
+MotorController::MotorController() {
+    this->numMotors = 0;
 }
 
-void Motor_Controller::setStatus() {
-    this->odrive.onStatus(onHeartbeat, &(this->user_data));
-}
 
-float Motor_Controller::getBusVoltage() {
-    Serial.println("starting voltage read");
-    if (!((this->odrive).request(this->vbus, 1000))) {
-        Serial.println("vbus request failed!");
+MotorController::MotorController(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf) {
+    this->numMotors = numMotors;
+
+    for(int i = 0; i < numMotors; i++) {
+        (this->motorList).emplace_back(can_intf, i);
+
+        // Register callbacks for the heartbeat and encoder feedback messages
+        (this->motorList[i]).setFeedback();
+        (this->motorList[i]).setStatus();
     }
-    return this->vbus.Bus_Voltage;
 }
-float Motor_Controller::getBusCurrent() {
-    if (!((this->odrive).request(this->vbus, 1000))) {
-        Serial.println("vbus request failed!");
+
+void MotorController::addMotor(Motor& motor) {
+    this->motorList.push_back(motor);
+    this->numMotors++;
+}
+
+float MotorController::getMotorBusVoltage(uint8_t motorID) {
+    return (this->motorList[motorID]).getBusVoltage();
+}
+
+float MotorController::getMotorBusCurrent(uint8_t motorID) {
+    return (this->motorList[motorID]).getBusCurrent();
+}
+
+void MotorController::clearMotorErrors(uint8_t motorID) {
+    (this->motorList[motorID]).clearErrors();
+}
+
+void MotorController::setMotorState(uint8_t motorID, enum ODriveAxisState state) {
+    (this->motorList[motorID]).setMotorState(state);
+}
+
+void MotorController::setMotorPosition(uint8_t motorID, float position, float velocity_feedforward, float torque_feedforward) {
+    (this->motorList[motorID]).setPosition(position, velocity_feedforward, torque_feedforward);
+}
+
+void MotorController::setMotorVelocity(uint8_t motorID, float velocity, float torque_feedforward) {
+    (this->motorList[motorID]).setVelocity(velocity, torque_feedforward);
+}
+
+void MotorController::setMotorTorque(uint8_t motorID, float torque) {
+    (this->motorList[motorID]).setTorque(torque);
+}
+
+float MotorController::getMotorPosition(uint8_t motorID) {
+    return (this->motorList[motorID]).getMotorPosition();
+}
+
+float MotorController::getMotorVelocity(uint8_t motorID) {
+    return (this->motorList[motorID]).getMotorVelocity();
+}
+
+uint8_t MotorController::getMotorState(uint8_t motorID) {
+    return (this->motorList[motorID]).getMotorState();
+}
+
+bool MotorController::checkHeartbeat(uint8_t motorID) {
+    return (this->motorList[motorID]).checkHeartbeat();
+}
+
+bool MotorController::checkFeedback(uint8_t motorID) {
+    return (this->motorList[motorID]).checkFeedback();
+}
+
+void MotorController::setupOnReceive(const CanMsg& msg) {
+    for(auto motor : this->motorList) {
+        onReceive(msg, *(motor.getODrive()));
     }
-    return this->vbus.Bus_Voltage;
 }
 
-void Motor_Controller::clearErrors() {
-    this->odrive.clearErrors();
+void MotorController::setTorque(std::vector<float> torque) {
+    this->torque = torque;
+
+    for(int i = 0; i < this-> numMotors; i++) {
+        (this->motorList[i]).setTorque(torque[i]);
+    }
 }
 
-void Motor_Controller::setMotorState(enum ODriveAxisState state) {
-    this->odrive.setState(state);
-}
-
-void Motor_Controller::setPosition(float position, float velocity_feedforward, float torque_feedforward) {
-    this->odrive.setPosition(position, velocity_feedforward, torque_feedforward);
-}
-
-void Motor_Controller::setVelocity(float velocity, float torque_feedforward) {
-    this->odrive.setVelocity(velocity, torque_feedforward);
-}
-
-void Motor_Controller::setTorque(float torque) {
-    this->odrive.setTorque(torque);
-}
-
-float Motor_Controller::getMotorPosition() {
-    return this->user_data.last_feedback.Pos_Estimate;
-}
-
-float Motor_Controller::getMotorVelocity() {
-    return this->user_data.last_feedback.Pos_Estimate;
-}
-
-uint8_t Motor_Controller::getMotorState() {
-    return this->user_data.last_heartbeat.Axis_State;
-}
-
-bool Motor_Controller::checkHeartbeat() {
-    bool heartbeat = this->user_data.received_heartbeat;
-    this->user_data.received_heartbeat = false;
-    return heartbeat;
-}
-
-bool Motor_Controller::checkFeedback() {
-    bool feedback = this->user_data.received_feedback;
-    this->user_data.received_feedback = false;
-    return feedback;
-}
-
-ODriveCAN* Motor_Controller::getODrive() {
-    return &(this->odrive);
-}
-
-// Called every time a Heartbeat message arrives from the ODrive
-void onHeartbeat(Heartbeat_msg_t& msg, void* user_data) {
-  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
-  odrv_user_data->last_heartbeat = msg;
-  odrv_user_data->received_heartbeat = true;
-}
-
-// Called every time a feedback message arrives from the ODrive
-void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data) {
-  ODriveUserData* odrv_user_data = static_cast<ODriveUserData*>(user_data);
-  odrv_user_data->last_feedback = msg;
-  odrv_user_data->received_feedback = true;
+std::vector<float> MotorController::getTorque() {
+    return this->torque;
 }

@@ -2,10 +2,10 @@
 
 class JointController {
     public:
-        JointController(std::vector<Joint>& jointList, Motors* motors);
+        JointController(std::vector<Joint>& jointList, MotorController* motors);
         void setJointTorques();
         void readAngles();
     private:
         std::vector<Joint> jointList;
-        Motors* motors; // TODO: make this not use a pointer
+        MotorController* motors; // TODO: make this not use a pointer
 };

@@ -1,6 +1,6 @@
 #include "joint_controller.hpp"
 
-JointController::JointController(std::vector<Joint>& jointList, Motors* motors) {
+JointController::JointController(std::vector<Joint>& jointList, MotorController* motors) {
     this->jointList = jointList;
     this->motors = motors;
 }

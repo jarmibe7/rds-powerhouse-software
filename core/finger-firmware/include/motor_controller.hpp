@@ -28,8 +28,8 @@ class Motor_Controller {
     float getBusCurrent();
     void clearErrors();
     void setMotorState(enum ODriveAxisState state);
-    void setPosition(float position, float velocity_feedforward = 0.0F, float torque_feedforward = 0.0F);
-    void setVelocity(float velocity, float torque_feedforward = 0.0F);
+    void setPosition(float position, float velocity_feedforward = 0.0, float torque_feedforward = 0.0);
+    void setVelocity(float velocity, float torque_feedforward = 0.0);
     void setTorque(float torque);
     float getMotorPosition();
     float getMotorVelocity();
@@ -37,10 +37,11 @@ class Motor_Controller {
     bool checkHeartbeat();
     bool checkFeedback();
     ODriveCAN* getODrive();
+
   private:
+    FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf;
     int nodeId;
-    ODriveCAN odrive;
+    ODriveCAN odrive{wrap_can_intf(can_intf), static_cast<uint32_t>(nodeId)};
     Get_Bus_Voltage_Current_msg_t vbus;
     ODriveUserData user_data;
 };
-

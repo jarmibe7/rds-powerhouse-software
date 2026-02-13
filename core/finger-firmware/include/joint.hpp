@@ -1,11 +1,9 @@
 #include  <functional>
 #include "motors.hpp"
+#include "encoder.hpp"
 
 
-struct JointAngle {
-    float angle = 0.0F;
-    float velocity = 0.0F;
-};
+
 
 struct PIDConstants {
     float kP;

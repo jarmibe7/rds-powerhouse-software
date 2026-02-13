@@ -1,11 +1,13 @@
 #include "motor_controller.hpp"
 
 
-Motor_Controller::Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id) : odrive(wrap_can_intf(can_intf), node_id) {
+// Motor_Controller::Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id) : odrive(wrap_can_intf(can_intf), node_id) {
     
-    // ODriveCAN odrive(wrap_can_intf(can_intf), node_id); // Standard CAN message ID
-    this->nodeId = node_id;
-}
+//     // ODriveCAN odrive(wrap_can_intf(can_intf), node_id); // Standard CAN message ID
+//     this->nodeId = node_id;
+// }
+
+Motor_Controller::Motor_Controller(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id) : can_intf(can_intf), nodeId(node_id) {}
 
 void Motor_Controller::setFeedback() {
     this->odrive.onFeedback(onFeedback, &(this->user_data));

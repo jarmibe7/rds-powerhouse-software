@@ -11,8 +11,8 @@ class Motors {
     float getMotorBusCurrent(uint8_t motorID);
     void clearMotorErrors(uint8_t motorID);
     void setMotorState(uint8_t motorID, enum ODriveAxisState state);
-    void setMotorPosition(uint8_t motorID, float position, float velocity_feedforward = 0.0F, float torque_feedforward = 0.0F);
-    void setMotorVelocity(uint8_t motorID, float velocity, float torque_feedforward = 0.0F);
+    void setMotorPosition(uint8_t motorID, float position, float velocity_feedforward = 0.0, float torque_feedforward = 0.0);
+    void setMotorVelocity(uint8_t motorID, float velocity, float torque_feedforward = 0.0);
     void setMotorTorque(uint8_t motorID, float torque);
     float getMotorPosition(uint8_t motorID);
     float getMotorVelocity(uint8_t motorID);

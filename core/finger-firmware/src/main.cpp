@@ -82,6 +82,8 @@ void setup() {
 
   const PIDConstants jPID = {0.1, 0.0, 0.0};
   jointList.emplace_back(jPID, j1Encoder);
+  jointList[0].setup();
+  Serial.println("Setup done");
 }
 
 
@@ -111,19 +113,20 @@ void loop() {
   };
 
   // TODO: Have joint controller class handle this automatically
-  jointList[0].setTargetAngle(targetAngle);
+  // jointList[0].setTargetAngle(targetAngle);
+
   jc.readAngles();
-  jc.setJointTorques();
+  // jc.setJointTorques();
 
 
 
   // print position and velocity for Serial Plotter
-  if (motors.checkFeedback(0)) {
-    Serial.print("ODrive 0 Position: ");
-    Serial.print(motors.getMotorPosition(0));
-    Serial.print(",");
-    Serial.print("ODrive 0 Velocity: ");
-    Serial.println(motors.getMotorVelocity(0));
-  }
-  delayMicroseconds(5000);
+  // if (motors.checkFeedback(0)) {
+  //   Serial.print("ODrive 0 Position: ");
+  //   Serial.print(motors.getMotorPosition(0));
+  //   Serial.print(",");
+  //   Serial.print("ODrive 0 Velocity: ");
+  //   Serial.println(motors.getMotorVelocity(0));
+  // }
+  delayMicroseconds(500000);
 }

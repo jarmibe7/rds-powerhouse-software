@@ -6,6 +6,6 @@ class JointController {
         void setJointTorques();
         void readAngles();
     private:
-        std::vector<Joint> jointList;
+        std::vector<Joint>& jointList;
         MotorController* motors; // TODO: make this not use a pointer
 };

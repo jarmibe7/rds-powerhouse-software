@@ -20,7 +20,7 @@ class Joint {
         float runPID();
         void setup();
     private:
-        Encoder encoder;
+        Encoder& encoder;
         JointAngle targetAngle;
         PIDConstants pidConstants;
 };

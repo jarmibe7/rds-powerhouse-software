@@ -1,8 +1,8 @@
 #include "joint.hpp"
 
-Joint::Joint(const PIDConstants pidConstants, Encoder& encoder) {
+Joint::Joint(const PIDConstants pidConstants, Encoder& encoder) : encoder(encoder) {
     this->pidConstants = pidConstants;
-    this->encoder = encoder;
+    // this->encoder = encoder;
 }
 
 JointAngle Joint::getJointAngle() {

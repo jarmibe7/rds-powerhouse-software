@@ -20,8 +20,19 @@ class Encoder {
 
 
 #define AS5147_CS 10
-#define AS5147_ANGLECOM 0x3FFF
+#define AS5147_MISO 12
+#define AS5147_MOSI 11
+#define AS5147_SCK 13
+
 #define AS5147_TCSN 350
+
+#define AS5147_NOP 0x0000
+#define AS5147_DIAAGC 0x3FFC
+#define AS5147_MAG 0x3FFD
+#define AS5147_ANGLEUNC 0x3FFE
+#define AS5147_ANGLECOM 0x3FFF
+
+
 
 class AS5147 : public Encoder {
     public:
@@ -30,7 +41,7 @@ class AS5147 : public Encoder {
         bool takeMeasurement() override;
     private:
         SPISettings settings;
-        uint16_t dataFrame(uint16_t address);
+        uint16_t readFrame(uint16_t address);
         uint16_t getParity(uint16_t val);
         bool checkParity(uint16_t val);
         JointAngle measuredAngle;

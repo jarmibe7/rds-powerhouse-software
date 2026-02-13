@@ -1,7 +1,7 @@
 #include "joint_controller.hpp"
 
-JointController::JointController(std::vector<Joint>& jointList, MotorController* motors) {
-    this->jointList = jointList;
+JointController::JointController(std::vector<Joint>& jointList, MotorController* motors) : jointList(jointList) {
+    // this->jointList = jointList;
     this->motors = motors;
 }
 
@@ -16,6 +16,7 @@ void JointController::setJointTorques() {
 }
 
 void JointController::readAngles() {
+    // Serial.println(this->jointList.size());
     for (auto joint : this->jointList) {
         joint.takeAngleMeasurement();
     }

@@ -1,10 +1,12 @@
 #include "encoder.hpp"
 
-void Encoder::takeMeasurement() {
+bool Encoder::takeMeasurement() {
     this->measuredAngle = {0.0, 0.0};
     this->updateVelocity();
 
     Serial.println("Erroneously accessing overridden Encoder::takeMeasurement method");
+
+    return false;
 }
 
 void Encoder::updateVelocity() {
@@ -46,7 +48,7 @@ void AS5147::setup() {
     SPI.begin();
 }
 
-void AS5147::takeMeasurement() {
+bool AS5147::takeMeasurement() {
     SPI.beginTransaction(this->settings);
     digitalWrite(AS5147_CS, LOW);
     delayNanoseconds(AS5147_TCSN);
@@ -61,22 +63,45 @@ void AS5147::takeMeasurement() {
     digitalWrite(AS5147_CS, HIGH);
     SPI.endTransaction();
 
+    // Incorrect parity bit recieved
+    if(!checkParity(rawAngle)) return false;
+
     float angle = (2 * M_PI * ((float)rawAngle)) / ((1 << 14) - 1);
 
     if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
     else this->measuredAngle.angle = angle;
     this->updateVelocity();
+
+    return true;
 }
 
 uint16_t AS5147::dataFrame(uint16_t address) {
     return (this->getParity(address) << 15) | (0x3FFF & address);
 }
 
+// AS5147 uses even parity bit
 uint16_t AS5147::getParity(uint16_t val) {
     uint16_t temp = val ^ (val >> 1);
     temp ^= (temp >> 2);
     temp ^= (temp >> 4);
     temp ^= (temp >> 8);
 
-    return temp & 0b1;
+    return (~temp) & 0b1;
+}
+
+bool AS5147::checkParity(uint16_t val) {
+    // only use bits 13:0 for data
+    uint16_t data = val & 0x3FFF;
+    uint16_t parityBit = (val & 0x8000) != 0x0;
+    uint16_t dataParity = this->getParity(data);
+
+    bool correctParity = !(parityBit ^ dataParity);
+
+    if(!correctParity) {
+        Serial.print("Invalid AS5147 parity bit. Data recieved: 0x");
+        Serial.println(val, HEX);
+    }
+
+    return correctParity;
+
 }

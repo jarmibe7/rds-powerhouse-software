@@ -10,7 +10,7 @@ struct JointAngle {
 
 class Encoder {
     public:
-        virtual void takeMeasurement();
+        virtual bool takeMeasurement();
         void updateVelocity();
         virtual void setup();
         JointAngle getAngle();
@@ -27,11 +27,12 @@ class AS5147 : public Encoder {
     public:
         AS5147(const bool inverted = false);
         void setup() override;
-        void takeMeasurement() override;
+        bool takeMeasurement() override;
     private:
         SPISettings settings;
         uint16_t dataFrame(uint16_t address);
         uint16_t getParity(uint16_t val);
+        bool checkParity(uint16_t val);
         JointAngle measuredAngle;
         const bool inverted;
 };

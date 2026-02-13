@@ -1,0 +1,22 @@
+#include "joint_controller.hpp"
+
+JointController::JointController(std::vector<Joint>& jointList, Motors* motors) {
+    this->jointList = jointList;
+    this->motors = motors;
+}
+
+void JointController::setJointTorques() {
+    // TODO: Properly implement this to use jacobian and calculate with multiple motors/tendons
+    float jointTorque = this->jointList[0].runPID();
+
+    // Inverse gear ratio times pulley radius (in m)
+    float jacobian = (1 / 30.0) * 0.01;
+
+    motors->setMotorTorque(0, jacobian * jointTorque);
+}
+
+void JointController::readAngles() {
+    for (auto joint : this->jointList) {
+        joint.takeAngleMeasurement();
+    }
+}

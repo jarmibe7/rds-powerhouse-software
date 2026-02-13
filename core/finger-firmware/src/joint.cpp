@@ -1,15 +1,12 @@
 #include "joint.hpp"
 
-Joint::Joint(const PIDConstants pidConstants) {
+Joint::Joint(const PIDConstants pidConstants, Encoder& encoder) {
     this->pidConstants = pidConstants;
-}
-
-void Joint::setupAngleMeasurement(std::function<float(void)> measureAngle) {
-    this->measureAngle = measureAngle;
+    this->encoder = encoder;
 }
 
 JointAngle Joint::getJointAngle() {
-    return this->measuredAngle;
+    return this->encoder.getAngle();
 }
 
 void Joint::setTargetAngle(JointAngle targetAngle) {
@@ -17,8 +14,7 @@ void Joint::setTargetAngle(JointAngle targetAngle) {
 }
 
 void Joint::takeAngleMeasurement() {
-    this->measuredAngle.angle = this->measureAngle();
-    // TODO: Implement velocity measurement
+    this->encoder.takeMeasurement();
 }
 
 float Joint::runPID() {
@@ -26,15 +22,18 @@ float Joint::runPID() {
     static float errorIntegral = 0.0;
 
     // Proportional
-    float angleError = this->targetAngle.angle - this->measuredAngle.angle;
+    float angleError = this->targetAngle.angle - this->encoder.getAngle().angle;
 
     // Integral
     errorIntegral += angleError;
 
     // Derivative with velocity feedforward
-    float velocityError = this->targetAngle.velocity - this->measuredAngle.velocity;
+    float velocityError = this->targetAngle.velocity - this->encoder.getAngle().velocity;
 
     // Calculates output torque
     return this->pidConstants.kP * angleError + this->pidConstants.kI * errorIntegral + this->pidConstants.kD * velocityError;
 }
 
+void Joint::setup() {
+    this->encoder.setup();
+}

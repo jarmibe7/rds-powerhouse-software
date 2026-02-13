@@ -23,7 +23,7 @@ class Motors {
     void setTorque(std::vector<float> torque);
     std::vector<float> getTorque();
   private:
-    std::vector<Motor_Controller> motor_list;
+    std::vector<Motor_Controller> motorList;
     int numMotors;
     std::vector<float> torque;
 };

@@ -13,15 +13,14 @@ struct PIDConstants {
 
 class Joint {
     public:
-        Joint(const PIDConstants pidConstants);
-        void setupAngleMeasurement(std::function<float(void)> measureAngle);
+        Joint(const PIDConstants pidConstants, Encoder& encoder);
         JointAngle getJointAngle();
         void setTargetAngle(JointAngle targetAngle);
         void takeAngleMeasurement();
         float runPID();
+        void setup();
     private:
-        std::function<float(void)> measureAngle;
-        JointAngle measuredAngle;
+        Encoder encoder;
         JointAngle targetAngle;
         PIDConstants pidConstants;
 };

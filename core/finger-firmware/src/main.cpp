@@ -1,12 +1,23 @@
 
 #include <Arduino.h>
 #include "motor_can_handler.hpp"
+#include "joint_controller.hpp"
+
+
+
+
+
+  // TODO: clean up how this is implememnted
+  AS5147 j1Encoder;
+
+  std::vector<Joint> jointList;
+
+  JointController jc(jointList, &motors);
+
 
 
 // Documentation for this example can be found here:
 // https://docs.odriverobotics.com/v/latest/guides/arduino-can-guide.html
-
-
 
 void setup() {
 
@@ -66,6 +77,11 @@ void setup() {
   }
 
   Serial.println("ODrive running!");
+
+
+
+  const PIDConstants jPID = {0.1, 0.0, 0.0};
+  jointList.emplace_back(jPID, j1Encoder);
 }
 
 
@@ -77,17 +93,29 @@ void loop() {
                         // This has been found to reduce the number of dropped messages, however it can be removed
                         // for applications requiring loop times over 100Hz.
 
-  float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
+  float SINE_PERIOD = 10.0f; // Period of the position command sine wave in seconds
 
   float t = 0.001 * millis();
   
   float phase = t * (TWO_PI / SINE_PERIOD);
 
-  motors.setMotorPosition(
-    0,
+  // motors.setMotorPosition(
+  //   0,
+  //   sin(phase), // position
+  //   cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+  // );
+
+  JointAngle targetAngle = {
     sin(phase), // position
-    cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
-  );
+    cos(phase) * (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+  };
+
+  // TODO: Have joint controller class handle this automatically
+  jointList[0].setTargetAngle(targetAngle);
+  jc.readAngles();
+  jc.setJointTorques();
+
+
 
   // print position and velocity for Serial Plotter
   if (motors.checkFeedback(0)) {
@@ -97,4 +125,5 @@ void loop() {
     Serial.print("ODrive 0 Velocity: ");
     Serial.println(motors.getMotorVelocity(0));
   }
+  delayMicroseconds(5000);
 }

@@ -3,6 +3,8 @@
 void Encoder::takeMeasurement() {
     this->measuredAngle = {0.0, 0.0};
     this->updateVelocity();
+
+    Serial.println("Erroneously accessing overridden Encoder::takeMeasurement method");
 }
 
 void Encoder::updateVelocity() {
@@ -28,10 +30,13 @@ void Encoder::updateVelocity() {
     lastAngle = currentAngle;
 }
 
+void Encoder::setup() {
+    Serial.println("Erroneously accessing overridden Encoder::setup method");
+}
+
 JointAngle Encoder::getAngle() {
     return this->measuredAngle;
 }
-
 
 AS5147::AS5147() : settings(2000000, MSBFIRST, SPI_MODE1) {}
 

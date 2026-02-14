@@ -41,7 +41,7 @@ JointAngle Encoder::getAngle() {
     return this->measuredAngle;
 }
 
-AS5147::AS5147(const bool inverted) : settings(2000000, MSBFIRST, SPI_MODE1), inverted(inverted) {}
+AS5147::AS5147(const bool inverted) : settings(1000000, MSBFIRST, SPI_MODE1), inverted(inverted) {}
 
 void AS5147::setup() {
     SPI.begin();
@@ -52,9 +52,11 @@ void AS5147::setup() {
 }
 
 bool AS5147::takeMeasurement() {
+    static uint8_t failCounter = 0;
+
     SPI.beginTransaction(this->settings);
     digitalWrite(AS5147_CS, LOW);
-    delayNanoseconds(2 * AS5147_TCSN);
+    delayNanoseconds(AS5147_TCSN);
     // Serial.println(this->dataFrame(AS5147_ANGLECOM), HEX);
 
     uint16_t readMsg = (this->readFrame(AS5147_ANGLEUNC));
@@ -66,7 +68,7 @@ bool AS5147::takeMeasurement() {
 
     digitalWrite(AS5147_CS, HIGH);
 
-    delayNanoseconds(2 * AS5147_TCSN);
+    delayNanoseconds(AS5147_TCSN);
     digitalWrite(AS5147_CS, LOW);
 
     readMsg = (this->readFrame(AS5147_NOP));
@@ -77,26 +79,38 @@ bool AS5147::takeMeasurement() {
 
     uint16_t rawAngle = ((uint16_t) rawAngleHigh) << 8 | rawAngleLow;
 
-    Serial.print("Raw encoder output: 0x");
-    Serial.println(rawAngle, HEX);
+    // Serial.print("Raw encoder output: 0x");
+    // Serial.println(rawAngle, HEX);
 
     digitalWrite(AS5147_CS, HIGH);
     SPI.endTransaction();
 
     // Incorrect parity bit recieved
     if(!checkParity(rawAngle)) {
-        Serial.println("incorrect parity");
-        return false;
+        // Serial.println("incorrect parity");
+        if(failCounter < 50) {
+            failCounter++;
+            return this->takeMeasurement();
+        }
+        else {
+            Serial.println("Exceeded maximum number of encoder read attempts");
+            failCounter = 0;
+            return false;
+        }
+        
     }
 
-    float angle = (2 * M_PI * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
+    
+
+    // float angle = (2 * M_PI * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
+    float angle = (360 * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
 
     if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
     else this->measuredAngle.angle = angle;
     this->updateVelocity();
 
     Serial.print("Encoder value: ");
-    Serial.println(angle);
+    Serial.println(this->measuredAngle.angle);
 
     return true;
 }
@@ -124,8 +138,8 @@ bool AS5147::checkParity(uint16_t val) {
     bool correctParity = !(parityBit ^ dataParity);
 
     if(!correctParity) {
-        Serial.print("Invalid AS5147 parity bit. Data recieved: 0x");
-        Serial.println(val, HEX);
+        // Serial.print("Invalid AS5147 parity bit. Data recieved: 0x");
+        // Serial.println(val, HEX);
     }
 
     return correctParity;

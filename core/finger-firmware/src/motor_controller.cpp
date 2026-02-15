@@ -48,6 +48,8 @@ void MotorController::setMotorVelocity(uint8_t motorID, float velocity, float to
 
 void MotorController::setMotorTorque(uint8_t motorID, float torque) {
     (this->motorList[motorID]).setTorque(torque);
+    Serial.print("Setting torque: ");
+    Serial.println(torque);
 }
 
 float MotorController::getMotorPosition(uint8_t motorID) {

@@ -7,6 +7,7 @@ JointController::JointController(std::vector<Joint>& jointList, MotorController*
 
 void JointController::setJointTorques() {
     // TODO: Properly implement this to use jacobian and calculate with multiple motors/tendons
+    Serial.println("RUNNING PID");
     float jointTorque = this->jointList[0].runPID();
 
     // Inverse gear ratio times pulley radius (in m)

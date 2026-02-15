@@ -99,7 +99,9 @@ void loop() {
 
   float t = 0.001 * millis();
   
-  float phase = t * (TWO_PI / SINE_PERIOD);
+  // float phase = t * (TWO_PI / SINE_PERIOD);
+
+  float position = (t < 5.0) ? 5.3 : 6;
 
   // motors.setMotorPosition(
   //   0,
@@ -107,16 +109,21 @@ void loop() {
   //   cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
   // );
 
-  JointAngle targetAngle = {
-    sin(phase), // position
-    cos(phase) * (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+  // JointAngle targetAngle = {
+  //   sin(phase), // position
+  //   cos(phase) * (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+  // };
+
+   JointAngle targetAngle = {
+    position, // position
+    0 // velocity feedforward (optional)
   };
 
   // TODO: Have joint controller class handle this automatically
-  // jointList[0].setTargetAngle(targetAngle);
+  jointList[0].setTargetAngle(targetAngle);
 
   jc.readAngles();
-  // jc.setJointTorques();
+  jc.setJointTorques();
 
 
 
@@ -128,5 +135,5 @@ void loop() {
   //   Serial.print("ODrive 0 Velocity: ");
   //   Serial.println(motors.getMotorVelocity(0));
   // }
-  delayMicroseconds(500000);
+  delayMicroseconds(10000);
 }

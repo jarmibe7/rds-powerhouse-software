@@ -23,6 +23,8 @@ float Joint::runPID() {
 
     // Proportional
     float angleError = this->targetAngle.angle - this->encoder.getAngle().angle;
+    Serial.print("JOINT ANGLE: ");
+    Serial.println(this->encoder.getAngle().angle);
 
     // Integral
     errorIntegral += angleError;

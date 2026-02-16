@@ -1,6 +1,7 @@
 #include "joint.hpp"
 
-Joint::Joint(const PIDConstants pidConstants, Encoder& encoder) : encoder(encoder) {
+Joint::Joint(const PIDConstants pidConstants) {
+    this->encoder = AS5147(false);
     this->pidConstants = pidConstants;
     // this->encoder = encoder;
 }
@@ -14,6 +15,7 @@ void Joint::setTargetAngle(JointAngle targetAngle) {
 }
 
 void Joint::takeAngleMeasurement() {
+    Serial.println("Taking joint angle measurement");
     this->encoder.takeMeasurement();
 }
 
@@ -25,6 +27,9 @@ float Joint::runPID() {
     float angleError = this->targetAngle.angle - this->encoder.getAngle().angle;
     Serial.print("JOINT ANGLE: ");
     Serial.println(this->encoder.getAngle().angle);
+    Serial.print("TARGET ANGLE: ");
+    Serial.println(this->targetAngle.angle);
+    
 
     // Integral
     errorIntegral += angleError;

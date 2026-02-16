@@ -1,7 +1,9 @@
 #include "joint_controller.hpp"
 
-JointController::JointController(std::vector<Joint>& jointList, MotorController* motors) : jointList(jointList) {
+JointController::JointController(MotorController* motors) {
     // this->jointList = jointList;
+    const PIDConstants jPID = {1000.0, 0.0, 0.0};
+    this->jointList = {Joint(jPID)};
     this->motors = motors;
 }
 
@@ -21,4 +23,18 @@ void JointController::readAngles() {
     for (auto joint : this->jointList) {
         joint.takeAngleMeasurement();
     }
+}
+
+void JointController::setup() {
+    for (auto joint : this->jointList) {
+        joint.setup();
+    }
+}
+
+JointAngle JointController::getAngles(uint8_t jointID) {
+    return jointList[jointID].getJointAngle();
+}
+
+Joint* JointController::getJoint(uint8_t jointID) {
+    return &jointList[jointID];
 }

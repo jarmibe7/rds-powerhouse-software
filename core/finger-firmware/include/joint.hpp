@@ -13,14 +13,14 @@ struct PIDConstants {
 
 class Joint {
     public:
-        Joint(const PIDConstants pidConstants, Encoder& encoder);
+        Joint(const PIDConstants pidConstants);
         JointAngle getJointAngle();
         void setTargetAngle(JointAngle targetAngle);
         void takeAngleMeasurement();
         float runPID();
         void setup();
     private:
-        Encoder& encoder;
+        AS5147 encoder;
         JointAngle targetAngle;
         PIDConstants pidConstants;
 };

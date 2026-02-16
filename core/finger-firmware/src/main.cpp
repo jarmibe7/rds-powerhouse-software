@@ -8,11 +8,12 @@
 
 
   // TODO: clean up how this is implememnted
-  AS5147 j1Encoder;
 
-  std::vector<Joint> jointList;
+  // std::vector<Joint> jointList;
 
-  JointController jc(jointList, &motors);
+  JointController jc(&motors);
+
+  Joint* joint0;
 
 
 
@@ -58,31 +59,34 @@ void setup() {
   Serial.println(motors.getMotorBusCurrent(0));
 
   Serial.println("Enabling closed loop control...");
-  while (motors.getMotorState(0) != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
-    motors.clearMotorErrors(0);
-    delay(1);
-    motors.setMotorState(0, ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
+  // while (motors.getMotorState(0) != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
+  //   motors.clearMotorErrors(0);
+  //   delay(1);
+  //   motors.setMotorState(0, ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
 
-    // Pump events for 150ms. This delay is needed for two reasons;
-    // 1. If there is an error condition, such as missing DC power, the ODrive might
-    //    briefly attempt to enter CLOSED_LOOP_CONTROL state, so we can't rely
-    //    on the first heartbeat response, so we want to receive at least two
-    //    heartbeats (100ms default interval).
-    // 2. If the bus is congested, the setState command won't get through
-    //    immediately but can be delayed.
-    for (int i = 0; i < 15; ++i) {
-      delay(10);
-      pumpEvents(can_intf);
-    }
-  }
+  //   // Pump events for 150ms. This delay is needed for two reasons;
+  //   // 1. If there is an error condition, such as missing DC power, the ODrive might
+  //   //    briefly attempt to enter CLOSED_LOOP_CONTROL state, so we can't rely
+  //   //    on the first heartbeat response, so we want to receive at least two
+  //   //    heartbeats (100ms default interval).
+  //   // 2. If the bus is congested, the setState command won't get through
+  //   //    immediately but can be delayed.
+  //   for (int i = 0; i < 15; ++i) {
+  //     delay(10);
+  //     pumpEvents(can_intf);
+  //   }
+  // }
 
   Serial.println("ODrive running!");
 
 
 
-  const PIDConstants jPID = {0.1, 0.0, 0.0};
-  jointList.emplace_back(jPID, j1Encoder);
-  jointList[0].setup();
+  // const PIDConstants jPID = {0.1, 0.0, 0.0};
+  // jointList.emplace_back(jPID, &j1Encoder);
+  // jc.setup();
+  joint0 = jc.getJoint(0);
+  joint0->setup();
+  // jointList[0].setup();
   Serial.println("Setup done");
 }
 
@@ -95,13 +99,13 @@ void loop() {
                         // This has been found to reduce the number of dropped messages, however it can be removed
                         // for applications requiring loop times over 100Hz.
 
-  float SINE_PERIOD = 10.0f; // Period of the position command sine wave in seconds
+  float SINE_PERIOD = 0.5f; // Period of the position command sine wave in seconds
 
   float t = 0.001 * millis();
   
-  // float phase = t * (TWO_PI / SINE_PERIOD);
+  float phase = t * (TWO_PI / SINE_PERIOD);
 
-  float position = (t < 5.0) ? 5.3 : 6;
+  // float position = (t < 5.0) ? 4.0 : 5.7;
 
   // motors.setMotorPosition(
   //   0,
@@ -109,21 +113,33 @@ void loop() {
   //   cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
   // );
 
-  // JointAngle targetAngle = {
-  //   sin(phase), // position
-  //   cos(phase) * (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
-  // };
-
-   JointAngle targetAngle = {
-    position, // position
-    0 // velocity feedforward (optional)
+  JointAngle targetAngle = {
+    ((float)0.6*sin(phase)) + 4.2, // position
+    ((float)0.6*cos(phase) )* (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
   };
 
-  // TODO: Have joint controller class handle this automatically
-  jointList[0].setTargetAngle(targetAngle);
+  // JointAngle targetAngle = {
+  //   position, // position
+  //   0 // velocity feedforward (optional)
+  // };
 
-  jc.readAngles();
-  jc.setJointTorques();
+  // TODO: Have joint controller class handle this automatically
+  joint0->setTargetAngle(targetAngle);
+
+  // jc.readAngles();
+  joint0->takeAngleMeasurement();
+  float joint0Torque = joint0->runPID();
+  float jacobian = (1 / 30.0) * 0.01;
+
+  Serial.print("MOTOR TORQUE: ");
+  Serial.println(joint0Torque * jacobian, 10);
+  motors.setMotorTorque(0, joint0Torque * jacobian);
+  // motors.setMotorTorque(0, 0.5);
+  // jc.setJointTorques();
+
+  // Serial.print("Encoder angle:                       ");
+  // Serial.println(j1Encoder.getAngle().angle);
+  Serial.println(joint0->getJointAngle().angle);
 
 
 

@@ -1,16 +1,16 @@
 #include "encoder.hpp"
 
-bool Encoder::takeMeasurement() {
-    Serial.println("Bad");
-    this->measuredAngle = {0.0, 0.0};
-    this->updateVelocity();
+// bool Encoder::takeMeasurement() {
+//     Serial.println("Bad");
+//     this->measuredAngle = {0.0, 0.0};
+//     this->updateVelocity();
 
-    Serial.println("Erroneously accessing overridden Encoder::takeMeasurement method");
+//     Serial.println("Erroneously accessing overridden Encoder::takeMeasurement method");
 
-    return false;
-}
+//     return false;
+// }
 
-void Encoder::updateVelocity() {
+void AS5147::updateVelocity() {
     uint32_t currentTime = micros();
     float currentAngle = this->measuredAngle.angle;
 
@@ -33,15 +33,21 @@ void Encoder::updateVelocity() {
     lastAngle = currentAngle;
 }
 
-void Encoder::setup() {
-    Serial.println("Erroneously accessing overridden Encoder::setup method");
-}
+// void Encoder::setup() {
+//     Serial.println("Erroneously accessing overridden Encoder::setup method");
+// }
 
-JointAngle Encoder::getAngle() {
+// // JointAngle Encoder::getAngle() {
+// //     return this->measuredAngle;
+// // }
+
+AS5147::AS5147(bool inverted) : settings(1000000, MSBFIRST, SPI_MODE1), inverted(inverted) {}
+
+JointAngle AS5147::getAngle() {
+    // Serial.print("Encoder getAngle = ");
+    Serial.println(measuredAngle.angle);
     return this->measuredAngle;
 }
-
-AS5147::AS5147(const bool inverted) : settings(1000000, MSBFIRST, SPI_MODE1), inverted(inverted) {}
 
 void AS5147::setup() {
     SPI.begin();
@@ -115,12 +121,13 @@ bool AS5147::takeMeasurement() {
 
     
 
-    float angle = (2 * M_PI) - (2 * M_PI * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
+    float angle = (2 * M_PI) - (2 * M_PI * ((float)(0x3FFF & ((rawAngle + 4000) % (1<<14 - 1))))) / ((1 << 14) - 1);
     // float angle = (360 * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
 
-    if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
-    else this->measuredAngle.angle = angle;
-    this->updateVelocity();
+    // if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
+    // else this->measuredAngle.angle = angle;
+    this->measuredAngle.angle = angle;
+    // this->updateVelocity();
 
     Serial.print("Encoder value: ");
     Serial.print(this->measuredAngle.angle);

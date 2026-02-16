@@ -8,15 +8,15 @@ struct JointAngle {
     float velocity = 0.0;
 };
 
-class Encoder {
-    public:
-        virtual bool takeMeasurement();
-        void updateVelocity();
-        virtual void setup();
-        JointAngle getAngle();
-    private:
-        JointAngle measuredAngle;
-};
+// class Encoder {
+//     public:
+//         virtual bool takeMeasurement();
+//         // void updateVelocity();
+//         virtual void setup();
+//         // JointAngle getAngle();
+//     private:
+//         // JointAngle measuredAngle;
+// };
 
 
 #define AS5147_CS 10
@@ -34,16 +34,19 @@ class Encoder {
 
 
 
-class AS5147 : public Encoder {
+// class AS5147 : public Encoder {
+class AS5147 {
     public:
-        AS5147(const bool inverted = false);
-        void setup() override;
-        bool takeMeasurement() override;
+        AS5147(bool inverted = false);
+        void setup();
+        bool takeMeasurement();
+        void updateVelocity();
+        JointAngle getAngle();
     private:
         SPISettings settings;
         uint16_t readFrame(uint16_t address);
         uint16_t getParity(uint16_t val);
         bool checkParity(uint16_t val);
         JointAngle measuredAngle;
-        const bool inverted;
+        bool inverted;
 };

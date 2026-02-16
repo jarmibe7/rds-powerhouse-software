@@ -92,3 +92,10 @@ void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data) {
   odrv_user_data->last_feedback = msg;
   odrv_user_data->received_feedback = true;
 }
+
+void Motor::setup() {
+    Serial.println("Setting limits");
+    this->odrive.setLimits(300.0, 5.0);
+    Serial.println("Limits set");  
+    this->odrive.setControllerMode(CONTROL_MODE_TORQUE_CONTROL, INPUT_MODE_PASSTHROUGH);
+}

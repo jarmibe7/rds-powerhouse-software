@@ -89,3 +89,9 @@ void MotorController::setTorque(std::vector<float> torque) {
 std::vector<float> MotorController::getTorque() {
     return this->torque;
 }
+
+void MotorController::setup() {
+    for(int i = 0; i < this-> numMotors; i++) {
+        (this->motorList[i]).setup();
+    }
+}

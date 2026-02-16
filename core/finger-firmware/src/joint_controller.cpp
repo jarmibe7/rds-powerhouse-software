@@ -2,7 +2,7 @@
 
 JointController::JointController(MotorController* motors) {
     // this->jointList = jointList;
-    const PIDConstants jPID = {1000.0, 0.0, 0.0};
+    const PIDConstants jPID = {1200.0, 0.0, 0.0};
     this->jointList = {Joint(jPID)};
     this->motors = motors;
 }

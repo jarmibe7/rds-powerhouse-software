@@ -151,5 +151,6 @@ void loop() {
   //   Serial.print("ODrive 0 Velocity: ");
   //   Serial.println(motors.getMotorVelocity(0));
   // }
+  Serial.printf(">joint_angle:%0.4f\n", joint0->getJointAngle().angle);
   delayMicroseconds(10000);
 }

@@ -59,27 +59,27 @@ void setup() {
   Serial.println(motors.getMotorBusCurrent(0));
 
   Serial.println("Enabling closed loop control...");
-  // while (motors.getMotorState(0) != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
-  //   motors.clearMotorErrors(0);
-  //   delay(1);
-  //   motors.setMotorState(0, ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
+  while (motors.getMotorState(0) != ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL) {
+    motors.clearMotorErrors(0);
+    delay(1);
+    motors.setMotorState(0, ODriveAxisState::AXIS_STATE_CLOSED_LOOP_CONTROL);
 
-  //   // Pump events for 150ms. This delay is needed for two reasons;
-  //   // 1. If there is an error condition, such as missing DC power, the ODrive might
-  //   //    briefly attempt to enter CLOSED_LOOP_CONTROL state, so we can't rely
-  //   //    on the first heartbeat response, so we want to receive at least two
-  //   //    heartbeats (100ms default interval).
-  //   // 2. If the bus is congested, the setState command won't get through
-  //   //    immediately but can be delayed.
-  //   for (int i = 0; i < 15; ++i) {
-  //     delay(10);
-  //     pumpEvents(can_intf);
-  //   }
-  // }
+    // Pump events for 150ms. This delay is needed for two reasons;
+    // 1. If there is an error condition, such as missing DC power, the ODrive might
+    //    briefly attempt to enter CLOSED_LOOP_CONTROL state, so we can't rely
+    //    on the first heartbeat response, so we want to receive at least two
+    //    heartbeats (100ms default interval).
+    // 2. If the bus is congested, the setState command won't get through
+    //    immediately but can be delayed.
+    for (int i = 0; i < 15; ++i) {
+      delay(10);
+      pumpEvents(can_intf);
+    }
+  }
 
   Serial.println("ODrive running!");
 
-
+  motors.setup();
 
   // const PIDConstants jPID = {0.1, 0.0, 0.0};
   // jointList.emplace_back(jPID, &j1Encoder);
@@ -152,5 +152,6 @@ void loop() {
   //   Serial.println(motors.getMotorVelocity(0));
   // }
   Serial.printf(">joint_angle:%0.4f\n", joint0->getJointAngle().angle);
+  Serial.printf(">commanded_angle:%0.4f\n", targetAngle.angle);
   delayMicroseconds(10000);
 }

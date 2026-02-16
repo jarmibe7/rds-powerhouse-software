@@ -37,6 +37,7 @@ class Motor {
     bool checkHeartbeat();
     bool checkFeedback();
     ODriveCAN* getODrive();
+    void setup();
 
   private:
     FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf;

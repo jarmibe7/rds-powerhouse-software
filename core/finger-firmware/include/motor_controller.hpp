@@ -21,6 +21,7 @@ class MotorController {
     void setupOnReceive(const CanMsg& msg);
     void setTorque(std::vector<float> torque);
     std::vector<float> getTorque();
+    void setup();
   private:
     std::vector<Motor> motorList;
     int numMotors;

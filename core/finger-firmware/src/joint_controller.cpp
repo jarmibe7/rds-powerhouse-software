@@ -20,13 +20,13 @@ void JointController::setJointTorques() {
 
 void JointController::readAngles() {
     // Serial.println(this->jointList.size());
-    for (auto joint : this->jointList) {
+    for (auto& joint : this->jointList) {
         joint.takeAngleMeasurement();
     }
 }
 
 void JointController::setup() {
-    for (auto joint : this->jointList) {
+    for (auto& joint : this->jointList) {
         joint.setup();
     }
 }

@@ -51,9 +51,6 @@ JointAngle AS5147::getAngle() {
 void AS5147::setup() {
     SPI.begin();
     pinMode(AS5147_CS, OUTPUT);
-    // pinMode(AS5147_MISO, INPUT);
-    // pinMode(AS5147_MOSI, OUTPUT);
-    // pinMode(AS5147_SCK, OUTPUT);
 }
 
 bool AS5147::takeMeasurement() {

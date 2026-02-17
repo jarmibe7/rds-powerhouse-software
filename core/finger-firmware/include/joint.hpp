@@ -15,7 +15,7 @@ class Joint {
     public:
         Joint(const PIDConstants pidConstants);
         JointAngle getJointAngle();
-        void setTargetAngle(JointAngle targetAngle);
+        void setTargetAngle(const JointAngle& targetAngle);
         void takeAngleMeasurement();
         float runPID();
         void setup();

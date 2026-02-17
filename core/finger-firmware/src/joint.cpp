@@ -10,7 +10,7 @@ JointAngle Joint::getJointAngle() {
     return this->encoder.getAngle();
 }
 
-void Joint::setTargetAngle(JointAngle targetAngle) {
+void Joint::setTargetAngle(const JointAngle& targetAngle) {
     this->targetAngle = targetAngle;
 }
 

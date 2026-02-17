@@ -13,7 +13,7 @@
 
   JointController jc(&motors);
 
-  Joint* joint0;
+  // Joint* joint0;
 
 
 
@@ -84,10 +84,11 @@ void setup() {
   // const PIDConstants jPID = {0.1, 0.0, 0.0};
   // jointList.emplace_back(jPID, &j1Encoder);
   // jc.setup();
-  joint0 = jc.getJoint(0);
-  joint0->setup();
+  // joint0 = jc.getJoint(0);
+  jc.setup();
+  // joint0->setup();
   // jointList[0].setup();
-  Serial.println("Setup done");
+  // Serial.println("Setup done");
 }
 
 
@@ -118,28 +119,32 @@ void loop() {
     ((float)0.6*cos(phase) )* (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
   };
 
+  std::array<JointAngle, NUM_JOINTS> targetConfiguration = {targetAngle};
+
   // JointAngle targetAngle = {
   //   position, // position
   //   0 // velocity feedforward (optional)
   // };
 
   // TODO: Have joint controller class handle this automatically
-  joint0->setTargetAngle(targetAngle);
+  // joint0->setTargetAngle(targetAngle);
+  jc.setTargetConfiguration(targetConfiguration);
 
-  // jc.readAngles();
-  joint0->takeAngleMeasurement();
-  float joint0Torque = joint0->runPID();
-  float jacobian = (1 / 30.0) * 0.01;
+  jc.readAngles();
+  // joint0->takeAngleMeasurement();
+  jc.runPID();
+  // float joint0Torque = joint0->runPID();
+  
 
-  Serial.print("MOTOR TORQUE: ");
-  Serial.println(joint0Torque * jacobian, 10);
-  motors.setMotorTorque(0, joint0Torque * jacobian);
+  // Serial.print("MOTOR TORQUE: ");
+  // Serial.println(joint0Torque * jacobian, 10);
+  // motors.setMotorTorque(0, joint0Torque * jacobian);
   // motors.setMotorTorque(0, 0.5);
   // jc.setJointTorques();
 
   // Serial.print("Encoder angle:                       ");
   // Serial.println(j1Encoder.getAngle().angle);
-  Serial.println(joint0->getJointAngle().angle);
+  // Serial.println(joint0->getJointAngle().angle);
 
 
 
@@ -151,7 +156,7 @@ void loop() {
   //   Serial.print("ODrive 0 Velocity: ");
   //   Serial.println(motors.getMotorVelocity(0));
   // }
-  Serial.printf(">joint_angle:%0.4f\n", joint0->getJointAngle().angle);
+  Serial.printf(">joint_angle:%0.4f\n", jc.getAngles(0).angle);
   Serial.printf(">commanded_angle:%0.4f\n", targetAngle.angle);
   delayMicroseconds(10000);
 }

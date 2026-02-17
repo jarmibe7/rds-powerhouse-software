@@ -58,42 +58,25 @@ bool AS5147::takeMeasurement() {
 
     SPI.beginTransaction(this->settings);
     digitalWrite(AS5147_CS, LOW);
-    // delayNanoseconds(AS5147_TCSN);
-    // Serial.println(this->dataFrame(AS5147_ANGLECOM), HEX);
-
-    uint16_t readMsg = (this->readFrame(AS5147_ANGLECOM));
+    delayNanoseconds(AS5147_TCSN);
 
     uint8_t sendBuf[2];
-
+    uint16_t readMsg = (this->readFrame(AS5147_ANGLECOM));
     sendBuf[0] = (uint8_t)(readMsg >> 8);
     sendBuf[1] = (uint8_t)(readMsg & 0xff);
-
-    // uint8_t readHigh = (uint8_t)(readMsg >> 8);
-    // uint8_t readLow = (uint8_t)(readMsg & 0xff);
-    // SPI.transfer((uint16_t)(this->dataFrame(AS5147_ANGLECOM)));
     SPI.transfer(sendBuf, 2);
-    // SPI.transfer(readLow);
 
     digitalWrite(AS5147_CS, HIGH);
 
-    // delayNanoseconds(AS5147_TCSN);
-    delayMicroseconds(10);
+    delayMicroseconds(1);
     digitalWrite(AS5147_CS, LOW);
 
     readMsg = (this->readFrame(AS5147_NOP));
-    // readHigh = (uint8_t)(readMsg >> 8);
-    // readLow = (uint8_t)(readMsg & 0xff);
-
     sendBuf[0] = (uint8_t)(readMsg >> 8);
     sendBuf[1] = (uint8_t)(readMsg & 0xff);
-
     SPI.transfer(sendBuf, 2);
-    // uint8_t rawAngleLow = SPI.transfer(readLow);
 
     uint16_t rawAngle = 0x3FFF & (((uint16_t) sendBuf[0]) << 8 | sendBuf[1]);
-
-    // Serial.print("Raw encoder output: 0x");
-    // Serial.println(rawAngle, HEX);
 
     digitalWrite(AS5147_CS, HIGH);
     SPI.endTransaction();
@@ -115,20 +98,11 @@ bool AS5147::takeMeasurement() {
         
     }
 
-    
+    float angle = (2 * M_PI * ((float)(0x3FFF & ((rawAngle) % this->maxReading)))) / this->maxReading;
 
-    float angle = (2 * M_PI) - (2 * M_PI * ((float)(0x3FFF & ((rawAngle) % ((1<<14) - 1))))) / ((1 << 14) - 1);
-    // float angle = (360 * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
-
-    // if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
-    // else this->measuredAngle.angle = angle;
-    this->measuredAngle.angle = angle;
-    // this->updateVelocity();
-
-    Serial.print("Encoder value: ");
-    Serial.print(this->measuredAngle.angle);
-    Serial.print(" \tFail Counter: ");
-    Serial.println(failCounter);
+    if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
+    else this->measuredAngle.angle = angle;
+    this->updateVelocity();
 
     failCounter = 0;
 

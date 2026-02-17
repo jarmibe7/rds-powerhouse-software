@@ -1,7 +1,7 @@
 #include "joint.hpp"
 
 Joint::Joint(const PIDConstants pidConstants) {
-    this->encoder = AS5147(false);
+    this->encoder = AS5147(true);
     this->pidConstants = pidConstants;
     // this->encoder = encoder;
 }

@@ -50,4 +50,5 @@ class AS5147 : public Encoder {
         bool checkParity(uint16_t val);
         JointAngle measuredAngle;
         bool inverted;
+        const uint16_t maxReading = (1<<14) - 1;
 };

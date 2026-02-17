@@ -24,7 +24,7 @@ float Joint::runPID() {
     static float errorIntegral = 0.0;
 
     // Proportional
-    float angleError = this->targetAngle.angle - this->encoder.getAngle().angle;
+    float angleError = angleDifference(this->targetAngle.angle, this->encoder.getAngle().angle);
     Serial.print("JOINT ANGLE: ");
     Serial.println(this->encoder.getAngle().angle);
     Serial.print("TARGET ANGLE: ");

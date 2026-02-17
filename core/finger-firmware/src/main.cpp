@@ -114,7 +114,7 @@ void loop() {
   // );
 
   JointAngle targetAngle = {
-    ((float)0.6*sin(phase)) + 4.2, // position
+    ((float)0.6*sin(phase)) + 5.0F, // position
     ((float)0.6*cos(phase) )* (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
   };
 

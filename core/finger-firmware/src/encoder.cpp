@@ -1,16 +1,15 @@
 #include "encoder.hpp"
 
-// bool Encoder::takeMeasurement() {
-//     Serial.println("Bad");
-//     this->measuredAngle = {0.0, 0.0};
-//     this->updateVelocity();
 
-//     Serial.println("Erroneously accessing overridden Encoder::takeMeasurement method");
+float angleDifference(const float& angleA, const float& angleB) {
+    float difference = fmod(angleA - angleB, 2.0 * M_PI);
 
-//     return false;
-// }
+    if(difference > M_PI) return difference - (2 * M_PI);
+    else if(difference < -1 * M_PI) return difference + (2 * M_PI);
+    return difference;
+}
 
-void AS5147::updateVelocity() {
+void Encoder::updateVelocity() {
     uint32_t currentTime = micros();
     float currentAngle = this->measuredAngle.angle;
 
@@ -21,7 +20,7 @@ void AS5147::updateVelocity() {
     float newVelocity = 0.0;
 
     if(!firstRead) {
-        newVelocity = (currentAngle - lastAngle) / (((float)(currentTime - lastTime)) / 1000000);
+        newVelocity = angleDifference(currentAngle, lastAngle) / (((float)(currentTime - lastTime)) / 1000000);
     } else {
         firstRead = false;
     }
@@ -121,7 +120,7 @@ bool AS5147::takeMeasurement() {
 
     
 
-    float angle = (2 * M_PI) - (2 * M_PI * ((float)(0x3FFF & ((rawAngle + 4000) % (1<<14 - 1))))) / ((1 << 14) - 1);
+    float angle = (2 * M_PI) - (2 * M_PI * ((float)(0x3FFF & ((rawAngle) % ((1<<14) - 1))))) / ((1 << 14) - 1);
     // float angle = (360 * ((float)(0x3FFF & rawAngle))) / ((1 << 14) - 1);
 
     // if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;

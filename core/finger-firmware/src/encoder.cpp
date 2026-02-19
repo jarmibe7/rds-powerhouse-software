@@ -98,7 +98,9 @@ bool AS5147::takeMeasurement() {
         
     }
 
-    float angle = (2 * M_PI * ((float)(0x3FFF & ((rawAngle) % this->maxReading)))) / this->maxReading;
+    // Serial.printf("RAW JOINT ANGLE: %d\n", 0x3FFF & rawAngle);
+
+    float angle = (2.0 * M_PI * static_cast<float>(0x3FFF & rawAngle)) / static_cast<float>(AS5147_MAX_READING);
 
     if(this->inverted) this->measuredAngle.angle = 2 * M_PI - angle;
     else this->measuredAngle.angle = angle;

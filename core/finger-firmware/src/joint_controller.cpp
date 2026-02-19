@@ -1,6 +1,6 @@
 #include "joint_controller.hpp"
 
-JointController::JointController(MotorController* motors) {
+JointController::JointController(MotorController* motors) : jointTorqueList(NUM_JOINTS) {
     // this->jointList = jointList;
     const PIDConstants jPID = {1200.0, 0.0, 0.0};
 
@@ -54,8 +54,9 @@ void JointController::runPID() {
     uint8_t i = 0;
     for (auto& joint : this->jointList) {
         this->jointTorqueList[i] = joint.runPID();
-    }
 
+        i++;
+    }
     //TODO: FIX THIS TO USE JACOBIAN PROPERLY
     this->motors[0].setMotorTorque(0, this->jointTorqueList[0] * jacobian);
 }

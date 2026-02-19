@@ -34,6 +34,8 @@ class Encoder {
 #define AS5147_ANGLEUNC 0x3FFE
 #define AS5147_ANGLECOM 0x3FFF
 
+#define AS5147_MAX_READING (1<<14) - 1
+
 
 
 class AS5147 : public Encoder {
@@ -50,5 +52,4 @@ class AS5147 : public Encoder {
         bool checkParity(uint16_t val);
         JointAngle measuredAngle;
         bool inverted;
-        const uint16_t maxReading = (1<<14) - 1;
 };

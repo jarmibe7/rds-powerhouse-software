@@ -15,7 +15,6 @@ void Joint::setTargetAngle(const JointAngle& targetAngle) {
 }
 
 void Joint::takeAngleMeasurement() {
-    Serial.println("Taking joint angle measurement");
     this->encoder.takeMeasurement();
 }
 
@@ -38,7 +37,10 @@ float Joint::runPID() {
     float velocityError = this->targetAngle.velocity - this->encoder.getAngle().velocity;
 
     // Calculates output torque
-    return this->pidConstants.kP * angleError + this->pidConstants.kI * errorIntegral + this->pidConstants.kD * velocityError;
+    Serial.println("Returning from PID");
+    float newTorque = this->pidConstants.kP * angleError + this->pidConstants.kI * errorIntegral + this->pidConstants.kD * velocityError;
+    Serial.println("Returning");
+    return newTorque;
 }
 
 void Joint::setup() {

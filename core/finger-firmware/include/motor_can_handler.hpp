@@ -6,7 +6,7 @@
 // #include "ODriveFlexCAN.hpp"
 #include "motor_controller.hpp"
 
-#define CAN_BAUDRATE 250000
+#define CAN_BAUDRATE 1000000
 
 // ODrive node_id for odrv0
 #define ODRV0_NODE_ID 0

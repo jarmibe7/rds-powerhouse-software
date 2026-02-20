@@ -5,14 +5,14 @@
 
 
 
-  JointController jc(&motors);
+  JointController jc(motors);
 
 // Documentation for this example can be found here:
 // https://docs.odriverobotics.com/v/latest/guides/arduino-can-guide.html
 
 void setup() {
 
-  // motors.addMotor(mc0); //TODO: make support for constructing Motor_Controller objects in Motor constructor
+  
 
   Serial.begin(115200);
 
@@ -42,6 +42,10 @@ void setup() {
   Serial.println("found ODrive");
 
 
+  motors.setup();
+  jc.setup();
+
+
 
   Serial.print("DC voltage [V]: ");
   Serial.println(motors.getMotorBusVoltage(0));
@@ -68,9 +72,6 @@ void setup() {
   }
 
   Serial.println("ODrive running!");
-
-  motors.setup();
-  jc.setup();
 }
 
 

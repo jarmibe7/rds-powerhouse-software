@@ -18,17 +18,17 @@ void Motor::setStatus() {
 }
 
 float Motor::getBusVoltage() {
-    Serial.println("starting voltage read");
-    if (!((this->odrive).request(this->vbus, 1000))) {
+    Get_Bus_Voltage_Current_msg_t vbus;
+    if (!((this->odrive).request(vbus, 1000))) {
         Serial.println("vbus request failed!");
     }
-    return this->vbus.Bus_Voltage;
+    return vbus.Bus_Voltage;
 }
 float Motor::getBusCurrent() {
     if (!((this->odrive).request(this->vbus, 1000))) {
         Serial.println("vbus request failed!");
     }
-    return this->vbus.Bus_Voltage;
+    return this->vbus.Bus_Current;
 }
 
 void Motor::clearErrors() {

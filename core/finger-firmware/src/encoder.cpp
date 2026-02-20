@@ -32,19 +32,9 @@ void Encoder::updateVelocity() {
     lastAngle = currentAngle;
 }
 
-// void Encoder::setup() {
-//     Serial.println("Erroneously accessing overridden Encoder::setup method");
-// }
-
-// // JointAngle Encoder::getAngle() {
-// //     return this->measuredAngle;
-// // }
-
 AS5147::AS5147(bool inverted) : settings(1000000, MSBFIRST, SPI_MODE1), inverted(inverted) {}
 
 JointAngle AS5147::getAngle() {
-    // Serial.print("Encoder getAngle = ");
-    Serial.println(measuredAngle.angle);
     return this->measuredAngle;
 }
 

@@ -24,11 +24,6 @@ float Joint::runPID() {
 
     // Proportional
     float angleError = angleDifference(this->targetAngle.angle, this->encoder.getAngle().angle);
-    Serial.print("JOINT ANGLE: ");
-    Serial.println(this->encoder.getAngle().angle);
-    Serial.print("TARGET ANGLE: ");
-    Serial.println(this->targetAngle.angle);
-    
 
     // Integral
     errorIntegral += angleError;
@@ -37,9 +32,7 @@ float Joint::runPID() {
     float velocityError = this->targetAngle.velocity - this->encoder.getAngle().velocity;
 
     // Calculates output torque
-    Serial.println("Returning from PID");
     float newTorque = this->pidConstants.kP * angleError + this->pidConstants.kI * errorIntegral + this->pidConstants.kD * velocityError;
-    Serial.println("Returning");
     return newTorque;
 }
 

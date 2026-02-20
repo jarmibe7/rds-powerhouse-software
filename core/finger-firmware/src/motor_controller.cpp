@@ -48,8 +48,6 @@ void MotorController::setMotorVelocity(uint8_t motorID, float velocity, float to
 
 void MotorController::setMotorTorque(uint8_t motorID, float torque) {
     (this->motorList[motorID]).setTorque(torque);
-    Serial.print("Setting torque: ");
-    Serial.println(torque);
 }
 
 float MotorController::getMotorPosition(uint8_t motorID) {
@@ -81,7 +79,7 @@ void MotorController::setupOnReceive(const CanMsg& msg) {
 void MotorController::setTorque(std::vector<float> torque) {
     this->torque = torque;
 
-    for(int i = 0; i < this-> numMotors; i++) {
+    for(int i = 0; i < this->numMotors; i++) {
         (this->motorList[i]).setTorque(torque[i]);
     }
 }
@@ -91,7 +89,7 @@ std::vector<float> MotorController::getTorque() {
 }
 
 void MotorController::setup() {
-    for(int i = 0; i < this-> numMotors; i++) {
+    for(int i = 0; i < this->numMotors; i++) {
         (this->motorList[i]).setup();
     }
 }

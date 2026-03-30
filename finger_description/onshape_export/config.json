@@ -1,0 +1,9 @@
+{
+    "url": "https://cad.onshape.com/documents/9008e8e00ba75713bd9082d6/w/96f8cfc3aa8e7643b73c5c53/e/b59ce870ae3b959f14639c62",
+    "output_format": "urdf",
+    "robot_name": "powerhouse_finger",
+    "assets_directory": "urdf",
+    "joint_max_effort": 5.0,
+    "joint_max_velocity": 3.14,
+    "no_dynamics": false
+}

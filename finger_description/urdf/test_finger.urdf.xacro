@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot name="test_finger">
+
+  <material name="blue">
+    <color rgba="0 0 1 1"/>
+  </material>
+  <material name="green">
+    <color rgba="0 1 0 1"/>
+  </material>
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+  <material name="purple">
+    <color rgba="1 0 1 1"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+  <material name="yellow">
+    <color rgba="1 1 0 1"/>
+  </material>
+
+  <!-- Finger base-->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="grey"/>
+    </visual>
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+    </inertial>
+  </link>
+
+  <!-- MCP splay joint -->
+  <joint name="mcp_splay" type="revolute">
+    <parent link="base_link"/>
+    <child link="mcp_link"/>
+    <origin xyz="0 0 0.0025" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.2" upper="0.2" effort="1.0" velocity="1.0"/>
+  </joint>
+
+  <!-- Space between MCP splay and flexion -->
+  <link name="mcp_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.005" radius="0.01"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <material name="purple"/>
+    </visual>
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0.02"/>
+      <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+    </inertial>
+  </link>
+
+  <!-- MCP flexion joint -->
+  <joint name="mcp_flexion" type="revolute">
+    <parent link="mcp_link"/>
+    <child link="proximal_phalanx"/>
+    <origin xyz="0 0 0.0225" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/> 
+    <limit lower="0" upper="1.5" effort="1.0" velocity="1.0"/>
+  </joint>
+
+  <!-- Proximal phalanx -->
+  <link name="proximal_phalanx">
+    <visual>
+      <geometry>
+        <cylinder length="0.04" radius="0.01"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <material name="blue"/>
+    </visual>
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0.02"/>
+      <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+    </inertial>
+  </link>
+
+  <!-- PIP joint -->
+  <joint name="pip_flexion" type="revolute">
+    <parent link="proximal_phalanx"/>
+    <child link="middle_phalanx"/>
+    <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="1.2" effort="1.0" velocity="1.0"/>
+  </joint>
+
+  <!-- Middle phalanx -->
+  <link name="middle_phalanx">
+    <visual>
+      <geometry>
+        <cylinder length="0.03" radius="0.009"/>
+      </geometry>
+      <origin xyz="0 0 0.015"/>
+      <material name="green"/>
+    </visual>
+    <inertial>
+      <mass value="0.008"/>
+      <origin xyz="0 0 0.015"/>
+      <inertia ixx="5e-6" ixy="0" ixz="0" iyy="5e-6" iyz="0" izz="5e-6"/>
+    </inertial>
+  </link>
+
+  <!-- DIP joint -->
+  <joint name="dip_flexion" type="revolute">
+    <parent link="middle_phalanx"/>
+    <child link="distal_phalanx"/>
+    <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="1.2" effort="1.0" velocity="1.0"/>
+  </joint>
+
+  <!-- Distal phalanx -->
+  <link name="distal_phalanx">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.008"/>
+      </geometry>
+      <origin xyz="0 0 0.01"/>
+      <material name="red"/>
+    </visual>
+    <inertial>
+      <mass value="0.005"/>
+      <origin xyz="0 0 0.01"/>
+      <inertia ixx="2e-6" ixy="0" ixz="0" iyy="2e-6" iyz="0" izz="2e-6"/>
+    </inertial>
+  </link>
+
+</robot>

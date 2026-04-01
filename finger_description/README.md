@@ -9,8 +9,28 @@ This C++ ROS2 package contains functionality visualizing the finger and loading 
 * meshes/ - Finger meshes
 * urdf/ - Finger URDF files for visualization.
 
-#### Links
-* [Onshape-to-robot](https://onshape-to-robot.readthedocs.io/en/latest/config.html)
-
-#### TODO:
-* Determine correct vals for jointMaxEffort and jointMaxVelocity in onshape_exports/config.json
+#### Export from Onshape Instructions
+1. Export full assembly as STL file
+2. Import as STL to blender
+3. Click on full STL -> `Edit mode -> A -> P -> Separate by loose parts`
+4. Use wireframe and join meshes `(Ctrl + J)` to chunk mesh into 5 links
+    * Name them: `base_link, mcp_link, proximal_phalanx, middle_phalanx, distal_phalanx`
+    * Put these into a collection titled `visual`
+5. Ensure `base_link` is at (0,0,0)
+6. Select each mesh, look at incoming joint axis.
+    * Go to edit mode
+    * Select opposite faces on shaft
+    * `Shift + S -> 3D Cursor to selected`
+    * Back to object mode -> `Object -> Origin to 3D Cursor`
+    * `Shift + A -> Empty -> Arrow`
+    * Align arrow with axis of rotation (do not translate, only rotate!)
+    * NOTE: For middle_phalanx, look at outgoing joint axis of proximal_phalanx
+7. Add the Empty objects to a collection named `joint_axes`
+    * Name them: `mcp_splay, mcp_flex, pip_flex, dip_flex`
+8. Duplicate visual meshes and move duplicates to `collision` collection
+    * Change names to `col_<visual_mesh_name>`
+9. For each visual mesh:
+    * `Edit mode -> A -> X -> Limited dissolve`
+10. For each collision mesh:
+    * `Edit mode -> A -> Mesh -> Convex Hull -> X -> Limited dissolve`
+11. Run script

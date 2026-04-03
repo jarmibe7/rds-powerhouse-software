@@ -7,7 +7,7 @@
 
 namespace fingerlib {
   // Solve for the DIP angle given the PIP angle
-  double solve_qD_from_qP(double qp_deg, int branch)
+  double solve_dip_from_pip(double qp_deg, int branch)
   {
     const auto qp = deg2rad(qp_deg);
     const auto p = PHI_P0 + qp;

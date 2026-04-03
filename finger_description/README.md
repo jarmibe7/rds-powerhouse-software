@@ -10,7 +10,7 @@ This C++ ROS2 package contains functionality visualizing the finger and loading 
 * urdf/ - Finger URDF files for visualization.
 
 #### Export from Onshape Instructions
-1. Export full assembly as STL file
+1. Export full assembly from onshape as STL file
 2. Import as STL to blender
 3. Click on full STL -> `Edit mode -> A -> P -> Separate by loose parts`
 4. Use wireframe and join meshes `(Ctrl + J)` to chunk mesh into 5 links
@@ -33,4 +33,11 @@ This C++ ROS2 package contains functionality visualizing the finger and loading 
     * `Edit mode -> A -> X -> Limited dissolve`
 10. For each collision mesh:
     * `Edit mode -> A -> Mesh -> Convex Hull -> X -> Limited dissolve`
-11. Run script
+11. Run script from scripting tab in blender
+    * Make sure to set up paths and robot geometry in script
+
+![](image/finger_rviz.png)
+The visual geometry in rviz
+
+![](image/col_rviz.png)
+The collision geometry in rviz

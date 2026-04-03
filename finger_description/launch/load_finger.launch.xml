@@ -3,15 +3,19 @@
   <arg name="use_rviz" default="true" description="Whether to enable visualization on launch"/>
   <arg name="use_jsp_gui" default="true" description="Whether joint_state_publisher_gui is used to control joint states"/>
 
-  <!-- robot_state_publisher publishes robot state to /tf and /tf_static -->
+  <!-- RSP publishes robot state to /tf and /tf_static -->
   <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
     <!-- Load URDF using xacro -->
     <param name="robot_description" value="$(command '$(exec-in-pkg xacro xacro) $(find-pkg-share finger_description)/urdf/powerhouse_finger.urdf.xacro')" />
   </node>
+
+  <!-- JSP publishes raw states -->
   <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui" output="screen" if="$(var use_jsp_gui)">
-    <remap from="joint_states" to="raw_joint_states"/>
+    <remap from="joint_states" to="joint_states_raw"/>
   </node>
 
+  <!-- Four-bar linkage node calculates DIP angle based on PIP angle + linkage constraints -->
+  <node pkg="finger_description" exec="four_bar" output="screen" />
 
   <!-- Kill launch file when rviz2 is closed -->
   <node 

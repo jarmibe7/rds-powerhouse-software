@@ -10,6 +10,7 @@
   <depend>rclpy</depend>
   <depend>drake_ros</depend>
   <depend>finger_description</depend>
+  <depend>finger_control</depend>
 
   <exec_depend>python3-drake</exec_depend>
 

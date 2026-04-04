@@ -11,11 +11,13 @@ import rclpy
 from rclpy.node import Node
 
 # Drake imports
+from pydrake.systems.primitives import Demultiplexer
 from pydrake.multibody.parsing import Parser
 from pydrake.multibody.plant import AddMultibodyPlantSceneGraph, CoulombFriction
 from pydrake.systems.analysis import Simulator
-from pydrake.systems.framework import DiagramBuilder
+from pydrake.systems.framework import DiagramBuilder, LeafSystem, BasicVector, EventStatus
 from pydrake.math import RigidTransform
+from pydrake.common.value import AbstractValue # type: ignore
 from pydrake.geometry import (
     Box,
     Meshcat,
@@ -24,9 +26,13 @@ from pydrake.geometry import (
 )
 
 # drake_ros imports
-from drake_ros.core import RosInterfaceSystem, init, shutdown
+from drake_ros.core import RosInterfaceSystem, RosSubscriberSystem, RosPublisherSystem, PySerializer, init, shutdown
 from drake_ros.tf2 import SceneTfBroadcasterSystem, SceneTfBroadcasterParams
+from sensor_msgs.msg import JointState
 from pydrake.systems.framework import TriggerType
+from std_msgs.msg import Float64MultiArray
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
+from rclpy.type_support import check_for_type_support
 
 
 #
@@ -51,12 +57,93 @@ def process_xacro(xacro_path: str, mesh_ext: str) -> str:
     )
     return doc.toprettyxml(indent="  ")
 
+class MultiArrayToVector(LeafSystem):
+    """Converts std_msgs/Float64MultiArray to a vector output."""
+    def __init__(self, size):
+        super().__init__()
+        self.size = size
+
+        # abstract input: provide a default value of the expected type
+        self.DeclareAbstractInputPort("msg", AbstractValue.Make(Float64MultiArray()))
+
+        # vector output
+        self.DeclareVectorOutputPort("vector", BasicVector(size), self.calc_output)
+
+    def calc_output(self, context, output):
+        msg = self.get_input_port(0).Eval(context)
+        # Copy Float64MultiArray data into vector (truncate/pad to match size)
+        output.SetFromVector(list(msg.data[:self.size]) + [0.0]*(self.size - len(msg.data)))
+
+
+class FingerJointStatePublisher(LeafSystem):
+    """
+    Publishes a ROS JointState message for the actuated finger joints.
+    """
+    def __init__(self, plant, model_instance):
+        super().__init__()
+        self.plant = plant
+        self.model_instance = model_instance
+
+        # List only the actuated finger joints
+        self.active_joints = [
+            "mcp_splay", "mcp_flexion", "pip_flexion", "dip_flexion"
+        ]
+
+        # Map joint names to indices in the plant state vector
+        self.joint_name_to_pos_index = {}
+        self.joint_name_to_vel_index = {}
+
+        for name in self.active_joints:
+            joint = self.plant.GetJointByName(name, self.model_instance)
+            if joint.num_positions() == 1:
+                self.joint_name_to_pos_index[name] = joint.position_start()
+                self.joint_name_to_vel_index[name] = joint.velocity_start()
+
+        # Keep only joints that exist
+        self.active_joints = [name for name in self.active_joints if name in self.joint_name_to_pos_index]
+
+        self.pos_indices = [self.joint_name_to_pos_index[name] for name in self.active_joints]
+        self.vel_indices = [self.joint_name_to_vel_index[name] for name in self.active_joints]
+
+        self.zero_effort = [0.0] * len(self.active_joints)
+
+        # Declare input ports: full joint positions/velocities, plus current time
+        num_positions = self.plant.num_positions(self.model_instance)
+        num_velocities = self.plant.num_velocities(self.model_instance)
+        self.DeclareVectorInputPort("joint_positions", num_positions)
+        self.DeclareVectorInputPort("joint_velocities", num_velocities)
+
+        # Declare output port
+        self.DeclareAbstractOutputPort(
+            "joint_state_msg",
+            lambda: AbstractValue.Make(JointState()),
+            self._calc_output
+        )
+
+    def _calc_output(self, context, output):
+        positions = self.get_input_port(0).Eval(context)
+        velocities = self.get_input_port(1).Eval(context)
+        t = context.get_time()  # ← get time directly from context
+
+        msg = JointState()
+        msg.header.stamp.sec = int(t)
+        msg.header.stamp.nanosec = int((t % 1.0) * 1e9)
+        msg.name = self.active_joints
+        msg.position = [positions[i] for i in self.pos_indices]
+        msg.velocity = [velocities[i] for i in self.vel_indices]
+        msg.effort = self.zero_effort
+
+        output.set_value(msg)
 
 # 
 # Main scene builder
 #
 
 def build_and_run(sim_duration: float, mesh_ext: str) -> None:
+    # These need to go here to keep joint state serializer in higher scope
+    check_for_type_support(JointState)
+    joint_state_serializer = PySerializer(JointState)
+
     builder = DiagramBuilder()
 
     # MultibodyPlant + SceneGraph
@@ -86,6 +173,12 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
         RigidTransform(),
     )
 
+    # TODO: Do joint coupling instead of independent
+    plant.AddJointActuator("mcp_splay", plant.GetJointByName("mcp_splay", finger_model))
+    plant.AddJointActuator("mcp_flexion", plant.GetJointByName("mcp_flexion", finger_model))
+    plant.AddJointActuator("pip_flexion", plant.GetJointByName("pip_flexion", finger_model))
+    plant.AddJointActuator("dip_flexion", plant.GetJointByName("dip_flexion", finger_model))
+
     # Ground
     ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
     plant.RegisterCollisionGeometry(
@@ -104,6 +197,7 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
     )
 
     plant.Finalize()
+    print("Number of actuators:", plant.num_actuators())
 
     # Meshcat
     meshcat = Meshcat(port=7000)
@@ -131,6 +225,46 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
         scene_graph.get_query_output_port(),
         tf_broadcaster.get_graph_query_input_port(),
     )
+
+    # FingerJointStatePublisher
+    joint_state_src = builder.AddSystem(FingerJointStatePublisher(plant, finger_model))
+
+    # Split plant state into positions and velocities
+    num_q = plant.num_positions(finger_model)
+    num_v = plant.num_velocities(finger_model)
+
+    demux = builder.AddSystem(Demultiplexer([num_q, num_v]))
+    builder.Connect(plant.get_state_output_port(finger_model),
+                    demux.get_input_port(0))
+
+    # Connect demux outputs → FingerJointStatePublisher
+    builder.Connect(demux.get_output_port(0), joint_state_src.get_input_port(0))  # positions
+    builder.Connect(demux.get_output_port(1), joint_state_src.get_input_port(1))  # velocities
+
+    # 4) ROS publisher with QoS
+    joint_qos = QoSProfile(
+        reliability=QoSReliabilityPolicy.RELIABLE,
+        history=QoSHistoryPolicy.KEEP_LAST,
+        depth=10
+    )
+
+    joint_state_pub = builder.AddSystem(
+        RosPublisherSystem(
+            joint_state_serializer,
+            "/joint_states",
+            joint_qos,
+            drake_ros,
+            {TriggerType.kPeriodic},
+            0.01  # 100 Hz pub freq
+        )
+    )
+
+    # Connect FingerJointStatePublisher → ROS publisher
+    builder.Connect(
+        joint_state_src.get_output_port(0),
+        joint_state_pub.get_input_port(0)
+    )
+
 
     # Build and simulate
     diagram = builder.Build()
@@ -166,8 +300,8 @@ class FingerSimNode(Node):
 
 
 def main(args=None):
-    init(sys.argv if args is None else args)
     rclpy.init(args=args)
+    init(sys.argv if args is None else args)
 
     node = FingerSimNode()
     duration = node.sim_duration

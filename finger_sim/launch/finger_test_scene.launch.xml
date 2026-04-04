@@ -9,13 +9,9 @@
            value="$(command 'xacro $(find-pkg-share finger_description)/urdf/powerhouse_finger.urdf.xacro')"/>
   </node>
 
-  <!-- JSP publishes raw states -->
-  <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui" output="screen" if="$(var use_jsp_gui)">
-    <remap from="joint_states" to="joint_states_raw"/>
-  </node>
-
-  <!-- Four-bar linkage node calculates DIP angle based on PIP angle + linkage constraints -->
-  <node pkg="finger_description" exec="four_bar" output="screen" />
+  <!-- Simple finger PD controller -->
+  <node pkg="finger_control" exec="finger_pd_control" output="screen" />
+  <node pkg="finger_control" exec="finger_target_gui.py" output="screen"/>
 
   <!-- Drake sim node -->
   <node pkg="finger_sim" exec="finger_test_scene" name="finger_sim" output="screen" emulate_tty="true">

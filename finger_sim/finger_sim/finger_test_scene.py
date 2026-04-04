@@ -1,40 +1,16 @@
 """
 finger_test_scene.py
---------------------
-Minimal Drake + drake_ros test scene for the RDS powerhouse finger.
 
-What it does
-~~~~~~~~~~~~
-1. Initialises drake_ros and a Drake DiagramBuilder.
-2. Loads the finger xacro, processing it with the mesh_ext parameter.
-3. Adds a flat ground plane.
-4. Wires up Meshcat for in-browser 3D visualisation.
-5. Publishes tf2 transforms over ROS 2 via drake_ros.
-6. Runs the simulator at real-time rate for a configurable duration.
-
-Run
-~~~
-  ros2 run finger_sim finger_test_scene
-
-Override sim duration or mesh format:
-  ros2 run finger_sim finger_test_scene --ros-args -p sim_duration:=30.0 -p mesh_ext:=glb
-
-Or via the launch file:
-  ros2 launch finger_sim finger_test_scene.launch.xml sim_duration:=9999.0 mesh_ext:=glb
-
-Visualise
-~~~~~~~~~
-  Open the Meshcat URL printed to the console in your browser.
+Drake and drake_ros test scene with meshcat renderer
 """
 
 import sys
 import os
-import tempfile
 
 import rclpy
 from rclpy.node import Node
 
-# Drake core
+# Drake imports
 from pydrake.multibody.parsing import Parser
 from pydrake.multibody.plant import AddMultibodyPlantSceneGraph, CoulombFriction
 from pydrake.systems.analysis import Simulator
@@ -47,13 +23,15 @@ from pydrake.geometry import (
     MeshcatVisualizerParams,
 )
 
-# drake_ros
+# drake_ros imports
 from drake_ros.core import RosInterfaceSystem, init, shutdown
 from drake_ros.tf2 import SceneTfBroadcasterSystem, SceneTfBroadcasterParams
 from pydrake.systems.framework import TriggerType
 
 
-# ── helpers ───────────────────────────────────────────────────────────────────
+#
+# Helpers
+#
 
 def resolve_package_path(package_name: str, relative_path: str) -> str:
     """Return the absolute path to a file inside a ROS 2 package share dir."""
@@ -74,39 +52,41 @@ def process_xacro(xacro_path: str, mesh_ext: str) -> str:
     return doc.toprettyxml(indent="  ")
 
 
-# ── main scene builder ────────────────────────────────────────────────────────
+# 
+# Main scene builder
+#
 
 def build_and_run(sim_duration: float, mesh_ext: str) -> None:
     builder = DiagramBuilder()
 
-    # ── MultibodyPlant + SceneGraph ───────────────────────────────────────────
+    # MultibodyPlant + SceneGraph
     plant, scene_graph = AddMultibodyPlantSceneGraph(builder, time_step=1e-3)
 
     parser = Parser(plant)
     parser.package_map().PopulateFromEnvironment("AMENT_PREFIX_PATH")
 
-    # ── Load and process xacro ────────────────────────────────────────────────
+    # Load and process xacro
     xacro_path = resolve_package_path(
         "finger_description",
         "urdf/powerhouse_finger.urdf.xacro",
     )
     urdf_string = process_xacro(xacro_path, mesh_ext)
 
-    # Drake's AddModelsFromString needs a base URL so package:// URIs resolve
+    # AddModelsFromString needs a base URL so package:// URIs resolve
     # correctly relative to the finger_description share directory.
     package_dir = resolve_package_path("finger_description", "")
     models = parser.AddModelsFromString(urdf_string, "urdf")
     print(f"Loaded {len(models)} models")
     finger_model = models[0]
 
-    # Weld base_link to world so the finger stays fixed in space
+    # Weld base_link to world
     plant.WeldFrames(
         plant.world_frame(),
         plant.GetFrameByName("base_link", finger_model),
         RigidTransform(),
     )
 
-    # ── Ground plane ──────────────────────────────────────────────────────────
+    # Ground
     ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
     plant.RegisterCollisionGeometry(
         plant.world_body(),
@@ -125,7 +105,7 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
 
     plant.Finalize()
 
-    # ── Meshcat visualiser ────────────────────────────────────────────────────
+    # Meshcat
     meshcat = Meshcat(port=7000)
     MeshcatVisualizer.AddToBuilder(
         builder, scene_graph, meshcat,
@@ -133,7 +113,7 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
     )
     print(f"[finger_sim] Meshcat running at: {meshcat.web_url()}")
 
-    # ── drake_ros: tf2 broadcaster ────────────────────────────────────────────
+    # Broadcast tf from drake_ros
     ros_interface_system = builder.AddSystem(RosInterfaceSystem("finger_sim_node"))
     drake_ros = ros_interface_system.get_ros_interface()
 
@@ -152,7 +132,7 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
         tf_broadcaster.get_graph_query_input_port(),
     )
 
-    # ── Build & simulate ──────────────────────────────────────────────────────
+    # Build and simulate
     diagram = builder.Build()
     simulator = Simulator(diagram)
     simulator.Initialize()
@@ -169,13 +149,12 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
     print("[finger_sim] Done.")
 
 
-# ── ROS 2 node wrapper ────────────────────────────────────────────────────────
-
+# ROS2 node wrapper for simulation
 class FingerSimNode(Node):
     def __init__(self):
         super().__init__("finger_sim")
         self.declare_parameter("sim_duration", 10.0)
-        self.declare_parameter("mesh_ext", "gltf")   # default to gltf for Drake
+        self.declare_parameter("mesh_ext", "gltf")   # Default to gltf for Drake
 
     @property
     def sim_duration(self) -> float:

@@ -42,3 +42,5 @@ This repository contains packages for interfacing with our electronics/hardware,
 * `core` - A regular C++ package for interfacing with hardware and controlling the finger.
 * `finger_description` - A ROS2 C++ package for visualizing the finger in `rviz2`.
 * `finger_sim` - A ROS2 C++ package for running simulations of the finger.
+* `fingerlib` - A pure C++ library for housing controller code that can be used for both firmware and sim.
+* `finger_control` - A ROS2 C++ package for finger controllers, wrapping controller implementations in `fingerlib`.

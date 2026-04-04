@@ -1,5 +1,7 @@
 /// \file
-/// \brief Node for setting the DIP angle value according to the four bar linkage
+/// \brief Node for setting the DIP angle value according to the four bar linkage.
+///        Note that this function is only used in rviz with GUI display, implemented
+///        controllers deal with this constraint independently.
 ///
 /// PARAMETERS:
 ///     branch (int): Four-bar assembly mode selector: +1 or -1. Default: +1.

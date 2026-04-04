@@ -1,0 +1,14 @@
+<launch>
+  <arg name="sim_duration" default="10.0" description="How long (seconds) to run the Drake simulation"/>
+
+  <!-- robot_state_publisher: publishes /robot_description and static URDF tf frames -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <param name="robot_description"
+           value="$(command 'xacro $(find-pkg-share finger_description)/urdf/test_finger.urdf.xacro')"/>
+  </node>
+
+  <!-- Drake sim node -->
+  <node pkg="finger_sim" exec="finger_test_scene" name="finger_sim" output="screen" emulate_tty="true">
+    <param name="sim_duration" value="$(var sim_duration)"/>
+  </node>
+</launch>

@@ -5,8 +5,9 @@
 
   <!-- RSP publishes robot state to /tf and /tf_static -->
   <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
-    <!-- Load URDF using xacro -->
-    <param name="robot_description" value="$(command '$(exec-in-pkg xacro xacro) $(find-pkg-share finger_description)/urdf/powerhouse_finger.urdf.xacro')" />
+    <!-- Load URDF using xacro with .stl meshes -->
+    <param name="robot_description"
+       value="$(command '$(exec-in-pkg xacro xacro) $(find-pkg-share finger_description)/urdf/powerhouse_finger.urdf.xacro mesh_ext:=stl')" />
   </node>
 
   <!-- JSP publishes raw states -->

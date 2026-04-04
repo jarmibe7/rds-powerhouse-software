@@ -64,7 +64,7 @@ install(TARGETS four_bar
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY launch config
+install(DIRECTORY launch config urdf meshes
   DESTINATION share/${PROJECT_NAME}
 )
 

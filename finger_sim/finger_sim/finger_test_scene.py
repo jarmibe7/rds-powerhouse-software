@@ -265,6 +265,29 @@ def build_and_run(sim_duration: float, mesh_ext: str) -> None:
         joint_state_pub.get_input_port(0)
     )
 
+    # Subscribe to torque commands from PD controller
+    check_for_type_support(Float64MultiArray)
+    torque_serializer = PySerializer(Float64MultiArray)
+    
+    torque_sub = builder.AddSystem(
+        RosSubscriberSystem(
+            torque_serializer,
+            "/finger/torque_commands",
+            joint_qos,
+            drake_ros,
+        )
+    )
+
+    # Convert Float64MultiArray → vector for plant actuation
+    torque_converter = builder.AddSystem(MultiArrayToVector(plant.num_actuators()))
+    builder.Connect(
+        torque_sub.get_output_port(0),
+        torque_converter.get_input_port(0)
+    )
+    builder.Connect(
+        torque_converter.get_output_port(0),
+        plant.get_actuation_input_port()
+    )
 
     # Build and simulate
     diagram = builder.Build()

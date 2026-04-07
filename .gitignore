@@ -1,3 +1,4 @@
 **/build/
 .vscode/
 .eggs/
+__pycache__/

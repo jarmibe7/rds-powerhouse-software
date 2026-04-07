@@ -15,7 +15,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"proximal_phalanx"
+			"name":"left_bar"
 		}
 	],
 	"materials":[
@@ -36,7 +36,7 @@
 	],
 	"meshes":[
 		{
-			"name":"V4_Assem.019",
+			"name":"V4_Assem.084",
 			"primitives":[
 				{
 					"attributes":{
@@ -53,56 +53,56 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":301588,
+			"count":1158,
 			"max":[
-				0.07711820304393768,
-				0.01499977707862854,
-				0.01513590756803751
+				0.039101481437683105,
+				0.017577677965164185,
+				0.0015627220273017883
 			],
 			"min":[
-				-0.015155773609876633,
-				-0.014999769628047943,
-				-0.016825413331389427
+				-0.00495331734418869,
+				-0.0050199031829833984,
+				-0.0020272238180041313
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":301588,
+			"count":1158,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
-			"componentType":5125,
-			"count":502086,
+			"componentType":5123,
+			"count":2268,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":3619056,
+			"byteLength":13896,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3619056,
-			"byteOffset":3619056,
+			"byteLength":13896,
+			"byteOffset":13896,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2008344,
-			"byteOffset":7238112,
+			"byteLength":4536,
+			"byteOffset":27792,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":9246456,
-			"uri":"proximal_phalanx.bin"
+			"byteLength":32328,
+			"uri":"left_bar.bin"
 		}
 	]
 }

@@ -36,7 +36,7 @@
 	],
 	"meshes":[
 		{
-			"name":"V4_Assem.084",
+			"name":"V4_Assem.002",
 			"primitives":[
 				{
 					"attributes":{
@@ -53,55 +53,55 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":3766,
+			"count":1442,
 			"max":[
 				0.051990605890750885,
 				0.011936627328395844,
-				0.014850519597530365
+				0.0009143761126324534
 			],
 			"min":[
 				-0.012042976915836334,
-				-0.014391586184501648,
-				-0.015223215334117413
+				-0.012157350778579712,
+				-0.0049628461711108685
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":3766,
+			"count":1442,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5123,
-			"count":7440,
+			"count":2892,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":45192,
+			"byteLength":17304,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":45192,
-			"byteOffset":45192,
+			"byteLength":17304,
+			"byteOffset":17304,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":14880,
-			"byteOffset":90384,
+			"byteLength":5784,
+			"byteOffset":34608,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":105264,
+			"byteLength":40392,
 			"uri":"middle_phalanx.bin"
 		}
 	]

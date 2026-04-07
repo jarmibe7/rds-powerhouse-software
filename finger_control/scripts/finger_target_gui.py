@@ -6,9 +6,9 @@ from rclpy.node import Node
 from sensor_msgs.msg import JointState
 import tkinter as tk
 
-JOINTS = ["mcp_splay", "mcp_flexion", "pip_flexion", "dip_flexion"]
-Q_MIN  = [-0.5, -0.2, 0.0, 0.0]
-Q_MAX  = [ 0.5,  1.5, 1.5, 1.5]
+JOINTS = ["mcp_splay", "mcp_flexion", "pip_flexion"]
+Q_MIN  = [-0.175, 0.0, 0.0]
+Q_MAX  = [ 0.175, 1.57, 1.57]
 
 class FingerTargetGUI(Node):
     def __init__(self):
@@ -44,7 +44,7 @@ def main():
         positions = [s.get() for s in sliders]
         node.publish(positions)
         rclpy.spin_once(node, timeout_sec=0)
-        root.after(20, tick)    # 50 Hz
+        root.after(1, tick)    # 50 Hz
 
     root.after(20, tick)
     root.mainloop()

@@ -1,5 +1,5 @@
 /// \file
-/// \brief Position PD control node for the powerhouse finger.
+/// \brief Position PD control node for the powerhouse finger for testing and stuff
 ///
 /// PARAMETERS:
 ///     kp            (double): Proportional gain, actuated joints. Default: 10.0
@@ -31,14 +31,13 @@
 // ── Joint ordering ────────────────────────────────────────────────────────────
 
 // Full plant order published to Drake
-static constexpr std::array<const char*, 4> ALL_JOINTS = {
+static constexpr std::array<const char*, 3> ALL_JOINTS = {
   "mcp_splay",
   "mcp_flexion",
   "pip_flexion",
-  "dip_flexion",
 };
 
-static constexpr int N_FULL = static_cast<int>(ALL_JOINTS.size());        // 4
+static constexpr int N_FULL = static_cast<int>(ALL_JOINTS.size());
 
 // ── Node ─────────────────────────────────────────────────────────────────────
 
@@ -51,16 +50,16 @@ public:
   , state_received_(false)
   {
     // Parameters
-    declare_parameter("kp",           10.0);
-    declare_parameter("kd",           0.5);
-    declare_parameter("tau_max",      5.0);
-    declare_parameter("branch",       1);
+    declare_parameter("kp", 10.0);
+    declare_parameter("kd", 0.5);
+    declare_parameter("tau_max", 8.0);
+    declare_parameter("branch", 1);
     declare_parameter("publish_rate", 100.0);
 
-    const double kp          = get_parameter("kp").as_double();
-    const double kd          = get_parameter("kd").as_double();
-    const double tau_max     = get_parameter("tau_max").as_double();
-    const double rate_hz     = get_parameter("publish_rate").as_double();
+    const double kp = get_parameter("kp").as_double();
+    const double kd = get_parameter("kd").as_double();
+    const double tau_max = get_parameter("tau_max").as_double();
+    const double rate_hz = get_parameter("publish_rate").as_double();
 
     ctrl_ = fingerlib::PDController<N_FULL>(kp, kd, tau_max);
 
@@ -93,7 +92,7 @@ public:
   }
 
 private:
-  fingerlib::PDController<N_FULL> ctrl_; // TODO: Change to 3
+  fingerlib::PDController<N_FULL> ctrl_;
   bool   state_received_;
 
   // State storage TODO: Change to 3
@@ -194,8 +193,8 @@ private:
     torque_pub_->publish(cmd);
 
     RCLCPP_DEBUG(get_logger(),
-      "tau: [%.3f, %.3f, %.3f, %.3f] N·m",
-      tau[0], tau[1], tau[2], tau[3]);
+      "tau: [%.3f, %.3f, %.3f] N·m",
+      tau[0], tau[1], tau[2]);
   }
 };
 

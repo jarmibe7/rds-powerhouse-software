@@ -87,11 +87,11 @@ joints:
       axis:   '<axis xyz="0.0 1.0 0.0"/>'
   right_bar_joint:
     origin:
-      x: 0.0618
+      x: 0.0613
       y: -0.0121
       z: -0.0091
     world_origin:
-      x: 0.0943
+      x: 0.0938
       y: -0.0121
       z: 0.0886
     axis:
@@ -99,7 +99,7 @@ joints:
       y: 1.0
       z: 0.0
     urdf_snippets:
-      origin: '<origin xyz="0.0618 -0.0121 -0.0091" rpy="0 0 0"/>'
+      origin: '<origin xyz="0.0613 -0.0121 -0.0091" rpy="0 0 0"/>'
       axis:   '<axis xyz="0.0 1.0 0.0"/>'
 
 extra_frames:
@@ -110,6 +110,6 @@ extra_frames:
       z: 0.1012
   right_bar_dip:
     world_origin:
-      x: 0.1283
-      y: -0.0117
+      x: 0.1279
+      y: -0.0121
       z: 0.1012

@@ -10,7 +10,7 @@ import graphviz # type: ignore
 # Drake imports
 from pydrake.systems.primitives import Demultiplexer
 from pydrake.multibody.parsing import Parser
-from pydrake.multibody.plant import AddMultibodyPlantSceneGraph, CoulombFriction
+from pydrake.multibody.plant import AddMultibodyPlantSceneGraph, CoulombFriction, DiscreteContactApproximation
 from pydrake.systems.analysis import Simulator
 from pydrake.systems.framework import DiagramBuilder
 from pydrake.math import RigidTransform
@@ -104,6 +104,13 @@ def load_pin_offsets(axes_yaml_path: str):
     P_Distal_LeftPin  = left_bar_dip_world  - dip_flex_world
     P_Distal_RightPin = right_bar_dip_world - dip_flex_world
 
+    right_bar_dip_from_bar    = right_bar_pip_world  + P_RightBar_DipPin
+    right_bar_dip_from_distal = dip_flex_world       + P_Distal_RightPin
+
+    print(f"[finger_sim] Right DIP pin from bar frame:    {right_bar_dip_from_bar}")
+    print(f"[finger_sim] Right DIP pin from distal frame: {right_bar_dip_from_distal}")
+    print(f"[finger_sim] Constraint gap at rest:          {right_bar_dip_from_bar - right_bar_dip_from_distal}")
+
     return P_LeftBar_DipPin, P_RightBar_DipPin, P_Distal_LeftPin, P_Distal_RightPin
 
 
@@ -158,12 +165,12 @@ def build_plant(builder, mesh_ext):
     distal_body    = plant.GetBodyByName("distal_phalanx", finger_model)
 
     # Close the left bar loop with ball constraints to mimic pin joints
-    # plant.AddBallConstraint(
-    #     body_A=left_bar_body,
-    #     p_AP=P_LeftBar_DipPin,
-    #     body_B=distal_body,
-    #     p_BQ=P_Distal_LeftPin,
-    # )
+    plant.AddBallConstraint(
+        body_A=left_bar_body,
+        p_AP=P_LeftBar_DipPin,
+        body_B=distal_body,
+        p_BQ=P_Distal_LeftPin,
+    )
 
     plant.AddBallConstraint(
         body_A=right_bar_body,
@@ -188,6 +195,9 @@ def build_plant(builder, mesh_ext):
     #     "ground_visual",
     #     [0.5, 0.5, 0.5, 1.0],
     # )
+
+    # plant.set_discrete_contact_approximation(DiscreteContactApproximation.kSap)
+    # plant.set_sap_near_rigid_threshold(0.0001)
 
     plant.Finalize()
     print(f"[finger_sim] Actuators: {plant.num_actuators()}")

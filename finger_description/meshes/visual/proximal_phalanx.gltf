@@ -53,7 +53,7 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":301591,
+			"count":301588,
 			"max":[
 				0.07711820304393768,
 				0.01499977707862854,
@@ -69,7 +69,7 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":301591,
+			"count":301588,
 			"type":"VEC3"
 		},
 		{
@@ -82,26 +82,26 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":3619092,
+			"byteLength":3619056,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3619092,
-			"byteOffset":3619092,
+			"byteLength":3619056,
+			"byteOffset":3619056,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2008344,
-			"byteOffset":7238184,
+			"byteOffset":7238112,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":9246528,
+			"byteLength":9246456,
 			"uri":"proximal_phalanx.bin"
 		}
 	]

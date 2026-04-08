@@ -5,6 +5,7 @@ import os
 
 import yaml # type: ignore
 import numpy as np # type: ignore
+import graphviz # type: ignore
 
 # Drake imports
 from pydrake.systems.primitives import Demultiplexer
@@ -18,6 +19,8 @@ from pydrake.geometry import (
     Meshcat,
     MeshcatVisualizer,
     MeshcatVisualizerParams,
+    Role,
+    Rgba,
 )
 
 # drake_ros imports
@@ -155,12 +158,12 @@ def build_plant(builder, mesh_ext):
     distal_body    = plant.GetBodyByName("distal_phalanx", finger_model)
 
     # Close the left bar loop with ball constraints to mimic pin joints
-    plant.AddBallConstraint(
-        body_A=left_bar_body,
-        p_AP=P_LeftBar_DipPin,
-        body_B=distal_body,
-        p_BQ=P_Distal_LeftPin,
-    )
+    # plant.AddBallConstraint(
+    #     body_A=left_bar_body,
+    #     p_AP=P_LeftBar_DipPin,
+    #     body_B=distal_body,
+    #     p_BQ=P_Distal_LeftPin,
+    # )
 
     plant.AddBallConstraint(
         body_A=right_bar_body,
@@ -170,21 +173,21 @@ def build_plant(builder, mesh_ext):
     )
 
     # ── Ground plane ──────────────────────────────────────────────────────────
-    ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
-    plant.RegisterCollisionGeometry(
-        plant.world_body(),
-        RigidTransform(p=[0, 0, -0.01]),
-        Box(2.0, 2.0, 0.02),
-        "ground_collision",
-        ground_friction,
-    )
-    plant.RegisterVisualGeometry(
-        plant.world_body(),
-        RigidTransform(p=[0, 0, -0.01]),
-        Box(2.0, 2.0, 0.02),
-        "ground_visual",
-        [0.5, 0.5, 0.5, 1.0],
-    )
+    # ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
+    # plant.RegisterCollisionGeometry(
+    #     plant.world_body(),
+    #     RigidTransform(p=[0, 0, -0.01]),
+    #     Box(2.0, 2.0, 0.02),
+    #     "ground_collision",
+    #     ground_friction,
+    # )
+    # plant.RegisterVisualGeometry(
+    #     plant.world_body(),
+    #     RigidTransform(p=[0, 0, -0.01]),
+    #     Box(2.0, 2.0, 0.02),
+    #     "ground_visual",
+    #     [0.5, 0.5, 0.5, 1.0],
+    # )
 
     plant.Finalize()
     print(f"[finger_sim] Actuators: {plant.num_actuators()}")
@@ -192,23 +195,23 @@ def build_plant(builder, mesh_ext):
 
 def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serializer, finger_model):
     # ── tf broadcaster ─────────────────────────────────────────────────────────
-    ros_interface_system = builder.AddSystem(RosInterfaceSystem("finger_sim_node"))
+    ros_interface_system = builder.AddSystem(RosInterfaceSystem("finger_sim"))
     drake_ros = ros_interface_system.get_ros_interface()
 
-    tf_broadcaster = builder.AddSystem(
-        SceneTfBroadcasterSystem(
-            drake_ros,
-            params=SceneTfBroadcasterParams(
-                publish_triggers={TriggerType.kPeriodic},
-                publish_period=0.05,
-            ),
-        )
-    )
-    tf_broadcaster.RegisterMultibodyPlant(plant)
-    builder.Connect(
-        scene_graph.get_query_output_port(),
-        tf_broadcaster.get_graph_query_input_port(),
-    )
+    # tf_broadcaster = builder.AddSystem(
+    #     SceneTfBroadcasterSystem(
+    #         drake_ros,
+    #         params=SceneTfBroadcasterParams(
+    #             publish_triggers={TriggerType.kPeriodic},
+    #             publish_period=0.05,
+    #         ),
+    #     )
+    # )
+    # tf_broadcaster.RegisterMultibodyPlant(plant)
+    # builder.Connect(
+    #     scene_graph.get_query_output_port(),
+    #     tf_broadcaster.get_graph_query_input_port(),
+    # )
 
     # ── Joint state publisher ─────────────────────────────────────────────────
     joint_state_src = builder.AddSystem(FingerJointStatePublisher(plant, finger_model))
@@ -241,8 +244,6 @@ def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serial
 
     # ── Torque command subscriber ─────────────────────────────────────────────
     # Commands are 3-element: [mcp_splay, mcp_flexion, pip_flexion]
-    
-
     torque_sub = builder.AddSystem(
         RosSubscriberSystem(
             torque_serializer,
@@ -273,18 +274,47 @@ def build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_seriali
     meshcat = Meshcat(port=7000)
     MeshcatVisualizer.AddToBuilder(
         builder, scene_graph, meshcat,
-        MeshcatVisualizerParams(),
+        MeshcatVisualizerParams(role=Role.kIllustration, prefix="visual"),
     )
-    print(f"[finger_sim] Meshcat running at: {meshcat.web_url()}")
+    MeshcatVisualizer.AddToBuilder(
+        builder, scene_graph, meshcat,
+        MeshcatVisualizerParams(
+            role=Role.kProximity,
+            prefix="collision",
+            default_color=Rgba(1.0, 0.0, 0.0, 0.5),
+        ),
+    )
 
     build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serializer, finger_model)
 
-    # ── Build and simulate ────────────────────────────────────────────────────
+    # ── Build and render diagram vis ────────────────────────────────────────────────────
     diagram  = builder.Build()
+
+    # Save to the source directory's image folder
+    src_image_dir = os.path.join(
+        os.environ["RDS_SRC"],
+        "finger_sim",
+        "image"
+    )
+    os.makedirs(src_image_dir, exist_ok=True)
+    os.makedirs(src_image_dir, exist_ok=True)
+
+    # Render as SVG using graphviz
+    dot_source = diagram.GetGraphvizString()
+    graph = graphviz.Source(dot_source)
+    graph.render(
+        filename="diagram",
+        directory=src_image_dir,
+        format="svg",
+        cleanup=True,
+    )
+    print(f"[finger_sim] Diagram saved to {src_image_dir}/diagram.svg")
+
+    # ── Simulate ────────────────────────────────────────────────────
     simulator = Simulator(diagram)
     simulator.Initialize()
+    meshcat.SetProperty("collision", "visible", False)
     simulator.set_target_realtime_rate(1.0)
-    # simulator.AdvanceTo(0.01)
 
     print(f"[finger_sim] sim_duration={sim_duration} s")
     print(f"[finger_sim] Simulating ...  (Ctrl-C to stop early)")

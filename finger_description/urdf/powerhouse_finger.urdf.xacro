@@ -60,7 +60,7 @@
     </collision>
     <inertial>
       <mass value="0.05"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.02038 -0.0 0.0975" rpy="0 0 0"/>
       <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
     </inertial>
   </link>
@@ -72,7 +72,7 @@
     <origin xyz="0.0195 -0.0 0.0983" rpy="0 0 0"/>
     <axis xyz="0.0 0.0 1.0"/>
     <limit lower="-0.174533" upper="0.174533" effort="5.0" velocity="3.14"/>
-    <dynamics damping="0.1" friction="0.05"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- Space between MCP splay and flexion -->
@@ -96,7 +96,7 @@
     </collision>
     <inertial>
       <mass value="0.01"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00073 0.00071 0.00014" rpy="0 0 0"/>
       <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
     </inertial>
   </link>
@@ -108,7 +108,7 @@
     <origin xyz="0.013 0.0 -0.0006" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="5.0" velocity="3.14"/>
-    <dynamics damping="0.1" friction="0.05"/>
+    <dynamics damping="0.0" friction="0.001"/>
   </joint>
 
   <!-- Proximal phalanx (ground link of 4-bar) -->
@@ -132,7 +132,7 @@
     </collision>
     <inertial>
       <mass value="0.01"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.03712 0.00024 -0.0019" rpy="0 0 0"/>
       <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
     </inertial>
   </link>
@@ -144,7 +144,7 @@
     <origin xyz="0.065 0.0014 0.0004" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="5.0" velocity="3.14"/>
-    <dynamics damping="0.1" friction="0.05"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- Middle phalanx — IS the coupler bar of the 4-bar linkage -->
@@ -168,7 +168,7 @@
     </collision>
     <inertial>
       <mass value="0.008"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.01223 0.00192 -0.00048" rpy="0 0 0"/>
       <inertia ixx="5e-06" ixy="0" ixz="0" iyy="5e-06" iyz="0" izz="5e-06"/>
     </inertial>
   </link>
@@ -180,7 +180,7 @@
     <origin xyz="0.04 0.0019 0.0002" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="3.0" velocity="3.14"/>
-    <dynamics damping="0.1" friction="0.05"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- Distal phalanx (driven link of 4-bar) -->
@@ -204,7 +204,7 @@
     </collision>
     <inertial>
       <mass value="0.005"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00948 -0.00161 0.00018" rpy="0 0 0"/>
       <inertia ixx="2e-06" ixy="0" ixz="0" iyy="2e-06" iyz="0" izz="2e-06"/>
     </inertial>
   </link>
@@ -218,7 +218,7 @@
     </visual>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.01698 0.00021 0.00622" rpy="0 0 0"/>
       <inertia ixx="5e-07" ixy="0" ixz="0" iyy="5e-07" iyz="0" izz="5e-07"/>
     </inertial>
   </link>
@@ -232,7 +232,7 @@
     </visual>
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.01709 0.00017 0.00633" rpy="0 0 0"/>
       <inertia ixx="5e-07" ixy="0" ixz="0" iyy="5e-07" iyz="0" izz="5e-07"/>
     </inertial>
   </link>
@@ -245,7 +245,7 @@
     <origin xyz="0.0613 0.0138 -0.0091" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="0.0" velocity="3.14"/>
-    <dynamics damping="0.02" friction="0.01"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- Right Bar Joint -->
@@ -255,7 +255,7 @@
     <origin xyz="0.0618 -0.0121 -0.0091" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="0.0" velocity="3.14"/>
-    <dynamics damping="0.02" friction="0.01"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- ═══ Drake collision filter groups ═══════════════════════════════ -->
@@ -281,6 +281,12 @@
     <drake:member link="middle_phalanx"/>
     <drake:member link="distal_phalanx"/>
     <drake:ignored_collision_filter_group name="middle_and_distal"/>
+  </drake:collision_filter_group>
+
+  <drake:collision_filter_group name="base_and_proximal">
+    <drake:member link="base_link"/>
+    <drake:member link="proximal_phalanx"/>
+    <drake:ignored_collision_filter_group name="base_and_proximal"/>
   </drake:collision_filter_group>
 
   <drake:collision_filter_group name="proximal_and_bars">

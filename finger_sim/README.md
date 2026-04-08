@@ -3,5 +3,16 @@
 
 This Python ROS2 package contains functionality for running a Drake simulation of the finger.
 
+#### Commands
+First add the RDS workspace source to your ~/.bashrc
+```
+export RDS_SRC="/home/jarmibe7/ws_rds/src/rds-powerhouse-software"
+```
+
+To run the simulation:
+```
+ros2 launch finger_sim sim.launch.xml sim_duration:=9999.0
+```
+
 #### Software Structure
 * launch/ - Contains all launch files.

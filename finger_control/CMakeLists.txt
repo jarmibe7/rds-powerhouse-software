@@ -66,7 +66,7 @@ set_target_properties(fingerlib PROPERTIES
 )
 
 install(PROGRAMS
-  scripts/finger_target_gui.py
+  scripts/finger_target_gui.py scripts/finger_torque_gui.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

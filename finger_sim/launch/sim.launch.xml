@@ -9,12 +9,12 @@
            value="$(command 'xacro $(find-pkg-share finger_description)/urdf/powerhouse_finger.urdf.xacro')"/>
   </node>
 
-  <!-- Simple finger PD controller -->
-  <node pkg="finger_control" exec="finger_pd_control" output="screen" />
-  <node pkg="finger_control" exec="finger_target_gui.py" output="screen"/>
+  <!-- Simple finger torque controller -->
+  <node pkg="finger_control" exec="finger_torque_gui.py" output="screen"/>
 
   <!-- Drake sim node -->
-  <node pkg="finger_sim" exec="main" name="sim" output="screen" emulate_tty="true">
-    <param name="sim_duration" value="$(var sim_duration)"/>
+  <node pkg="finger_sim" exec="main" output="screen" emulate_tty="true">
+    <env name="SIM_DURATION" value="$(var sim_duration)"/>
+    <env name="MESH_EXT" value="gltf"/>
   </node>
 </launch>

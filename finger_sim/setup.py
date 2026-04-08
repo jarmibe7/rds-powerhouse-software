@@ -25,7 +25,7 @@ setup(
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
-            'finger_test_scene = finger_sim.finger_test_scene:main',
+            'main = finger_sim.main:main',
         ],
     },
 )

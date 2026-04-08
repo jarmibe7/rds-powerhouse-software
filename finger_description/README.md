@@ -38,6 +38,7 @@ This C++ ROS2 package contains functionality visualizing the finger and loading 
     * There should now be 7 links
 13. Add Empty arrow objects at each exterior bar pin joint, similar to step 6.
     * Names should be `left_bar_pip`, `left_bar_dip`, `right_bar_pip`, and `right_bar_dip`
+    * If there are issues with linkage friction in Drake, delete `right_bar`, `right_bar_pip`, and `right_bar_dip`, and mirror the left side over. Then rename them back to the corresponding right side names.
 14. Set origin of each exterior bar to the pin join on the `proximal_phalanx`
 15. Finally play with each of the part origins and joint origins. 
     * Try to center each joint Empty arrow and linkage origin.

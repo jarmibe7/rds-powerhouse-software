@@ -49,7 +49,7 @@ For your convenience, a video of the simulation in action can be seen below. The
         -DBUILD_TESTING=OFF
     ```
 4. Clone this git repository into the `src/` repository of a new ROS2 colcon workspace, and build it.
-5. Follow the instructions in the README in finger_sim to run the simulation.
+5. Follow the instructions in the README in `finger_sim` to run the simulation.
 
 #### Firmware Build Instructions
 * To build without ROS2 (no visualization/simulator) use platform.io.

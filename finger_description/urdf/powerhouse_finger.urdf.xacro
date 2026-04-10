@@ -59,9 +59,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <mass value="0.05"/>
+      <mass value="0.183"/>
       <origin xyz="0.02038 -0.0 0.0975" rpy="0 0 0"/>
-      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+      <inertia ixx="0.0002589" ixy="0" ixz="0" iyy="0.0002239" iyz="0" izz="4.004e-05"/>
     </inertial>
   </link>
 
@@ -72,7 +72,7 @@
     <origin xyz="0.0195 -0.0 0.0983" rpy="0 0 0"/>
     <axis xyz="0.0 0.0 1.0"/>
     <limit lower="-0.174533" upper="0.174533" effort="5.0" velocity="3.14"/>
-    <dynamics damping="0.0" friction="0.0"/>
+    <dynamics damping="0.001" friction="0.0001"/>
   </joint>
 
   <!-- Space between MCP splay and flexion -->
@@ -95,9 +95,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <mass value="0.01"/>
+      <mass value="0.04479276"/>
       <origin xyz="0.00073 0.00071 0.00014" rpy="0 0 0"/>
-      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+      <inertia ixx="8.781e-06" ixy="0" ixz="0" iyy="9.893e-06" iyz="0" izz="6.671e-06"/>
     </inertial>
   </link>
 
@@ -108,7 +108,7 @@
     <origin xyz="0.013 0.0 -0.0006" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="5.0" velocity="3.14"/>
-    <dynamics damping="0.0" friction="0.001"/>
+    <dynamics damping="0.001" friction="0.0001"/>
   </joint>
 
   <!-- Proximal phalanx (ground link of 4-bar) -->
@@ -131,9 +131,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <mass value="0.01"/>
+      <mass value="0.072"/>
       <origin xyz="0.03712 0.00024 -0.0019" rpy="0 0 0"/>
-      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+      <inertia ixx="1.5e-05" ixy="0" ixz="0" iyy="4.649e-05" iyz="0" izz="4.385e-05"/>
     </inertial>
   </link>
 
@@ -144,7 +144,7 @@
     <origin xyz="0.065 0.0014 0.0004" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="5.0" velocity="3.14"/>
-    <dynamics damping="0.0" friction="0.0"/>
+    <dynamics damping="0.001" friction="0.0001"/>
   </joint>
 
   <!-- Middle phalanx — IS the coupler bar of the 4-bar linkage -->
@@ -167,7 +167,7 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <mass value="0.008"/>
+      <mass value="0.01111115"/>
       <origin xyz="0.01223 0.00192 -0.00048" rpy="0 0 0"/>
       <inertia ixx="5e-06" ixy="0" ixz="0" iyy="5e-06" iyz="0" izz="5e-06"/>
     </inertial>
@@ -180,7 +180,7 @@
     <origin xyz="0.04 0.0019 0.0002" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="3.0" velocity="3.14"/>
-    <dynamics damping="0.0" friction="0.0"/>
+    <dynamics damping="0.001" friction="0.0001"/>
   </joint>
 
   <!-- Distal phalanx (driven link of 4-bar) -->
@@ -203,9 +203,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <mass value="0.5"/>
+      <mass value="0.03845096"/>
       <origin xyz="0.00948 -0.00161 0.00018" rpy="0 0 0"/>
-      <inertia ixx="2e-05" ixy="0" ixz="0" iyy="2e-05" iyz="0" izz="2e-05"/>
+      <inertia ixx="5.11e-06" ixy="0" ixz="0" iyy="7.503e-06" iyz="0" izz="7.527e-06"/>
     </inertial>
   </link>
 
@@ -217,9 +217,9 @@
       </geometry>
     </visual>
     <inertial>
-      <mass value="0.1"/>
+      <mass value="0.00283571"/>
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-      <inertia ixx="5e-05" ixy="0" ixz="0" iyy="5e-05" iyz="0" izz="5e-05"/>
+      <inertia ixx="2.878e-08" ixy="0" ixz="0" iyy="3.747e-07" iyz="0" izz="3.53e-07"/>
     </inertial>
   </link>
 
@@ -231,9 +231,9 @@
       </geometry>
     </visual>
     <inertial>
-      <mass value="0.1"/>
+      <mass value="0.00283571"/>
       <origin xyz="0.01709 0.01322 0.00633" rpy="0 0 0"/>
-      <inertia ixx="5e-05" ixy="0" ixz="0" iyy="5e-05" iyz="0" izz="5e-05"/>
+      <inertia ixx="2.878e-08" ixy="0" ixz="0" iyy="3.747e-07" iyz="0" izz="3.53e-07"/>
     </inertial>
   </link>
 
@@ -245,7 +245,7 @@
     <origin xyz="0.0613 0.0138 -0.0091" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="0.0" velocity="3.14"/>
-    <dynamics damping="0.0" friction="0.0"/>
+    <dynamics damping="0.001" friction="0.0001"/>
   </joint>
 
   <!-- Right Bar Joint -->
@@ -255,7 +255,7 @@
     <origin xyz="0.0613 -0.0121 -0.0091" rpy="0 0 0"/>
     <axis xyz="0.0 1.0 0.0"/>
     <limit lower="0.0" upper="1.57" effort="0.0" velocity="3.14"/>
-    <dynamics damping="0.0" friction="0.0"/>
+    <dynamics damping="0.001" friction="0.0001"/>
   </joint>
 
   <!-- ═══ Drake collision filter groups ═══════════════════════════════ -->

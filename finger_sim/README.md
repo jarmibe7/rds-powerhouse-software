@@ -16,3 +16,5 @@ ros2 launch finger_sim sim.launch.xml sim_duration:=9999.0
 
 #### Software Structure
 * launch/ - Contains all launch files.
+* finger_sim/ - Python package containing all of the simulation code.
+* image/ - Contains visualized Drake diagram.

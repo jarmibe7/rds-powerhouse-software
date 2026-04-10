@@ -8,6 +8,8 @@ This C++ ROS2 package contains functionality visualizing the finger and loading 
 * launch/ - Contains all launch files.
 * meshes/ - Finger meshes
 * urdf/ - Finger URDF files for visualization.
+* src/ - A node for simulating the four bar position in `rviz2`
+* segment.blend - The blender file used for the URDF generation, including the script. Info can also be found in a [separate repository.](https://github.com/jarmibe7/onshape-blender-urdf-export)
 
 #### Export from Onshape Instructions
 1. Export full assembly from onshape as STL file

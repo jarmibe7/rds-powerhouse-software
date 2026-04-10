@@ -8,8 +8,8 @@ from std_msgs.msg import Float64MultiArray
 import tkinter as tk
 
 JOINTS = ["mcp_splay", "mcp_flexion", "pip_flexion"]
-TAU_MIN  = [-5.0, -5.0, -5.0]
-TAU_MAX  = [5.0, 5.0, 5.0]
+TAU_MIN  = [-0.5, -0.5, -0.5]
+TAU_MAX  = [0.5, 0.5, 0.5]
 
 class FingerTorqueGUI(Node):
     def __init__(self):

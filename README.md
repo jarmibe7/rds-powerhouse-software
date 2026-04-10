@@ -15,8 +15,8 @@ Generative AI was used for ROS2 node skeletons and Drake API access, with manual
 * We chose to stick with URDF for the robot description for now, since that is how we have seen it be done in public Drake code, as well as internal references.
     - If this ends up being an issue, we will switch to SDF.
     - Inertial geometries are interpreted from collision geometries.
-* To see changes from Onshape assembly to simulated meshes, look at the README in finger_description.
-* To run the simulation, you'll need to go through an extensive and painful Drake and drake_ros install with ROS2 Kilted as detailed above.
+* To see changes from Onshape assembly to simulated meshes, look at the README in `finger_description`.
+* To run the simulation, you'll need to go through an extensive and painful Drake and `drake_ros` install with ROS2 Kilted as detailed above.
 
 For your convenience, a video of the simulation in action can be seen below. The video uses a simple torque controller for controlling the joint torques.
 

@@ -6,6 +6,13 @@
 #include <numbers>
 
 namespace fingerlib {
+  // Four-bar geometry [mm]
+  inline constexpr double D_LEN = 40.0;
+  inline constexpr double L_LEN = 10.0;
+  inline constexpr double B_LEN = 36.293;
+
+  // Physical constants
+  inline constexpr double PI = 3.14159265358979;
 
   /// \brief Approximately compare two floating-point numbers using
   ///        an absolute comparison
@@ -23,11 +30,10 @@ namespace fingerlib {
   /// \return An equivalent angle the range (-pi, pi]
   constexpr double normalize_angle(double rad)
   {
-      using std::numbers::pi;
-      const auto two_pi = 2.0 * pi;
+      const auto two_pi = 2.0 * PI;
       rad = std::fmod(rad, two_pi);                                      // [-2pi, 2pi)
-      if (rad < -pi || almost_equal(rad, -pi)) { rad += two_pi; }        // (-pi, pi]
-      else if (rad > pi) { rad -= two_pi; }
+      if (rad < -PI || almost_equal(rad, -PI)) { rad += two_pi; }        // (-pi, pi]
+      else if (rad > PI) { rad -= two_pi; }
       return rad;
   }
 
@@ -36,7 +42,7 @@ namespace fingerlib {
   /// \returns The equivalent angle in radians
   constexpr double deg2rad(double deg)
   {
-      return (std::numbers::pi / 180.0)*deg;
+      return (PI / 180.0)*deg;
   }
 
   /// \brief Convert radians to degrees
@@ -44,17 +50,11 @@ namespace fingerlib {
   /// \returns The equivalent angle in degrees
   constexpr double rad2deg(double rad)
   {
-      return (180.0 / std::numbers::pi)*rad;
+      return (180.0 / PI)*rad;
   }
-
-  // Four-bar geometry [mm]
-  inline constexpr double D_LEN = 40.0;
-  inline constexpr double L_LEN = 10.0;
-  inline constexpr double B_LEN = 36.293;
 
   // Mount angles [rad]
   inline constexpr double PHI_P0 = deg2rad(-109.736);
   inline constexpr double PHI_D0 =  deg2rad(160.264);
-
 }
 #endif

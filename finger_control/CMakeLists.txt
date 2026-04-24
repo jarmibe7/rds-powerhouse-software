@@ -21,6 +21,7 @@ add_library(fingerlib STATIC
     ../fingerlib/src/kinematics.cpp
 )
 target_include_directories(fingerlib PUBLIC ../fingerlib/include)
+target_link_libraries(fingerlib PUBLIC Eigen3::Eigen)
 
 # To build documentation pass -DBUILD_DOCS=ON when generating the build system
 option(BUILD_DOCS "Build the documentation" OFF)

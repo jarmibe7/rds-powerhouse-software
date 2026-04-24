@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(Eigen3 REQUIRED)
 find_package(Doxygen)
 
 include(CTest)
@@ -18,6 +19,7 @@ add_library(fingerlib STATIC
     ../fingerlib/src/kinematics.cpp
 )
 target_include_directories(fingerlib PUBLIC ../fingerlib/include)
+target_link_libraries(fingerlib PUBLIC Eigen3::Eigen)
 
 # To build documentation pass -DBUILD_DOCS=ON when generating the build system
 option(BUILD_DOCS "Build the documentation" OFF)

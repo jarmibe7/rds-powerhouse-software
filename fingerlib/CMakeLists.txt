@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
 project(fingerlib)
-
 # Find dependencies
 find_package(Eigen3 REQUIRED)
 find_package(Doxygen)

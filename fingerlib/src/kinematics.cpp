@@ -1,8 +1,10 @@
 #include "fingerlib/kinematics.hpp"
 #include "fingerlib/constants.hpp"
+#include "fingerlib/nnls.h"
 
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 
 namespace fingerlib {
@@ -25,6 +27,25 @@ namespace fingerlib {
     const auto qd = PHI_D0 - u;
 
     return qd;
+  }
+
+  Eigen::Vector3d tendon_tensions(Eigen::Matrix<double, 4, 1> desired_torques,
+                                  Eigen::Matrix<double, 4, 3> J)
+  {
+    fingerlib::NNLS<Eigen::Matrix<double, 4, 3>> nnls(J);
+
+    // Solve NNLS for tendon tensions
+    nnls.solve(desired_torques);
+    if (nnls.info() == Eigen::Success) {
+      const Eigen::VectorXd T = nnls.x();
+      if (T.size() >= 3) {
+        return T.head<3>();
+      }
+    } else {
+      std::cerr << "NNLS did not converge!" << std::endl;
+    }
+
+    return Eigen::Vector3d::Zero();
   }
 
 }

@@ -79,8 +79,21 @@ void loop() {
   //                       // This has been found to reduce the number of dropped messages, however it can be removed
   //                       // for applications requiring loop times over 100Hz.
 
-  auto x = fingerlib::solve_dip_from_pip(45.0);
-  Serial.printf("DIP angle for PIP=45°: %0.4f rad\n", x);
+    Eigen::Matrix<double, 4, 3> J;
+    J << 1.0, 0.5, 0.2,
+         0.2, 1.0, 0.8,
+         0.8, 0.3, 0.6,
+         0.4, 0.7, 0.9;
+
+  Eigen::Matrix<double, 4, 1> tau;
+  tau << 1.0, 0.8, 0.6, 0.4;
+
+    const auto T = fingerlib::tendon_tensions(tau, J);
+
+    Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f]\n",
+         T(0),
+         T(1),
+         T(2));
 
   delayMicroseconds(10000);
 }

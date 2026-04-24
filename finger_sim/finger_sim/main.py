@@ -6,8 +6,8 @@ Drake and drake_ros test scene with meshcat renderer
 dip_flexion and left/right_bar_joint have no actuators, they're driven entirely
 by geometric loop closure with ball constraints
 
-Torque commands (/finger/torque_commands) are 3-element vectors:
-  [mcp_splay, mcp_flexion, pip_flexion]
+Motor torque commands (/finger/motor_torque_commands) are 3-element vectors:
+    [motor_0, motor_1, motor_2]
 """
 
 import sys

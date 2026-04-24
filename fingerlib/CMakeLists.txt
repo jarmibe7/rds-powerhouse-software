@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 project(fingerlib)
+
 # Find dependencies
 find_package(Eigen3 REQUIRED)
 find_package(Doxygen)
@@ -8,6 +9,13 @@ find_package(Doxygen)
 add_library(fingerlib
     src/kinematics.cpp
 )
+
+# Utility executable for Jacobian precomputation
+add_executable(precompute_jacobian
+    src/precompute_jacobian.cpp
+)
+target_link_libraries(precompute_jacobian PRIVATE fingerlib)
+target_compile_features(precompute_jacobian PRIVATE cxx_std_23)
 
 # To build documentation pass -DBUILD_DOCS=ON when generating the build system
 option(BUILD_DOCS "Build the documentation" OFF)
@@ -37,6 +45,7 @@ if(BUILD_TESTING)
     # Add test executables
     add_executable(fingerlib_tests
         tests/kinematics_tests.cpp
+        tests/nnls_tests.cpp
     ) 
     target_link_libraries(fingerlib_tests PRIVATE Catch2::Catch2WithMain fingerlib)
     target_include_directories(fingerlib_tests PRIVATE include)
@@ -67,6 +76,10 @@ install(TARGETS fingerlib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
     INCLUDES DESTINATION include
+)
+
+install(TARGETS precompute_jacobian
+    RUNTIME DESTINATION bin
 )
 
 install(EXPORT fingerlib-targets

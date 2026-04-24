@@ -38,12 +38,19 @@ endif()
 
 # Add dependencies to nodes
 add_executable(finger_pd_control src/finger_pd_control.cpp)
+add_executable(finger_motor_control src/finger_motor_control.cpp)
 target_link_libraries(finger_pd_control PUBLIC
     ${sensor_msgs_TARGETS}
     ${std_msgs_TARGETS}
     Eigen3::Eigen
     rclcpp::rclcpp
     fingerlib
+)
+target_link_libraries(finger_motor_control PUBLIC
+  ${std_msgs_TARGETS}
+  Eigen3::Eigen
+  rclcpp::rclcpp
+  fingerlib
 )
 
 if(BUILD_TESTING)
@@ -61,6 +68,10 @@ set_target_properties(finger_pd_control PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED YES
 )
+set_target_properties(finger_motor_control PROPERTIES
+  CXX_STANDARD 23
+  CXX_STANDARD_REQUIRED YES
+)
 set_target_properties(fingerlib PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED YES
@@ -72,6 +83,7 @@ install(PROGRAMS
 )
 
 install(TARGETS finger_pd_control
+  finger_motor_control
   DESTINATION lib/${PROJECT_NAME}
 )
 

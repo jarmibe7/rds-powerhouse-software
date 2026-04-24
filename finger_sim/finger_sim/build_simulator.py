@@ -38,7 +38,7 @@ from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 from rclpy.type_support import check_for_type_support
 
 # Custom imports
-from finger_sim.drake_core_systems import MultiArrayToVector
+from finger_sim.drake_core_systems import MultiArrayToVector, MotorTorqueToJointTorque
 from finger_sim.drake_ros_systems import FingerJointStatePublisher
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -252,20 +252,25 @@ def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serial
     )
     builder.Connect(joint_state_src.get_output_port(0), joint_state_pub.get_input_port(0))
 
-    # ── Torque command subscriber ─────────────────────────────────────────────
-    # Commands are 3-element: [mcp_splay, mcp_flexion, pip_flexion]
+    # ── Motor torque subscriber + tendon mapping ─────────────────────────────
+    # Commands are 4-element: [motor_0, motor_1, motor_2, motor_3]
     torque_sub = builder.AddSystem(
         RosSubscriberSystem(
             torque_serializer,
-            "/finger/torque_commands",
+            "/finger/motor_torque_commands",
             joint_qos,
             drake_ros,
         )
     )
 
-    torque_converter = builder.AddSystem(MultiArrayToVector(plant.num_actuators()))
-    builder.Connect(torque_sub.get_output_port(0),      torque_converter.get_input_port(0))
-    builder.Connect(torque_converter.get_output_port(0), plant.get_actuation_input_port())
+    # Convert ROS message to 4-element vector
+    torque_converter = builder.AddSystem(MultiArrayToVector(4))
+    # Map 4 motor torques through tendons to 3 joint torques
+    tendon_map = builder.AddSystem(MotorTorqueToJointTorque())
+
+    builder.Connect(torque_sub.get_output_port(0),         torque_converter.get_input_port(0))
+    builder.Connect(torque_converter.get_output_port(0),   tendon_map.get_input_port(0))
+    builder.Connect(tendon_map.get_output_port(0),         plant.get_actuation_input_port())
 
 def build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_serializer):
     """

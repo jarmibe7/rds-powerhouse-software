@@ -9,7 +9,7 @@
 ///     publish_rate  (double): Control loop rate [Hz]. Default: 100.0
 ///
 /// PUBLISHES:
-///     /finger/torque_commands (std_msgs::msg::Float64MultiArray):
+///     /finger/desired_joint_torques (std_msgs::msg::Float64MultiArray):
 ///         Torques [N·m] in order: mcp_splay, mcp_flexion, pip_flexion, dip_flexion.
 /// SUBSCRIBES:
 ///     /joint_states          (sensor_msgs::msg::JointState): Measured state from Drake / hardware.
@@ -25,7 +25,6 @@
 #include <cmath>
 #include <string>
 
-#include "fingerlib/kinematics.hpp"
 #include "fingerlib/simple_pd.hpp"
 
 // ── Joint ordering ────────────────────────────────────────────────────────────
@@ -65,7 +64,7 @@ public:
 
     // Publishers
     torque_pub_ = create_publisher<std_msgs::msg::Float64MultiArray>(
-      "/finger/torque_commands", 10
+      "/finger/desired_joint_torques", 10
     );
 
     // Subscribers

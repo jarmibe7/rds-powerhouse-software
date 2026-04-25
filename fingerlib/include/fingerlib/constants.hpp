@@ -6,10 +6,10 @@
 #include <numbers>
 
 namespace fingerlib {
-  // Four-bar geometry [mm]
-  inline constexpr double D_LEN = 40.0;
-  inline constexpr double L_LEN = 10.0;
-  inline constexpr double B_LEN = 36.293;
+  // Four-bar geometry [m]
+  inline constexpr double D_LEN = 0.040;         // Center distance between DIP and PIP joints
+  inline constexpr double L_LEN = 0.010888;      // Distance between PIP and exterior bar attachment on proximal member
+  inline constexpr double B_LEN = 0.036299;      // Exterior bar length, center to center
 
   // Physical constants
   inline constexpr double PI = 3.14159265358979;

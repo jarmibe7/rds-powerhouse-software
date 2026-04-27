@@ -14,6 +14,11 @@ To run the simulation:
 ros2 launch finger_sim sim.launch.xml sim_duration:=9999.0
 ```
 
+To run the simulation with simulated tendon PD control:
+```
+ros2 launch finger_sim sim_tendon.launch.xml
+```
+
 #### Software Structure
 * launch/ - Contains all launch files.
 * finger_sim/ - Python package containing all of the simulation code.

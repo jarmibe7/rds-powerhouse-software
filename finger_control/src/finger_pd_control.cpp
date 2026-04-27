@@ -5,6 +5,7 @@
 ///     kp            (double): Proportional gain, actuated joints. Default: 10.0
 ///     kd            (double): Derivative gain, actuated joints.   Default: 0.5
 ///     tau_max       (double): Torque clamp, actuated joints [N·m]. Default: 5.0
+///     vel_alpha (double): Velocity LPF alpha in [0, 1]. Default: 0.2
 ///     branch        (int):    Four-bar branch selector (+1 or -1). Default: +1
 ///     publish_rate  (double): Control loop rate [Hz]. Default: 100.0
 ///
@@ -49,16 +50,20 @@ public:
   , state_received_(false)
   {
     // Parameters
-    declare_parameter("kp", 10.0);
-    declare_parameter("kd", 0.5);
+    declare_parameter("kp", 0.1);
+    declare_parameter("kd", 0.0025);
     declare_parameter("tau_max", 8.0);
+    declare_parameter("vel_alpha", 0.3);
     declare_parameter("branch", 1);
     declare_parameter("publish_rate", 100.0);
 
     const double kp = get_parameter("kp").as_double();
     const double kd = get_parameter("kd").as_double();
     const double tau_max = get_parameter("tau_max").as_double();
+    const double vel_alpha = get_parameter("vel_alpha").as_double();
     const double rate_hz = get_parameter("publish_rate").as_double();
+
+    vel_alpha_ = std::clamp(vel_alpha, 0.0, 1.0);
 
     ctrl_ = fingerlib::PDController<N_FULL>(kp, kd, tau_max);
 
@@ -85,14 +90,16 @@ public:
 
     RCLCPP_INFO(get_logger(),
       "finger_pd_control ready | "
-      "kp=%.2f kd=%.2f tau_max=%.2f | "
+      "kp=%.2f kd=%.2f tau_max=%.2f vel_alpha=%.2f | "
       "rate=%.0f Hz",
-      kp, kd, tau_max, rate_hz);
+      kp, kd, tau_max, vel_alpha_, rate_hz);
   }
 
 private:
   fingerlib::PDController<N_FULL> ctrl_;
   bool   state_received_;
+  bool   dq_initialized_{false};
+  double vel_alpha_{0.2};
 
   // State storage TODO: Change to 3
   Eigen::Matrix<double, N_FULL, 1> q_measured_ = Eigen::Matrix<double, N_FULL, 1>::Zero();
@@ -108,7 +115,7 @@ private:
   //
 
   // Extract a single named joint's position and optional velocity from a JointState.
-  ///Returns false if the joint is not present.
+  // Returns false if the joint is not present.
   bool extract_joint(
     const sensor_msgs::msg::JointState & msg,
     const std::string & name,
@@ -130,9 +137,10 @@ private:
   void state_callback(const sensor_msgs::msg::JointState::SharedPtr msg)
   {
     bool ok = true;
+    Eigen::Matrix<double, N_FULL, 1> dq_raw = Eigen::Matrix<double, N_FULL, 1>::Zero();
     for (int i = 0; i < N_FULL; ++i) {
       ok &= extract_joint(*msg, ALL_JOINTS[i],
-                          q_measured_[i], &dq_measured_[i]);
+                          q_measured_[i], &dq_raw[i]);
     }
 
     if (!ok) {
@@ -140,6 +148,14 @@ private:
         "One or more joints missing from /joint_states");
       return;
     }
+
+    if (!dq_initialized_) {
+      dq_measured_ = dq_raw;
+      dq_initialized_ = true;
+    } else {
+      dq_measured_ = vel_alpha_ * dq_raw + (1.0 - vel_alpha_) * dq_measured_;
+    }
+
     state_received_ = true;
   }
 
@@ -179,7 +195,7 @@ private:
       return;
     }
 
-    // 4-DOF PD for actuated joints TODO: Change to 3
+    // PD for actuated joints
     const auto tau = ctrl_.compute(q_measured_, dq_measured_);
 
     // Pack into full 4-DOF command in Drake's joint order

@@ -297,12 +297,12 @@ private:
   ColVec   y_;     ///< candidate inactive-set solution
   ColVec   atb_;   ///< precomputed A^T b
   IndexVec idx_;   ///< permutation: [inactive | active]
-  MatrixType qr_;   ///< incremental QR of inactive columns
+  MatrixType qr_;  ///< incremental QR of inactive columns
   ColVec   qrc_;   ///< Householder coefficients
   ColVec   tmp_c_; ///< scratch (cols-sized)
   RowVec   tmp_r_; ///< scratch (rows-sized)
 };
 
-} // namespace fingerlib
+}
 
-#endif // FINGERLIB_NNLS_H
+#endif

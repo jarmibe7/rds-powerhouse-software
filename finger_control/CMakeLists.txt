@@ -7,6 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -19,6 +20,7 @@ include(CTest)
 # Add fingerlib as library
 add_library(fingerlib STATIC
     ../fingerlib/src/kinematics.cpp
+  ../fingerlib/src/jacobian_lookup.cpp
 )
 target_include_directories(fingerlib PUBLIC ../fingerlib/include)
 target_link_libraries(fingerlib PUBLIC Eigen3::Eigen)
@@ -47,6 +49,8 @@ target_link_libraries(finger_pd_control PUBLIC
     fingerlib
 )
 target_link_libraries(finger_motor_control PUBLIC
+  ament_index_cpp::ament_index_cpp
+  ${sensor_msgs_TARGETS}
   ${std_msgs_TARGETS}
   Eigen3::Eigen
   rclcpp::rclcpp

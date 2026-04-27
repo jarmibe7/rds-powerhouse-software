@@ -8,6 +8,7 @@ find_package(Doxygen)
 # Create library
 add_library(fingerlib
     src/kinematics.cpp
+    src/jacobian_lookup.cpp
 )
 
 # Utility executable for Jacobian precomputation
@@ -45,6 +46,7 @@ if(BUILD_TESTING)
     # Add test executables
     add_executable(fingerlib_tests
         tests/kinematics_tests.cpp
+        tests/jacobian_lookup_tests.cpp
         tests/nnls_tests.cpp
     ) 
     target_link_libraries(fingerlib_tests PRIVATE Catch2::Catch2WithMain fingerlib)
@@ -80,6 +82,10 @@ install(TARGETS fingerlib
 
 install(TARGETS precompute_jacobian
     RUNTIME DESTINATION bin
+)
+
+install(FILES jacobian_transposes.csv
+    DESTINATION share/${PROJECT_NAME}/config
 )
 
 install(EXPORT fingerlib-targets

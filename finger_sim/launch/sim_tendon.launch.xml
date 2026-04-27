@@ -1,5 +1,5 @@
 <launch>
-  <arg name="sim_duration" default="120.0" description="How long (seconds) to run the Drake simulation"/>
+  <arg name="sim_duration" default="9999.0" description="How long (seconds) to run the Drake simulation"/>
   <arg name="use_jsp_gui" default="true" description="Whether joint_state_publisher_gui is used to control joint states"/>
 
 
@@ -12,11 +12,14 @@
   <!-- Joint target GUI -->
   <node pkg="finger_control" exec="finger_target_gui.py" output="screen"/>
 
-  <!-- Joint-space PD controller: q_des -> tau_joint_des -->
+  <!-- Joint-space PD controller -->
   <node pkg="finger_control" exec="finger_pd_control" output="screen"/>
 
-  <!-- Motor control mapper: tau_joint_des -> tendon tensions -> tau_motor -->
-  <node pkg="finger_control" exec="finger_motor_control" output="screen"/>
+  <!-- Motor control mapper to map motor torques to joint torques -->
+  <node pkg="finger_control" exec="finger_motor_control" output="screen">
+    <param name="jacobian_csv_path"
+           value="$(find-pkg-share finger_control)/config/jacobian_transposes.csv"/>
+  </node>
 
   <!-- Drake sim node -->
   <node pkg="finger_sim" exec="main" output="screen" emulate_tty="true">

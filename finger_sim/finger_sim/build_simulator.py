@@ -228,6 +228,8 @@ def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serial
 
     num_q = plant.num_positions(finger_model)
     num_v = plant.num_velocities(finger_model)
+    pip_position_index = plant.GetJointByName("pip_flexion", finger_model).position_start()
+    jacobian_csv_path = resolve_package_path("finger_control", "config/jacobian_transposes.csv")
 
     demux = builder.AddSystem(Demultiplexer([num_q, num_v]))
     builder.Connect(plant.get_state_output_port(finger_model), demux.get_input_port(0))
@@ -266,10 +268,13 @@ def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serial
     # Convert ROS message to 4-element vector
     torque_converter = builder.AddSystem(MultiArrayToVector(4))
     # Map 4 motor torques through tendons to 3 joint torques
-    tendon_map = builder.AddSystem(MotorTorqueToJointTorque())
+    tendon_map = builder.AddSystem(
+        MotorTorqueToJointTorque(jacobian_csv_path, num_q, pip_position_index)
+    )
 
     builder.Connect(torque_sub.get_output_port(0),         torque_converter.get_input_port(0))
     builder.Connect(torque_converter.get_output_port(0),   tendon_map.get_input_port(0))
+    builder.Connect(demux.get_output_port(0),              tendon_map.get_input_port(1))
     builder.Connect(tendon_map.get_output_port(0),         plant.get_actuation_input_port())
 
 def build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_serializer):
@@ -330,12 +335,29 @@ def build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_seriali
     simulator.Initialize()
     meshcat.SetProperty("collision", "visible", False)
     simulator.set_target_realtime_rate(1.0)
+    initial_context = simulator.get_context().Clone()
+
+    meshcat.AddButton("Reset Simulation")
+    reset_clicks = 0
 
     print(f"[finger_sim] sim_duration={sim_duration} s")
     print(f"[finger_sim] Simulating ...  (Ctrl-C to stop early)")
     try:
-        simulator.AdvanceTo(sim_duration)
+        dt = 0.02
+        while simulator.get_context().get_time() < sim_duration:
+            t_now = simulator.get_context().get_time()
+            simulator.AdvanceTo(min(sim_duration, t_now + dt))
+
+            clicks = meshcat.GetButtonClicks("Reset Simulation")
+            if clicks > reset_clicks:
+                simulator.get_mutable_context().SetTimeStateAndParametersFrom(initial_context)
+                simulator.Initialize()
+                meshcat.SetProperty("collision", "visible", False)
+                reset_clicks = clicks
+                print("[finger_sim] Reset Simulation clicked: state restored")
     except KeyboardInterrupt:
         pass
+    finally:
+        meshcat.DeleteButton("Reset Simulation")
 
     print("[finger_sim] Done.")

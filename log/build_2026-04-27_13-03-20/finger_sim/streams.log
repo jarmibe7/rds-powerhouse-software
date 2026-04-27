@@ -1,0 +1,49 @@
+[1.438s] Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim': AMENT_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} PYTHONPATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/finger_sim build --build-base /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build install --record /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log --single-version-externally-managed install_data
+[1.856s] running egg_info
+[1.857s] creating ../build/finger_sim/finger_sim.egg-info
+[1.894s] writing ../build/finger_sim/finger_sim.egg-info/PKG-INFO
+[1.894s] writing dependency_links to ../build/finger_sim/finger_sim.egg-info/dependency_links.txt
+[1.895s] writing entry points to ../build/finger_sim/finger_sim.egg-info/entry_points.txt
+[1.895s] writing requirements to ../build/finger_sim/finger_sim.egg-info/requires.txt
+[1.895s] writing top-level names to ../build/finger_sim/finger_sim.egg-info/top_level.txt
+[1.895s] writing manifest file '../build/finger_sim/finger_sim.egg-info/SOURCES.txt'
+[1.969s] reading manifest file '../build/finger_sim/finger_sim.egg-info/SOURCES.txt'
+[1.970s] writing manifest file '../build/finger_sim/finger_sim.egg-info/SOURCES.txt'
+[1.970s] running build
+[1.970s] running build_py
+[1.971s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build
+[1.971s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib
+[1.971s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim
+[1.971s] copying finger_sim/build_simulator.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim
+[2.017s] copying finger_sim/drake_core_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim
+[2.037s] copying finger_sim/main.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim
+[2.050s] copying finger_sim/drake_ros_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim
+[2.055s] copying finger_sim/__init__.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim
+[2.055s] running install
+[2.063s] running install_lib
+[2.101s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim
+[2.101s] copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/build_simulator.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim
+[2.101s] copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/drake_core_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim
+[2.101s] copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/main.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim
+[2.101s] copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/drake_ros_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim
+[2.101s] copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/__init__.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim
+[2.102s] byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/build_simulator.py to build_simulator.cpython-312.pyc
+[2.105s] byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/drake_core_systems.py to drake_core_systems.cpython-312.pyc
+[2.106s] byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/main.py to main.cpython-312.pyc
+[2.106s] byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/drake_ros_systems.py to drake_ros_systems.cpython-312.pyc
+[2.108s] byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/__init__.py to __init__.cpython-312.pyc
+[2.108s] running install_data
+[2.108s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index
+[2.109s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index/resource_index
+[2.109s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index/resource_index/packages
+[2.109s] copying resource/finger_sim -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index/resource_index/packages
+[2.109s] copying package.xml -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim
+[2.109s] creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/launch
+[2.109s] copying launch/sim.launch.xml -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/launch
+[2.109s] copying launch/sim_tendon.launch.xml -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/launch
+[2.131s] running install_egg_info
+[2.169s] Copying ../build/finger_sim/finger_sim.egg-info to /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim-0.0.1-py3.12.egg-info
+[2.171s] running install_scripts
+[2.379s] Installing main script to /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/finger_sim
+[2.379s] writing list of installed files to '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log'
+[2.414s] Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim' returned '0': AMENT_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} PYTHONPATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/finger_sim build --build-base /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build install --record /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log --single-version-externally-managed install_data

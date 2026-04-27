@@ -1,0 +1,119 @@
+[0.012s] Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description
+[0.321s] -- The C compiler identification is GNU 14.2.0
+[0.722s] -- The CXX compiler identification is GNU 14.2.0
+[0.779s] -- Detecting C compiler ABI info
+[0.957s] -- Detecting C compiler ABI info - done
+[0.968s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.969s] -- Detecting C compile features
+[0.969s] -- Detecting C compile features - done
+[0.982s] -- Detecting CXX compiler ABI info
+[1.093s] -- Detecting CXX compiler ABI info - done
+[1.106s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.106s] -- Detecting CXX compile features
+[1.106s] -- Detecting CXX compile features - done
+[1.129s] -- Found ament_cmake: 2.7.5 (/opt/ros/kilted/share/ament_cmake/cmake)
+[1.488s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[2.395s] -- Found rclcpp: 29.5.7 (/opt/ros/kilted/share/rclcpp/cmake)
+[2.766s] -- Found rosidl_generator_c: 4.9.6 (/opt/ros/kilted/share/rosidl_generator_c/cmake)
+[2.863s] -- Found rosidl_generator_cpp: 4.9.6 (/opt/ros/kilted/share/rosidl_generator_cpp/cmake)
+[3.206s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.336s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.883s] -- Found rmw_implementation_cmake: 7.8.2 (/opt/ros/kilted/share/rmw_implementation_cmake/cmake)
+[3.914s] -- Found rmw_fastrtps_cpp: 9.3.3 (/opt/ros/kilted/share/rmw_fastrtps_cpp/cmake)
+[4.273s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[4.315s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[4.502s] -- Found sensor_msgs: 5.5.2 (/opt/ros/kilted/share/sensor_msgs/cmake)
+[4.628s] -- Found Doxygen: /usr/bin/doxygen (found version "1.9.8") found components: doxygen dot 
+[4.681s] -- Found ament_lint_auto: 0.19.2 (/opt/ros/kilted/share/ament_lint_auto/cmake)
+[5.010s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[5.011s] -- Configured cppcheck include dirs: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description/../fingerlib/include
+[5.011s] -- Configured cppcheck exclude dirs and/or files: 
+[5.032s] -- Added test 'lint_cmake' to check CMake code style
+[5.044s] -- Added test 'uncrustify' to check C / C++ code style
+[5.044s] -- Configured uncrustify additional arguments: 
+[5.053s] -- Added test 'xmllint' to check XML markup files
+[5.055s] -- Configuring done (5.0s)
+[5.087s] -- Generating done (0.0s)
+[5.101s] -- Build files have been written to: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description
+[5.117s] Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description
+[5.118s] Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description -- -j8 -l8
+[5.175s] [ 25%] [32mBuilding CXX object CMakeFiles/fingerlib.dir/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib/src/kinematics.cpp.o[0m
+[14.139s] [ 50%] [32m[1mLinking CXX static library libfingerlib.a[0m
+[14.323s] [ 50%] Built target fingerlib
+[14.348s] [ 75%] [32mBuilding CXX object CMakeFiles/four_bar.dir/src/four_bar.cpp.o[0m
+[33.691s] [100%] [32m[1mLinking CXX executable four_bar[0m
+[34.634s] [100%] Built target four_bar
+[34.648s] Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description -- -j8 -l8
+[34.660s] Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description
+[34.669s] -- Install configuration: ""
+[34.669s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/finger_description/four_bar
+[34.676s] -- Set non-toolchain portion of runtime path of "/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/finger_description/four_bar" to ""
+[34.676s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/launch
+[34.676s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/launch/load_finger.launch.xml
+[34.677s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/config
+[34.677s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/config/powerhouse_finger.rviz
+[34.687s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/config/test_finger.rviz
+[34.688s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf
+[34.689s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf/powerhouse_finger.urdf.xacro
+[34.689s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf/test_finger.urdf.xacro
+[34.770s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf/powerhouse_finger_rviz.urdf.xacro
+[34.771s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes
+[34.771s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment.blend1
+[34.775s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment_old.blend
+[34.931s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment.blend
+[35.087s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment_linkage_complex.blend
+[35.095s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual
+[35.096s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/base_link.gltf
+[35.096s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/right_bar.stl
+[35.096s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/mcp_link.bin
+[35.097s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/middle_phalanx.stl
+[35.097s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/base_link.stl
+[35.098s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/distal_phalanx.gltf
+[35.098s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/proximal_phalanx.gltf
+[35.098s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/distal_phalanx.bin
+[35.102s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/mcp_link.gltf
+[35.103s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/base_link.bin
+[35.103s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/left_bar.stl
+[35.107s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/middle_phalanx.bin
+[35.108s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/distal_phalanx.stl
+[35.112s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/left_bar.bin
+[35.113s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/right_bar.gltf
+[35.113s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/proximal_phalanx.stl
+[35.120s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/left_bar.gltf
+[35.130s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/proximal_phalanx.bin
+[35.292s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/right_bar.bin
+[35.292s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/middle_phalanx.gltf
+[35.292s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/mcp_link.stl
+[35.294s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/joint_axes.yaml
+[35.294s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision
+[35.294s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_middle_phalanx.bin
+[35.294s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_proximal_phalanx.gltf
+[35.295s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_base_link.bin
+[35.295s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_distal_phalanx.stl
+[35.295s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_base_link.gltf
+[35.295s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_proximal_phalanx.stl
+[35.295s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_base_link.stl
+[35.295s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_proximal_phalanx.bin
+[35.296s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_middle_phalanx.gltf
+[35.296s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_mcp_link.stl
+[35.296s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_mcp_link.bin
+[35.296s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_mcp_link.gltf
+[35.296s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_distal_phalanx.gltf
+[35.297s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_distal_phalanx.bin
+[35.297s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_middle_phalanx.stl
+[35.297s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/ament_index/resource_index/package_run_dependencies/finger_description
+[35.297s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/ament_index/resource_index/parent_prefix_path/finger_description
+[35.297s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/ament_prefix_path.sh
+[35.298s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/ament_prefix_path.dsv
+[35.298s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/path.sh
+[35.298s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/path.dsv
+[35.298s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.bash
+[35.298s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.sh
+[35.299s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.zsh
+[35.299s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.dsv
+[35.299s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.dsv
+[35.299s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/ament_index/resource_index/packages/finger_description
+[35.299s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/cmake/finger_descriptionConfig.cmake
+[35.299s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/cmake/finger_descriptionConfig-version.cmake
+[35.300s] -- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.xml
+[35.302s] Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description

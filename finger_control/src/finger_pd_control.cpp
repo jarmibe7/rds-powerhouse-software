@@ -35,7 +35,7 @@
 // ── Joint ordering ────────────────────────────────────────────────────────────
 
 // Full plant order published to Drake
-static constexpr std::array<const char*, 3> ALL_JOINTS = {
+static constexpr std::array<const char *, 3> ALL_JOINTS = {
   "mcp_splay",
   "mcp_flexion",
   "pip_flexion",
@@ -50,8 +50,8 @@ class FingerPDControl : public rclcpp::Node
 public:
   FingerPDControl()
   : Node("finger_pd_control")
-  , ctrl_(10.0, 0.5, 5.0)
-  , state_received_(false)
+    , ctrl_(10.0, 0.5, 5.0)
+    , state_received_(false)
   {
     // Parameters
     declare_parameter<std::vector<double>>("kp", std::vector<double>(N_FULL, 0.1));
@@ -131,7 +131,7 @@ private:
     double * velocity = nullptr) const
   {
     auto it = std::find(msg.name.begin(), msg.name.end(), name);
-    if (it == msg.name.end()) return false;
+    if (it == msg.name.end()) {return false;}
     const size_t idx = std::distance(msg.name.begin(), it);
     position = msg.position.size() > idx ? msg.position[idx] : 0.0;
     if (velocity) {
@@ -194,7 +194,7 @@ private:
 
     // Read target joint positions and look for errors
     for (int i = 0; i < N_FULL; ++i) {
-      double* vel_ptr = has_vel ? &dq_des[i] : nullptr;
+      double * vel_ptr = has_vel ? &dq_des[i] : nullptr;
       ok &= extract_joint(*msg, ALL_JOINTS[i], q_des[i], vel_ptr);
     }
 

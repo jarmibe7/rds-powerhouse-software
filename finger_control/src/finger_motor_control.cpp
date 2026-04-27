@@ -1,7 +1,7 @@
 /// \file
 /// \brief Converts desired joint torques into motor torque commands using
 ///        a tendon-tension intermediary solved with NNLS.
-/// 
+///
 /// PIPELINE:
 ///   desired joint torques -> tendon tensions -> motor torques
 ///
@@ -37,7 +37,7 @@ public:
     try {
       default_csv_path = ament_index_cpp::get_package_share_directory("finger_control") +
         "/config/jacobian_transposes.csv";
-    } catch (const std::exception& e) {
+    } catch (const std::exception & e) {
       RCLCPP_WARN(get_logger(),
         "Unable to resolve finger_control share path for default Jacobian CSV: %s",
         e.what());
@@ -52,7 +52,7 @@ public:
     // Get jacobian lookup
     try {
       jacobian_lookup_ = std::make_unique<fingerlib::JacobianLookup>(csv_path);
-    } catch (const std::exception& e) {
+    } catch (const std::exception & e) {
       jacobian_lookup_.reset();
       RCLCPP_WARN(get_logger(),
         "Failed to initialize Jacobian lookup from '%s': %s. Using static Jacobian fallback.",
@@ -75,8 +75,8 @@ public:
     // Rows: [mcp_splay, mcp_flexion, pip_flexion]
     // Cols: [tendon_0, tendon_1, tendon_2, tendon_3]
     J_ << 1.0, 0.0, 0.0, 0.5,
-          0.0, 1.0, 0.0, 0.5,
-          0.0, 0.0, 1.0, 0.0;
+      0.0, 1.0, 0.0, 0.5,
+      0.0, 0.0, 1.0, 0.0;
 
     RCLCPP_INFO(get_logger(),
       "finger_motor_control ready | pulley_radius=%.4f | jacobian_lookup=%s",
@@ -129,7 +129,7 @@ private:
     }
 
     // Solve NNLS for 4 tendon tensions from 3 desired joint torques
-    // NNLS enforces nonnegative tensions 
+    // NNLS enforces nonnegative tensions
     Eigen::MatrixXd J_dynamic = J_.cast<double>();
     Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
     fingerlib::NNLS<Eigen::MatrixXd> nnls(J_dynamic);

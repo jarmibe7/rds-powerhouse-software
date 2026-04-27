@@ -1,0 +1,307 @@
+[0.330s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--event-handlers', 'console_direct+']
+[0.330s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=['console_direct+'], ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7b54e33307a0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7b54e3746480>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7b54e3746480>>, mixin_verb=('build',))
+[0.381s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.381s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.381s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.381s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.381s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.381s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.381s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.408s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(core) by extensions ['ignore', 'ignore_ament_install']
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(core) by extension 'ignore'
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(core) ignored
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extensions ['ignore', 'ignore_ament_install']
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extension 'ignore'
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extension 'ignore_ament_install'
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extensions ['colcon_pkg']
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extension 'colcon_pkg'
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extensions ['colcon_meta']
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extension 'colcon_meta'
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extensions ['ros']
+[0.409s] Level 1:colcon.colcon_core.package_identification:_identify(finger_control) by extension 'ros'
+[0.413s] DEBUG:colcon.colcon_core.package_identification:Package 'finger_control' with type 'ros.ament_cmake' and name 'finger_control'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extensions ['ignore', 'ignore_ament_install']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extension 'ignore'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extension 'ignore_ament_install'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extensions ['colcon_pkg']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extension 'colcon_pkg'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extensions ['colcon_meta']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extension 'colcon_meta'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extensions ['ros']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(finger_description) by extension 'ros'
+[0.414s] DEBUG:colcon.colcon_core.package_identification:Package 'finger_description' with type 'ros.ament_cmake' and name 'finger_description'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extensions ['ignore', 'ignore_ament_install']
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extension 'ignore'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extension 'ignore_ament_install'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extensions ['colcon_pkg']
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extension 'colcon_pkg'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extensions ['colcon_meta']
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extension 'colcon_meta'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extensions ['ros']
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(finger_sim) by extension 'ros'
+[0.415s] DEBUG:colcon.colcon_core.package_identification:Package 'finger_sim' with type 'ros.ament_python' and name 'finger_sim'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extensions ['ignore', 'ignore_ament_install']
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'ignore'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'ignore_ament_install'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extensions ['colcon_pkg']
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'colcon_pkg'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extensions ['colcon_meta']
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'colcon_meta'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extensions ['ros']
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'ros'
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extensions ['cmake', 'python']
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'cmake'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(fingerlib) by extension 'python'
+[0.417s] DEBUG:colcon.colcon_core.package_identification:Package 'fingerlib' with type 'cmake' and name 'fingerlib'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.417s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.435s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.435s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.436s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/jarmibe7/ws_drake_ros/install
+[0.438s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 300 installed packages in /opt/ros/kilted
+[0.439s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'cmake_target' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'finger_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.487s] DEBUG:colcon.colcon_core.verb:Building package 'finger_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description', 'merge_install': False, 'path': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description', 'symlink_install': False, 'test_result_base': None}
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'cmake_target' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'cmake_clean_cache' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'cmake_clean_first' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'cmake_force_configure' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'ament_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'catkin_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'fingerlib' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.487s] DEBUG:colcon.colcon_core.verb:Building package 'fingerlib' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib', 'merge_install': False, 'path': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib', 'symlink_install': False, 'test_result_base': None}
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'cmake_args' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'cmake_target' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'cmake_clean_cache' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'cmake_clean_first' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'cmake_force_configure' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'ament_cmake_args' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'catkin_cmake_args' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_control' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.488s] DEBUG:colcon.colcon_core.verb:Building package 'finger_control' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control', 'merge_install': False, 'path': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control', 'symlink_install': False, 'test_result_base': None}
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'cmake_args' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'cmake_target' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'cmake_clean_cache' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'cmake_clean_first' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'cmake_force_configure' from command line to 'False'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'ament_cmake_args' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'catkin_cmake_args' from command line to 'None'
+[0.488s] Level 5:colcon.colcon_core.verb:set package 'finger_sim' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.488s] DEBUG:colcon.colcon_core.verb:Building package 'finger_sim' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim', 'merge_install': False, 'path': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim', 'symlink_install': False, 'test_result_base': None}
+[0.488s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.489s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.490s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib'
+[0.492s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.492s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.492s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.496s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description' with build type 'ament_cmake'
+[0.496s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description'
+[0.496s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.496s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.504s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib
+[0.509s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description
+[2.448s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib
+[2.451s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib -- -j8 -l8
+[5.613s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description
+[5.614s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description -- -j8 -l8
+[35.145s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description -- -j8 -l8
+[35.156s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description
+[35.798s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(finger_description)
+[35.799s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description
+[35.802s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description' for CMake module files
+[35.803s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description' for CMake config files
+[35.804s] Level 1:colcon.colcon_core.shell:create_environment_hook('finger_description', 'cmake_prefix_path')
+[35.804s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/hook/cmake_prefix_path.ps1'
+[35.805s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/hook/cmake_prefix_path.dsv'
+[35.806s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/hook/cmake_prefix_path.sh'
+[35.807s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib'
+[35.808s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/bin'
+[35.808s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/pkgconfig/finger_description.pc'
+[35.808s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/python3.12/site-packages'
+[35.809s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/bin'
+[35.809s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.ps1'
+[35.811s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.dsv'
+[35.811s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.sh'
+[35.812s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.bash'
+[35.814s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.zsh'
+[35.815s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/colcon-core/packages/finger_description)
+[35.817s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(finger_description)
+[35.817s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description' for CMake module files
+[35.818s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description' for CMake config files
+[35.818s] Level 1:colcon.colcon_core.shell:create_environment_hook('finger_description', 'cmake_prefix_path')
+[35.819s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/hook/cmake_prefix_path.ps1'
+[35.819s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/hook/cmake_prefix_path.dsv'
+[35.820s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/hook/cmake_prefix_path.sh'
+[35.821s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib'
+[35.821s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/bin'
+[35.821s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/pkgconfig/finger_description.pc'
+[35.822s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/python3.12/site-packages'
+[35.822s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/bin'
+[35.823s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.ps1'
+[35.824s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.dsv'
+[35.825s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.sh'
+[35.825s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.bash'
+[35.826s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.zsh'
+[35.827s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/colcon-core/packages/finger_description)
+[46.157s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib -- -j8 -l8
+[46.158s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib
+[46.177s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(fingerlib)
+[46.178s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib' for CMake module files
+[46.179s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib
+[46.179s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib' for CMake config files
+[46.179s] Level 1:colcon.colcon_core.shell:create_environment_hook('fingerlib', 'cmake_prefix_path')
+[46.180s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/cmake_prefix_path.ps1'
+[46.180s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/cmake_prefix_path.dsv'
+[46.180s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/cmake_prefix_path.sh'
+[46.181s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/lib'
+[46.181s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin'
+[46.181s] Level 1:colcon.colcon_core.shell:create_environment_hook('fingerlib', 'path')
+[46.181s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/path.ps1'
+[46.182s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/path.dsv'
+[46.182s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/path.sh'
+[46.182s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/lib/pkgconfig/fingerlib.pc'
+[46.183s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/lib/python3.12/site-packages'
+[46.183s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin'
+[46.183s] Level 1:colcon.colcon_core.shell:create_environment_hook('fingerlib', 'pythonscriptspath')
+[46.183s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/pythonscriptspath.ps1'
+[46.184s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/pythonscriptspath.dsv'
+[46.184s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/hook/pythonscriptspath.sh'
+[46.185s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/package.ps1'
+[46.186s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/package.dsv'
+[46.186s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/package.sh'
+[46.187s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/package.bash'
+[46.187s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/package.zsh'
+[46.187s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/colcon-core/packages/fingerlib)
+[46.188s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control' with build type 'ament_cmake'
+[46.188s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control'
+[46.188s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[46.188s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[46.199s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control': CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control
+[48.069s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control' returned '0': CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} /usr/bin/cmake /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control -DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control
+[48.070s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control': CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control -- -j8 -l8
+[105.179s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control' returned '0': CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} /usr/bin/cmake --build /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control -- -j8 -l8
+[105.180s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control': CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control
+[105.227s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(finger_control)
+[105.227s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control' for CMake module files
+[105.228s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control' returned '0': CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} /usr/bin/cmake --install /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control
+[105.229s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control' for CMake config files
+[105.229s] Level 1:colcon.colcon_core.shell:create_environment_hook('finger_control', 'cmake_prefix_path')
+[105.229s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/hook/cmake_prefix_path.ps1'
+[105.229s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/hook/cmake_prefix_path.dsv'
+[105.230s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/hook/cmake_prefix_path.sh'
+[105.230s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib'
+[105.230s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/bin'
+[105.230s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/pkgconfig/finger_control.pc'
+[105.231s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/python3.12/site-packages'
+[105.231s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/bin'
+[105.231s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.ps1'
+[105.232s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.dsv'
+[105.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.sh'
+[105.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.bash'
+[105.234s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.zsh'
+[105.234s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/colcon-core/packages/finger_control)
+[105.235s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(finger_control)
+[105.235s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control' for CMake module files
+[105.236s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control' for CMake config files
+[105.236s] Level 1:colcon.colcon_core.shell:create_environment_hook('finger_control', 'cmake_prefix_path')
+[105.236s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/hook/cmake_prefix_path.ps1'
+[105.236s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/hook/cmake_prefix_path.dsv'
+[105.237s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/hook/cmake_prefix_path.sh'
+[105.237s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib'
+[105.238s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/bin'
+[105.238s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/pkgconfig/finger_control.pc'
+[105.238s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/python3.12/site-packages'
+[105.238s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/bin'
+[105.238s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.ps1'
+[105.239s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.dsv'
+[105.239s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.sh'
+[105.240s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.bash'
+[105.240s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.zsh'
+[105.241s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/colcon-core/packages/finger_control)
+[105.241s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim' with build type 'ament_python'
+[105.241s] Level 1:colcon.colcon_core.shell:create_environment_hook('finger_sim', 'ament_prefix_path')
+[105.241s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/hook/ament_prefix_path.ps1'
+[105.242s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/hook/ament_prefix_path.dsv'
+[105.243s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/hook/ament_prefix_path.sh'
+[105.243s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[105.243s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[105.699s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim'
+[105.700s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[105.700s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[106.680s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim': AMENT_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} PYTHONPATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/finger_sim build --build-base /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build install --record /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log --single-version-externally-managed install_data
+[107.656s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim' for CMake module files
+[107.656s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim' returned '0': AMENT_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:${PATH} PYTHONPATH=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/finger_sim build --build-base /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build install --record /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log --single-version-externally-managed install_data
+[107.657s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim' for CMake config files
+[107.657s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib'
+[107.657s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/bin'
+[107.657s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/pkgconfig/finger_sim.pc'
+[107.658s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages'
+[107.658s] Level 1:colcon.colcon_core.shell:create_environment_hook('finger_sim', 'pythonpath')
+[107.658s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/hook/pythonpath.ps1'
+[107.658s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/hook/pythonpath.dsv'
+[107.658s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/hook/pythonpath.sh'
+[107.659s] Level 1:colcon.colcon_core.environment:checking '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/bin'
+[107.659s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(finger_sim)
+[107.659s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/package.ps1'
+[107.660s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/package.dsv'
+[107.660s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/package.sh'
+[107.661s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/package.bash'
+[107.661s] INFO:colcon.colcon_core.shell:Creating package script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/package.zsh'
+[107.661s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/colcon-core/packages/finger_sim)
+[107.661s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[107.662s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[107.662s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[107.662s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[107.668s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[107.668s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[107.668s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[107.670s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[107.670s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[107.670s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/local_setup.ps1'
+[107.671s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/_local_setup_util_ps1.py'
+[107.672s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/setup.ps1'
+[107.673s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/local_setup.sh'
+[107.673s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/_local_setup_util_sh.py'
+[107.674s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/setup.sh'
+[107.675s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/local_setup.bash'
+[107.675s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/setup.bash'
+[107.676s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/local_setup.zsh'
+[107.677s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/setup.zsh'

@@ -1,0 +1,1351 @@
+[0.000000] (-) TimerEvent: {}
+[0.000185] (finger_description) JobQueued: {'identifier': 'finger_description', 'dependencies': OrderedDict()}
+[0.000219] (fingerlib) JobQueued: {'identifier': 'fingerlib', 'dependencies': OrderedDict()}
+[0.000241] (finger_control) JobQueued: {'identifier': 'finger_control', 'dependencies': OrderedDict({'fingerlib': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib'})}
+[0.000263] (finger_sim) JobQueued: {'identifier': 'finger_sim', 'dependencies': OrderedDict({'finger_description': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description', 'fingerlib': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib', 'finger_control': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control'})}
+[0.001045] (fingerlib) JobStarted: {'identifier': 'fingerlib'}
+[0.007194] (finger_description) JobStarted: {'identifier': 'finger_description'}
+[0.011622] (fingerlib) JobProgress: {'identifier': 'fingerlib', 'progress': 'cmake'}
+[0.012488] (fingerlib) Command: {'cmd': ['/usr/bin/cmake', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib', '-DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor'}), 'shell': False}
+[0.017693] (finger_description) JobProgress: {'identifier': 'finger_description', 'progress': 'cmake'}
+[0.018244] (finger_description) Command: {'cmd': ['/usr/bin/cmake', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description', '-DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted'}), 'shell': False}
+[0.099840] (-) TimerEvent: {}
+[0.200297] (-) TimerEvent: {}
+[0.300838] (-) TimerEvent: {}
+[0.328018] (finger_description) StdoutLine: {'line': b'-- The C compiler identification is GNU 14.2.0\n'}
+[0.328419] (fingerlib) StdoutLine: {'line': b'-- The C compiler identification is GNU 14.2.0\n'}
+[0.401016] (-) TimerEvent: {}
+[0.501482] (-) TimerEvent: {}
+[0.602082] (-) TimerEvent: {}
+[0.702379] (-) TimerEvent: {}
+[0.729245] (finger_description) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 14.2.0\n'}
+[0.731937] (fingerlib) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 14.2.0\n'}
+[0.785531] (finger_description) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.788461] (fingerlib) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.802493] (-) TimerEvent: {}
+[0.902946] (-) TimerEvent: {}
+[0.964047] (finger_description) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.964705] (fingerlib) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.975051] (finger_description) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.975667] (fingerlib) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.975817] (finger_description) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.976037] (fingerlib) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.976512] (finger_description) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.976694] (fingerlib) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.988606] (finger_description) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.989193] (fingerlib) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.003046] (-) TimerEvent: {}
+[1.099699] (finger_description) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.103165] (-) TimerEvent: {}
+[1.103969] (fingerlib) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.112693] (finger_description) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.112960] (finger_description) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.113498] (finger_description) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.116278] (fingerlib) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.116714] (fingerlib) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.117211] (fingerlib) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.136372] (finger_description) StdoutLine: {'line': b'-- Found ament_cmake: 2.7.5 (/opt/ros/kilted/share/ament_cmake/cmake)\n'}
+[1.203268] (-) TimerEvent: {}
+[1.303587] (-) TimerEvent: {}
+[1.404069] (-) TimerEvent: {}
+[1.495205] (finger_description) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.504205] (-) TimerEvent: {}
+[1.604573] (-) TimerEvent: {}
+[1.705143] (-) TimerEvent: {}
+[1.778522] (fingerlib) StdoutLine: {'line': b'-- Found Doxygen: /usr/bin/doxygen (found version "1.9.8") found components: doxygen dot \n'}
+[1.805267] (-) TimerEvent: {}
+[1.905568] (-) TimerEvent: {}
+[1.926790] (fingerlib) StdoutLine: {'line': b'-- Configuring done (1.9s)\n'}
+[1.945986] (fingerlib) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[1.954310] (fingerlib) StdoutLine: {'line': b'-- Build files have been written to: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib\n'}
+[1.958925] (fingerlib) CommandEnded: {'returncode': 0}
+[1.959838] (fingerlib) JobProgress: {'identifier': 'fingerlib', 'progress': 'build'}
+[1.960663] (fingerlib) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', '--', '-j8', '-l8'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor'}), 'shell': False}
+[2.005687] (-) TimerEvent: {}
+[2.015276] (fingerlib) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib.dir/src/kinematics.cpp.o\x1b[0m\n'}
+[2.105894] (-) TimerEvent: {}
+[2.206480] (-) TimerEvent: {}
+[2.307035] (-) TimerEvent: {}
+[2.401646] (finger_description) StdoutLine: {'line': b'-- Found rclcpp: 29.5.7 (/opt/ros/kilted/share/rclcpp/cmake)\n'}
+[2.407188] (-) TimerEvent: {}
+[2.507586] (-) TimerEvent: {}
+[2.607991] (-) TimerEvent: {}
+[2.708614] (-) TimerEvent: {}
+[2.773279] (finger_description) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.9.6 (/opt/ros/kilted/share/rosidl_generator_c/cmake)\n'}
+[2.808738] (-) TimerEvent: {}
+[2.869931] (finger_description) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.9.6 (/opt/ros/kilted/share/rosidl_generator_cpp/cmake)\n'}
+[2.908895] (-) TimerEvent: {}
+[3.009258] (-) TimerEvent: {}
+[3.109847] (-) TimerEvent: {}
+[3.210253] (-) TimerEvent: {}
+[3.213373] (finger_description) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.310486] (-) TimerEvent: {}
+[3.343140] (finger_description) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.410612] (-) TimerEvent: {}
+[3.511089] (-) TimerEvent: {}
+[3.611514] (-) TimerEvent: {}
+[3.712181] (-) TimerEvent: {}
+[3.812579] (-) TimerEvent: {}
+[3.890192] (finger_description) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.8.2 (/opt/ros/kilted/share/rmw_implementation_cmake/cmake)\n'}
+[3.912786] (-) TimerEvent: {}
+[3.920325] (finger_description) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 9.3.3 (/opt/ros/kilted/share/rmw_fastrtps_cpp/cmake)\n'}
+[4.012884] (-) TimerEvent: {}
+[4.113170] (-) TimerEvent: {}
+[4.213453] (-) TimerEvent: {}
+[4.280537] (finger_description) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[4.313569] (-) TimerEvent: {}
+[4.322503] (finger_description) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[4.413689] (-) TimerEvent: {}
+[4.508669] (finger_description) StdoutLine: {'line': b'-- Found sensor_msgs: 5.5.2 (/opt/ros/kilted/share/sensor_msgs/cmake)\n'}
+[4.513813] (-) TimerEvent: {}
+[4.614078] (-) TimerEvent: {}
+[4.635557] (finger_description) StdoutLine: {'line': b'-- Found Doxygen: /usr/bin/doxygen (found version "1.9.8") found components: doxygen dot \n'}
+[4.686002] (finger_description) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.19.2 (/opt/ros/kilted/share/ament_lint_auto/cmake)\n'}
+[4.714189] (-) TimerEvent: {}
+[4.814497] (-) TimerEvent: {}
+[4.914803] (-) TimerEvent: {}
+[5.015079] (-) TimerEvent: {}
+[5.016721] (finger_description) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[5.017675] (finger_description) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_description/../fingerlib/include\n'}
+[5.017836] (finger_description) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[5.039245] (finger_description) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[5.051194] (finger_description) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[5.051539] (finger_description) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[5.059549] (finger_description) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[5.061805] (finger_description) StdoutLine: {'line': b'-- Configuring done (5.0s)\n'}
+[5.093766] (finger_description) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[5.107641] (finger_description) StdoutLine: {'line': b'-- Build files have been written to: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description\n'}
+[5.115179] (-) TimerEvent: {}
+[5.123568] (finger_description) CommandEnded: {'returncode': 0}
+[5.124268] (finger_description) JobProgress: {'identifier': 'finger_description', 'progress': 'build'}
+[5.124900] (finger_description) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', '--', '-j8', '-l8'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted'}), 'shell': False}
+[5.181691] (finger_description) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib.dir/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib/src/kinematics.cpp.o\x1b[0m\n'}
+[5.215296] (-) TimerEvent: {}
+[5.315573] (-) TimerEvent: {}
+[5.415856] (-) TimerEvent: {}
+[5.516140] (-) TimerEvent: {}
+[5.616441] (-) TimerEvent: {}
+[5.716736] (-) TimerEvent: {}
+[5.817024] (-) TimerEvent: {}
+[5.917323] (-) TimerEvent: {}
+[6.017650] (-) TimerEvent: {}
+[6.117939] (-) TimerEvent: {}
+[6.218225] (-) TimerEvent: {}
+[6.318497] (-) TimerEvent: {}
+[6.418758] (-) TimerEvent: {}
+[6.519084] (-) TimerEvent: {}
+[6.619357] (-) TimerEvent: {}
+[6.719633] (-) TimerEvent: {}
+[6.819991] (-) TimerEvent: {}
+[6.920335] (-) TimerEvent: {}
+[7.020651] (-) TimerEvent: {}
+[7.120909] (-) TimerEvent: {}
+[7.221188] (-) TimerEvent: {}
+[7.321510] (-) TimerEvent: {}
+[7.421780] (-) TimerEvent: {}
+[7.522049] (-) TimerEvent: {}
+[7.622324] (-) TimerEvent: {}
+[7.722611] (-) TimerEvent: {}
+[7.822879] (-) TimerEvent: {}
+[7.923148] (-) TimerEvent: {}
+[8.023459] (-) TimerEvent: {}
+[8.123755] (-) TimerEvent: {}
+[8.224022] (-) TimerEvent: {}
+[8.324306] (-) TimerEvent: {}
+[8.424610] (-) TimerEvent: {}
+[8.524879] (-) TimerEvent: {}
+[8.625148] (-) TimerEvent: {}
+[8.725474] (-) TimerEvent: {}
+[8.825804] (-) TimerEvent: {}
+[8.926058] (-) TimerEvent: {}
+[9.026363] (-) TimerEvent: {}
+[9.126657] (-) TimerEvent: {}
+[9.226927] (-) TimerEvent: {}
+[9.340481] (-) TimerEvent: {}
+[9.440753] (-) TimerEvent: {}
+[9.541057] (-) TimerEvent: {}
+[9.641350] (-) TimerEvent: {}
+[9.741647] (-) TimerEvent: {}
+[9.841944] (-) TimerEvent: {}
+[9.942203] (-) TimerEvent: {}
+[10.042501] (-) TimerEvent: {}
+[10.142761] (-) TimerEvent: {}
+[10.243083] (-) TimerEvent: {}
+[10.343364] (-) TimerEvent: {}
+[10.443675] (-) TimerEvent: {}
+[10.543960] (-) TimerEvent: {}
+[10.644309] (-) TimerEvent: {}
+[10.744673] (-) TimerEvent: {}
+[10.844948] (-) TimerEvent: {}
+[10.945208] (-) TimerEvent: {}
+[11.045584] (-) TimerEvent: {}
+[11.145858] (-) TimerEvent: {}
+[11.246198] (-) TimerEvent: {}
+[11.346504] (-) TimerEvent: {}
+[11.446805] (-) TimerEvent: {}
+[11.547049] (-) TimerEvent: {}
+[11.647349] (-) TimerEvent: {}
+[11.747622] (-) TimerEvent: {}
+[11.847861] (-) TimerEvent: {}
+[11.948143] (-) TimerEvent: {}
+[12.048466] (-) TimerEvent: {}
+[12.148724] (-) TimerEvent: {}
+[12.249010] (-) TimerEvent: {}
+[12.349334] (-) TimerEvent: {}
+[12.449688] (-) TimerEvent: {}
+[12.549985] (-) TimerEvent: {}
+[12.646630] (fingerlib) StdoutLine: {'line': b'[ 22%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib.dir/src/jacobian_lookup.cpp.o\x1b[0m\n'}
+[12.650107] (-) TimerEvent: {}
+[12.750469] (-) TimerEvent: {}
+[12.850780] (-) TimerEvent: {}
+[12.951112] (-) TimerEvent: {}
+[13.051491] (-) TimerEvent: {}
+[13.151786] (-) TimerEvent: {}
+[13.252101] (-) TimerEvent: {}
+[13.352357] (-) TimerEvent: {}
+[13.452658] (-) TimerEvent: {}
+[13.553046] (-) TimerEvent: {}
+[13.653309] (-) TimerEvent: {}
+[13.753666] (-) TimerEvent: {}
+[13.853972] (-) TimerEvent: {}
+[13.954252] (-) TimerEvent: {}
+[14.054493] (-) TimerEvent: {}
+[14.145830] (finger_description) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking CXX static library libfingerlib.a\x1b[0m\n'}
+[14.154610] (-) TimerEvent: {}
+[14.254867] (-) TimerEvent: {}
+[14.330323] (finger_description) StdoutLine: {'line': b'[ 50%] Built target fingerlib\n'}
+[14.354694] (finger_description) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/four_bar.dir/src/four_bar.cpp.o\x1b[0m\n'}
+[14.354991] (-) TimerEvent: {}
+[14.455275] (-) TimerEvent: {}
+[14.555549] (-) TimerEvent: {}
+[14.655803] (-) TimerEvent: {}
+[14.756078] (-) TimerEvent: {}
+[14.856351] (-) TimerEvent: {}
+[14.956595] (-) TimerEvent: {}
+[15.056851] (-) TimerEvent: {}
+[15.157162] (-) TimerEvent: {}
+[15.257499] (-) TimerEvent: {}
+[15.357770] (-) TimerEvent: {}
+[15.439024] (fingerlib) StdoutLine: {'line': b'[ 33%] \x1b[32m\x1b[1mLinking CXX static library libfingerlib.a\x1b[0m\n'}
+[15.457880] (-) TimerEvent: {}
+[15.558254] (-) TimerEvent: {}
+[15.641241] (fingerlib) StdoutLine: {'line': b'[ 33%] Built target fingerlib\n'}
+[15.658476] (-) TimerEvent: {}
+[15.720041] (fingerlib) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/precompute_jacobian.dir/src/precompute_jacobian.cpp.o\x1b[0m\n'}
+[15.758659] (-) TimerEvent: {}
+[15.859070] (-) TimerEvent: {}
+[15.959324] (-) TimerEvent: {}
+[16.059611] (-) TimerEvent: {}
+[16.159964] (-) TimerEvent: {}
+[16.260308] (-) TimerEvent: {}
+[16.360663] (-) TimerEvent: {}
+[16.460937] (-) TimerEvent: {}
+[16.561187] (-) TimerEvent: {}
+[16.661465] (-) TimerEvent: {}
+[16.761776] (-) TimerEvent: {}
+[16.862044] (-) TimerEvent: {}
+[16.962319] (-) TimerEvent: {}
+[17.062587] (-) TimerEvent: {}
+[17.162885] (-) TimerEvent: {}
+[17.263186] (-) TimerEvent: {}
+[17.363542] (-) TimerEvent: {}
+[17.463871] (-) TimerEvent: {}
+[17.564213] (-) TimerEvent: {}
+[17.664628] (-) TimerEvent: {}
+[17.764999] (-) TimerEvent: {}
+[17.865337] (-) TimerEvent: {}
+[17.965670] (-) TimerEvent: {}
+[18.066025] (-) TimerEvent: {}
+[18.155157] (fingerlib) StdoutLine: {'line': b'[ 55%] \x1b[32m\x1b[1mLinking CXX executable precompute_jacobian\x1b[0m\n'}
+[18.166151] (-) TimerEvent: {}
+[18.266488] (-) TimerEvent: {}
+[18.357364] (fingerlib) StdoutLine: {'line': b'[ 55%] Built target precompute_jacobian\n'}
+[18.366595] (-) TimerEvent: {}
+[18.386734] (fingerlib) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib_tests.dir/tests/kinematics_tests.cpp.o\x1b[0m\n'}
+[18.466718] (-) TimerEvent: {}
+[18.568110] (-) TimerEvent: {}
+[18.668529] (-) TimerEvent: {}
+[18.768934] (-) TimerEvent: {}
+[18.869202] (-) TimerEvent: {}
+[18.969510] (-) TimerEvent: {}
+[19.069773] (-) TimerEvent: {}
+[19.170028] (-) TimerEvent: {}
+[19.270320] (-) TimerEvent: {}
+[19.370734] (-) TimerEvent: {}
+[19.471064] (-) TimerEvent: {}
+[19.571455] (-) TimerEvent: {}
+[19.671799] (-) TimerEvent: {}
+[19.772124] (-) TimerEvent: {}
+[19.872483] (-) TimerEvent: {}
+[19.972793] (-) TimerEvent: {}
+[20.073101] (-) TimerEvent: {}
+[20.173429] (-) TimerEvent: {}
+[20.273739] (-) TimerEvent: {}
+[20.374066] (-) TimerEvent: {}
+[20.474329] (-) TimerEvent: {}
+[20.574617] (-) TimerEvent: {}
+[20.674944] (-) TimerEvent: {}
+[20.775247] (-) TimerEvent: {}
+[20.876612] (-) TimerEvent: {}
+[20.977268] (-) TimerEvent: {}
+[21.077635] (-) TimerEvent: {}
+[21.177955] (-) TimerEvent: {}
+[21.278264] (-) TimerEvent: {}
+[21.378579] (-) TimerEvent: {}
+[21.478910] (-) TimerEvent: {}
+[21.579254] (-) TimerEvent: {}
+[21.679625] (-) TimerEvent: {}
+[21.779941] (-) TimerEvent: {}
+[21.880270] (-) TimerEvent: {}
+[21.980659] (-) TimerEvent: {}
+[22.081027] (-) TimerEvent: {}
+[22.181333] (-) TimerEvent: {}
+[22.281695] (-) TimerEvent: {}
+[22.382031] (-) TimerEvent: {}
+[22.482362] (-) TimerEvent: {}
+[22.582682] (-) TimerEvent: {}
+[22.682968] (-) TimerEvent: {}
+[22.783282] (-) TimerEvent: {}
+[22.883597] (-) TimerEvent: {}
+[22.983891] (-) TimerEvent: {}
+[23.084185] (-) TimerEvent: {}
+[23.184538] (-) TimerEvent: {}
+[23.242197] (fingerlib) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib_tests.dir/tests/nnls_tests.cpp.o\x1b[0m\n'}
+[23.284630] (-) TimerEvent: {}
+[23.384895] (-) TimerEvent: {}
+[23.485220] (-) TimerEvent: {}
+[23.585499] (-) TimerEvent: {}
+[23.685745] (-) TimerEvent: {}
+[23.786025] (-) TimerEvent: {}
+[23.886314] (-) TimerEvent: {}
+[23.986623] (-) TimerEvent: {}
+[24.086905] (-) TimerEvent: {}
+[24.187179] (-) TimerEvent: {}
+[24.287504] (-) TimerEvent: {}
+[24.387774] (-) TimerEvent: {}
+[24.488042] (-) TimerEvent: {}
+[24.588348] (-) TimerEvent: {}
+[24.688631] (-) TimerEvent: {}
+[24.788923] (-) TimerEvent: {}
+[24.889230] (-) TimerEvent: {}
+[24.989535] (-) TimerEvent: {}
+[25.089815] (-) TimerEvent: {}
+[25.190096] (-) TimerEvent: {}
+[25.290376] (-) TimerEvent: {}
+[25.390631] (-) TimerEvent: {}
+[25.490960] (-) TimerEvent: {}
+[25.591335] (-) TimerEvent: {}
+[25.691585] (-) TimerEvent: {}
+[25.791855] (-) TimerEvent: {}
+[25.892156] (-) TimerEvent: {}
+[25.992478] (-) TimerEvent: {}
+[26.092758] (-) TimerEvent: {}
+[26.193004] (-) TimerEvent: {}
+[26.293314] (-) TimerEvent: {}
+[26.393652] (-) TimerEvent: {}
+[26.493953] (-) TimerEvent: {}
+[26.594281] (-) TimerEvent: {}
+[26.694547] (-) TimerEvent: {}
+[26.794870] (-) TimerEvent: {}
+[26.895138] (-) TimerEvent: {}
+[26.995438] (-) TimerEvent: {}
+[27.095711] (-) TimerEvent: {}
+[27.196007] (-) TimerEvent: {}
+[27.296329] (-) TimerEvent: {}
+[27.396712] (-) TimerEvent: {}
+[27.497183] (-) TimerEvent: {}
+[27.597799] (-) TimerEvent: {}
+[27.698474] (-) TimerEvent: {}
+[27.798800] (-) TimerEvent: {}
+[27.899145] (-) TimerEvent: {}
+[27.999541] (-) TimerEvent: {}
+[28.100217] (-) TimerEvent: {}
+[28.200533] (-) TimerEvent: {}
+[28.300793] (-) TimerEvent: {}
+[28.401207] (-) TimerEvent: {}
+[28.501923] (-) TimerEvent: {}
+[28.602192] (-) TimerEvent: {}
+[28.702485] (-) TimerEvent: {}
+[28.802831] (-) TimerEvent: {}
+[28.903209] (-) TimerEvent: {}
+[29.003715] (-) TimerEvent: {}
+[29.104119] (-) TimerEvent: {}
+[29.204949] (-) TimerEvent: {}
+[29.305609] (-) TimerEvent: {}
+[29.405952] (-) TimerEvent: {}
+[29.506708] (-) TimerEvent: {}
+[29.607213] (-) TimerEvent: {}
+[29.707824] (-) TimerEvent: {}
+[29.808449] (-) TimerEvent: {}
+[29.908994] (-) TimerEvent: {}
+[30.009338] (-) TimerEvent: {}
+[30.109690] (-) TimerEvent: {}
+[30.210417] (-) TimerEvent: {}
+[30.310787] (-) TimerEvent: {}
+[30.411346] (-) TimerEvent: {}
+[30.511839] (-) TimerEvent: {}
+[30.612208] (-) TimerEvent: {}
+[30.712782] (-) TimerEvent: {}
+[30.813366] (-) TimerEvent: {}
+[30.913864] (-) TimerEvent: {}
+[31.015711] (-) TimerEvent: {}
+[31.116305] (-) TimerEvent: {}
+[31.216996] (-) TimerEvent: {}
+[31.317361] (-) TimerEvent: {}
+[31.417720] (-) TimerEvent: {}
+[31.518096] (-) TimerEvent: {}
+[31.618682] (-) TimerEvent: {}
+[31.719495] (-) TimerEvent: {}
+[31.821695] (-) TimerEvent: {}
+[31.922503] (-) TimerEvent: {}
+[32.023011] (-) TimerEvent: {}
+[32.123658] (-) TimerEvent: {}
+[32.224213] (-) TimerEvent: {}
+[32.324806] (-) TimerEvent: {}
+[32.425184] (-) TimerEvent: {}
+[32.525760] (-) TimerEvent: {}
+[32.626179] (-) TimerEvent: {}
+[32.726535] (-) TimerEvent: {}
+[32.827113] (-) TimerEvent: {}
+[32.927660] (-) TimerEvent: {}
+[33.028158] (-) TimerEvent: {}
+[33.128659] (-) TimerEvent: {}
+[33.228949] (-) TimerEvent: {}
+[33.329219] (-) TimerEvent: {}
+[33.429502] (-) TimerEvent: {}
+[33.529771] (-) TimerEvent: {}
+[33.630044] (-) TimerEvent: {}
+[33.697598] (finger_description) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable four_bar\x1b[0m\n'}
+[33.730155] (-) TimerEvent: {}
+[33.830523] (-) TimerEvent: {}
+[33.930890] (-) TimerEvent: {}
+[34.031236] (-) TimerEvent: {}
+[34.131627] (-) TimerEvent: {}
+[34.231932] (-) TimerEvent: {}
+[34.332292] (-) TimerEvent: {}
+[34.432619] (-) TimerEvent: {}
+[34.532892] (-) TimerEvent: {}
+[34.633211] (-) TimerEvent: {}
+[34.641176] (finger_description) StdoutLine: {'line': b'[100%] Built target four_bar\n'}
+[34.655279] (finger_description) CommandEnded: {'returncode': 0}
+[34.656239] (finger_description) JobProgress: {'identifier': 'finger_description', 'progress': 'install'}
+[34.666524] (finger_description) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_description', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted'}), 'shell': False}
+[34.676074] (finger_description) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[34.676370] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/finger_description/four_bar\n'}
+[34.682808] (finger_description) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/lib/finger_description/four_bar" to ""\n'}
+[34.683181] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/launch\n'}
+[34.683444] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/launch/load_finger.launch.xml\n'}
+[34.683621] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/config\n'}
+[34.683863] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/config/powerhouse_finger.rviz\n'}
+[34.694513] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/config/test_finger.rviz\n'}
+[34.695480] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf\n'}
+[34.695730] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf/powerhouse_finger.urdf.xacro\n'}
+[34.695876] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf/test_finger.urdf.xacro\n'}
+[34.733348] (-) TimerEvent: {}
+[34.777464] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/urdf/powerhouse_finger_rviz.urdf.xacro\n'}
+[34.778259] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes\n'}
+[34.778484] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment.blend1\n'}
+[34.782360] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment_old.blend\n'}
+[34.833469] (-) TimerEvent: {}
+[34.933761] (-) TimerEvent: {}
+[34.938112] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment.blend\n'}
+[35.033869] (-) TimerEvent: {}
+[35.094258] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/segment_linkage_complex.blend\n'}
+[35.102206] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual\n'}
+[35.102646] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/base_link.gltf\n'}
+[35.102850] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/right_bar.stl\n'}
+[35.103009] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/mcp_link.bin\n'}
+[35.104225] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/middle_phalanx.stl\n'}
+[35.104446] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/base_link.stl\n'}
+[35.104691] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/distal_phalanx.gltf\n'}
+[35.104902] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/proximal_phalanx.gltf\n'}
+[35.105036] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/distal_phalanx.bin\n'}
+[35.109509] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/mcp_link.gltf\n'}
+[35.109795] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/base_link.bin\n'}
+[35.110067] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/left_bar.stl\n'}
+[35.114395] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/middle_phalanx.bin\n'}
+[35.114681] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/distal_phalanx.stl\n'}
+[35.119189] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/left_bar.bin\n'}
+[35.120200] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/right_bar.gltf\n'}
+[35.120450] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/proximal_phalanx.stl\n'}
+[35.126806] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/left_bar.gltf\n'}
+[35.133989] (-) TimerEvent: {}
+[35.136963] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/proximal_phalanx.bin\n'}
+[35.234114] (-) TimerEvent: {}
+[35.298910] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/right_bar.bin\n'}
+[35.299251] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/middle_phalanx.gltf\n'}
+[35.299484] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/visual/mcp_link.stl\n'}
+[35.300733] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/joint_axes.yaml\n'}
+[35.300909] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision\n'}
+[35.301171] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_middle_phalanx.bin\n'}
+[35.301400] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_proximal_phalanx.gltf\n'}
+[35.301575] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_base_link.bin\n'}
+[35.301770] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_distal_phalanx.stl\n'}
+[35.301942] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_base_link.gltf\n'}
+[35.302094] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_proximal_phalanx.stl\n'}
+[35.302288] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_base_link.stl\n'}
+[35.302525] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_proximal_phalanx.bin\n'}
+[35.302719] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_middle_phalanx.gltf\n'}
+[35.302869] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_mcp_link.stl\n'}
+[35.303029] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_mcp_link.bin\n'}
+[35.303190] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_mcp_link.gltf\n'}
+[35.303384] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_distal_phalanx.gltf\n'}
+[35.303642] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_distal_phalanx.bin\n'}
+[35.303826] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/meshes/collision/col_middle_phalanx.stl\n'}
+[35.304065] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/ament_index/resource_index/package_run_dependencies/finger_description\n'}
+[35.304268] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/ament_index/resource_index/parent_prefix_path/finger_description\n'}
+[35.304471] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/ament_prefix_path.sh\n'}
+[35.304703] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/ament_prefix_path.dsv\n'}
+[35.304875] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/path.sh\n'}
+[35.305090] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/environment/path.dsv\n'}
+[35.305311] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.bash\n'}
+[35.305473] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.sh\n'}
+[35.305617] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.zsh\n'}
+[35.305864] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/local_setup.dsv\n'}
+[35.306003] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.dsv\n'}
+[35.306207] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/ament_index/resource_index/packages/finger_description\n'}
+[35.306371] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/cmake/finger_descriptionConfig.cmake\n'}
+[35.306559] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/cmake/finger_descriptionConfig-version.cmake\n'}
+[35.306690] (finger_description) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description/share/finger_description/package.xml\n'}
+[35.309419] (finger_description) CommandEnded: {'returncode': 0}
+[35.334381] (-) TimerEvent: {}
+[35.338184] (finger_description) JobEnded: {'identifier': 'finger_description', 'rc': 0}
+[35.434497] (-) TimerEvent: {}
+[35.534753] (-) TimerEvent: {}
+[35.635081] (-) TimerEvent: {}
+[35.735371] (-) TimerEvent: {}
+[35.835662] (-) TimerEvent: {}
+[35.935924] (-) TimerEvent: {}
+[36.036177] (-) TimerEvent: {}
+[36.136465] (-) TimerEvent: {}
+[36.236798] (-) TimerEvent: {}
+[36.337140] (-) TimerEvent: {}
+[36.437486] (-) TimerEvent: {}
+[36.538494] (-) TimerEvent: {}
+[36.638822] (-) TimerEvent: {}
+[36.739149] (-) TimerEvent: {}
+[36.839440] (-) TimerEvent: {}
+[36.939767] (-) TimerEvent: {}
+[37.040077] (-) TimerEvent: {}
+[37.140383] (-) TimerEvent: {}
+[37.240683] (-) TimerEvent: {}
+[37.340950] (-) TimerEvent: {}
+[37.441246] (-) TimerEvent: {}
+[37.541528] (-) TimerEvent: {}
+[37.641842] (-) TimerEvent: {}
+[37.742110] (-) TimerEvent: {}
+[37.842401] (-) TimerEvent: {}
+[37.942644] (-) TimerEvent: {}
+[38.042903] (-) TimerEvent: {}
+[38.143161] (-) TimerEvent: {}
+[38.243448] (-) TimerEvent: {}
+[38.343712] (-) TimerEvent: {}
+[38.443971] (-) TimerEvent: {}
+[38.544228] (-) TimerEvent: {}
+[38.644518] (-) TimerEvent: {}
+[38.744776] (-) TimerEvent: {}
+[38.845035] (-) TimerEvent: {}
+[38.945296] (-) TimerEvent: {}
+[39.045511] (-) TimerEvent: {}
+[39.145746] (-) TimerEvent: {}
+[39.246014] (-) TimerEvent: {}
+[39.346276] (-) TimerEvent: {}
+[39.446555] (-) TimerEvent: {}
+[39.546812] (-) TimerEvent: {}
+[39.647075] (-) TimerEvent: {}
+[39.747334] (-) TimerEvent: {}
+[39.847634] (-) TimerEvent: {}
+[39.947892] (-) TimerEvent: {}
+[40.048149] (-) TimerEvent: {}
+[40.148462] (-) TimerEvent: {}
+[40.248758] (-) TimerEvent: {}
+[40.349014] (-) TimerEvent: {}
+[40.449277] (-) TimerEvent: {}
+[40.549577] (-) TimerEvent: {}
+[40.649939] (-) TimerEvent: {}
+[40.750216] (-) TimerEvent: {}
+[40.850493] (-) TimerEvent: {}
+[40.950806] (-) TimerEvent: {}
+[41.051103] (-) TimerEvent: {}
+[41.151372] (-) TimerEvent: {}
+[41.251798] (-) TimerEvent: {}
+[41.352153] (-) TimerEvent: {}
+[41.452658] (-) TimerEvent: {}
+[41.552886] (-) TimerEvent: {}
+[41.653182] (-) TimerEvent: {}
+[41.753441] (-) TimerEvent: {}
+[41.853737] (-) TimerEvent: {}
+[41.954035] (-) TimerEvent: {}
+[41.999737] (fingerlib) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib_tests.dir/tests/jacobian_lookup_tests.cpp.o\x1b[0m\n'}
+[42.054122] (-) TimerEvent: {}
+[42.154431] (-) TimerEvent: {}
+[42.254820] (-) TimerEvent: {}
+[42.355127] (-) TimerEvent: {}
+[42.455394] (-) TimerEvent: {}
+[42.555878] (-) TimerEvent: {}
+[42.656184] (-) TimerEvent: {}
+[42.756492] (-) TimerEvent: {}
+[42.856787] (-) TimerEvent: {}
+[42.957096] (-) TimerEvent: {}
+[43.057390] (-) TimerEvent: {}
+[43.157751] (-) TimerEvent: {}
+[43.258003] (-) TimerEvent: {}
+[43.358264] (-) TimerEvent: {}
+[43.458510] (-) TimerEvent: {}
+[43.558760] (-) TimerEvent: {}
+[43.659009] (-) TimerEvent: {}
+[43.759274] (-) TimerEvent: {}
+[43.859603] (-) TimerEvent: {}
+[43.959900] (-) TimerEvent: {}
+[44.060205] (-) TimerEvent: {}
+[44.160543] (-) TimerEvent: {}
+[44.260850] (-) TimerEvent: {}
+[44.361149] (-) TimerEvent: {}
+[44.461496] (-) TimerEvent: {}
+[44.561804] (-) TimerEvent: {}
+[44.662114] (-) TimerEvent: {}
+[44.762385] (-) TimerEvent: {}
+[44.862755] (-) TimerEvent: {}
+[44.963015] (-) TimerEvent: {}
+[45.063315] (-) TimerEvent: {}
+[45.163692] (-) TimerEvent: {}
+[45.243154] (fingerlib) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable fingerlib_tests\x1b[0m\n'}
+[45.263817] (-) TimerEvent: {}
+[45.364094] (-) TimerEvent: {}
+[45.464342] (-) TimerEvent: {}
+[45.564761] (-) TimerEvent: {}
+[45.654650] (fingerlib) StdoutLine: {'line': b'[100%] Built target fingerlib_tests\n'}
+[45.664853] (-) TimerEvent: {}
+[45.667295] (fingerlib) CommandEnded: {'returncode': 0}
+[45.668121] (fingerlib) JobProgress: {'identifier': 'fingerlib', 'progress': 'install'}
+[45.668293] (fingerlib) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/fingerlib', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor'}), 'shell': False}
+[45.677487] (fingerlib) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[45.677783] (fingerlib) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/lib/libfingerlib.a\n'}
+[45.683657] (fingerlib) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin/precompute_jacobian\n'}
+[45.685619] (fingerlib) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/share/fingerlib/config/jacobian_transposes.csv\n'}
+[45.685924] (fingerlib) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/lib/cmake/fingerlib/fingerlib-config.cmake\n'}
+[45.686159] (fingerlib) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/lib/cmake/fingerlib/fingerlib-config-noconfig.cmake\n'}
+[45.688504] (fingerlib) CommandEnded: {'returncode': 0}
+[45.698844] (fingerlib) JobEnded: {'identifier': 'fingerlib', 'rc': 0}
+[45.700230] (finger_control) JobStarted: {'identifier': 'finger_control'}
+[45.708266] (finger_control) JobProgress: {'identifier': 'finger_control', 'progress': 'cmake'}
+[45.708958] (finger_control) Command: {'cmd': ['/usr/bin/cmake', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control', '-DCMAKE_INSTALL_PREFIX=/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted'}), 'shell': False}
+[45.764976] (-) TimerEvent: {}
+[45.773676] (finger_control) StdoutLine: {'line': b'-- The C compiler identification is GNU 14.2.0\n'}
+[45.848272] (finger_control) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 14.2.0\n'}
+[45.865107] (-) TimerEvent: {}
+[45.939538] (finger_control) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[45.965221] (-) TimerEvent: {}
+[46.065500] (-) TimerEvent: {}
+[46.166478] (-) TimerEvent: {}
+[46.234053] (finger_control) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[46.249796] (finger_control) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[46.250252] (finger_control) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[46.250994] (finger_control) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[46.264162] (finger_control) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[46.266572] (-) TimerEvent: {}
+[46.366855] (-) TimerEvent: {}
+[46.393384] (finger_control) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[46.410247] (finger_control) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[46.410723] (finger_control) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[46.411990] (finger_control) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[46.416012] (finger_control) StdoutLine: {'line': b'-- Found ament_cmake: 2.7.5 (/opt/ros/kilted/share/ament_cmake/cmake)\n'}
+[46.466983] (-) TimerEvent: {}
+[46.567220] (-) TimerEvent: {}
+[46.609198] (finger_control) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[46.667336] (-) TimerEvent: {}
+[46.741742] (finger_control) StdoutLine: {'line': b'-- Found ament_index_cpp: 1.11.3 (/opt/ros/kilted/share/ament_index_cpp/cmake)\n'}
+[46.744740] (finger_control) StdoutLine: {'line': b'-- Found rclcpp: 29.5.7 (/opt/ros/kilted/share/rclcpp/cmake)\n'}
+[46.767508] (-) TimerEvent: {}
+[46.785034] (finger_control) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.9.6 (/opt/ros/kilted/share/rosidl_generator_c/cmake)\n'}
+[46.803916] (finger_control) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.9.6 (/opt/ros/kilted/share/rosidl_generator_cpp/cmake)\n'}
+[46.827572] (finger_control) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[46.851078] (finger_control) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[46.867587] (-) TimerEvent: {}
+[46.960227] (finger_control) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.8.2 (/opt/ros/kilted/share/rmw_implementation_cmake/cmake)\n'}
+[46.964547] (finger_control) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 9.3.3 (/opt/ros/kilted/share/rmw_fastrtps_cpp/cmake)\n'}
+[46.967735] (-) TimerEvent: {}
+[47.067997] (-) TimerEvent: {}
+[47.079196] (finger_control) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[47.094202] (finger_control) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[47.168117] (-) TimerEvent: {}
+[47.207737] (finger_control) StdoutLine: {'line': b'-- Found sensor_msgs: 5.5.2 (/opt/ros/kilted/share/sensor_msgs/cmake)\n'}
+[47.268238] (-) TimerEvent: {}
+[47.336232] (finger_control) StdoutLine: {'line': b'-- Found Doxygen: /usr/bin/doxygen (found version "1.9.8") found components: doxygen dot \n'}
+[47.368389] (-) TimerEvent: {}
+[47.382181] (finger_control) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.19.2 (/opt/ros/kilted/share/ament_lint_auto/cmake)\n'}
+[47.468515] (-) TimerEvent: {}
+[47.506475] (finger_control) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[47.507309] (finger_control) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_control/../fingerlib/include\n'}
+[47.507468] (finger_control) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[47.508335] (finger_control) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[47.508536] (finger_control) StdoutLine: {'line': b"-- Configured 'flake8' exclude dirs and/or files: \n"}
+[47.509766] (finger_control) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[47.510745] (finger_control) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[47.512361] (finger_control) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[47.512607] (finger_control) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[47.513333] (finger_control) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[47.515063] (finger_control) StdoutLine: {'line': b'-- Configuring done (1.8s)\n'}
+[47.551013] (finger_control) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[47.566362] (finger_control) StdoutLine: {'line': b'-- Build files have been written to: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control\n'}
+[47.568587] (-) TimerEvent: {}
+[47.579426] (finger_control) CommandEnded: {'returncode': 0}
+[47.580219] (finger_control) JobProgress: {'identifier': 'finger_control', 'progress': 'build'}
+[47.580880] (finger_control) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', '--', '-j8', '-l8'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted'}), 'shell': False}
+[47.637328] (finger_control) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib.dir/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib/src/jacobian_lookup.cpp.o\x1b[0m\n'}
+[47.637570] (finger_control) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/fingerlib.dir/home/jarmibe7/ws_rds/src/rds-powerhouse-software/fingerlib/src/kinematics.cpp.o\x1b[0m\n'}
+[47.668682] (-) TimerEvent: {}
+[47.768959] (-) TimerEvent: {}
+[47.869225] (-) TimerEvent: {}
+[47.969556] (-) TimerEvent: {}
+[48.069852] (-) TimerEvent: {}
+[48.170239] (-) TimerEvent: {}
+[48.270517] (-) TimerEvent: {}
+[48.370806] (-) TimerEvent: {}
+[48.471093] (-) TimerEvent: {}
+[48.571324] (-) TimerEvent: {}
+[48.671953] (-) TimerEvent: {}
+[48.772210] (-) TimerEvent: {}
+[48.872484] (-) TimerEvent: {}
+[48.972719] (-) TimerEvent: {}
+[49.072985] (-) TimerEvent: {}
+[49.173237] (-) TimerEvent: {}
+[49.273461] (-) TimerEvent: {}
+[49.373728] (-) TimerEvent: {}
+[49.474041] (-) TimerEvent: {}
+[49.574336] (-) TimerEvent: {}
+[49.674676] (-) TimerEvent: {}
+[49.775012] (-) TimerEvent: {}
+[49.875269] (-) TimerEvent: {}
+[49.975495] (-) TimerEvent: {}
+[50.075756] (-) TimerEvent: {}
+[50.176006] (-) TimerEvent: {}
+[50.276278] (-) TimerEvent: {}
+[50.376490] (-) TimerEvent: {}
+[50.476726] (-) TimerEvent: {}
+[50.577042] (-) TimerEvent: {}
+[50.677369] (-) TimerEvent: {}
+[50.777661] (-) TimerEvent: {}
+[50.877930] (-) TimerEvent: {}
+[50.978192] (-) TimerEvent: {}
+[51.078478] (-) TimerEvent: {}
+[51.178826] (-) TimerEvent: {}
+[51.279114] (-) TimerEvent: {}
+[51.379453] (-) TimerEvent: {}
+[51.479798] (-) TimerEvent: {}
+[51.580104] (-) TimerEvent: {}
+[51.680400] (-) TimerEvent: {}
+[51.780652] (-) TimerEvent: {}
+[51.880967] (-) TimerEvent: {}
+[51.981773] (-) TimerEvent: {}
+[52.082065] (-) TimerEvent: {}
+[52.182297] (-) TimerEvent: {}
+[52.282585] (-) TimerEvent: {}
+[52.382821] (-) TimerEvent: {}
+[52.483054] (-) TimerEvent: {}
+[52.583346] (-) TimerEvent: {}
+[52.683783] (-) TimerEvent: {}
+[52.784088] (-) TimerEvent: {}
+[52.884486] (-) TimerEvent: {}
+[52.984772] (-) TimerEvent: {}
+[53.085091] (-) TimerEvent: {}
+[53.185425] (-) TimerEvent: {}
+[53.285719] (-) TimerEvent: {}
+[53.386010] (-) TimerEvent: {}
+[53.486275] (-) TimerEvent: {}
+[53.586537] (-) TimerEvent: {}
+[53.686803] (-) TimerEvent: {}
+[53.787116] (-) TimerEvent: {}
+[53.887401] (-) TimerEvent: {}
+[53.987683] (-) TimerEvent: {}
+[54.087970] (-) TimerEvent: {}
+[54.188239] (-) TimerEvent: {}
+[54.288667] (-) TimerEvent: {}
+[54.388935] (-) TimerEvent: {}
+[54.489193] (-) TimerEvent: {}
+[54.589512] (-) TimerEvent: {}
+[54.689804] (-) TimerEvent: {}
+[54.791333] (-) TimerEvent: {}
+[54.892477] (-) TimerEvent: {}
+[54.992806] (-) TimerEvent: {}
+[55.093079] (-) TimerEvent: {}
+[55.193363] (-) TimerEvent: {}
+[55.293775] (-) TimerEvent: {}
+[55.394076] (-) TimerEvent: {}
+[55.494401] (-) TimerEvent: {}
+[55.594696] (-) TimerEvent: {}
+[55.694956] (-) TimerEvent: {}
+[55.795219] (-) TimerEvent: {}
+[55.895539] (-) TimerEvent: {}
+[55.995835] (-) TimerEvent: {}
+[56.096071] (-) TimerEvent: {}
+[56.196310] (-) TimerEvent: {}
+[56.296602] (-) TimerEvent: {}
+[56.396902] (-) TimerEvent: {}
+[56.497214] (-) TimerEvent: {}
+[56.597482] (-) TimerEvent: {}
+[56.697739] (-) TimerEvent: {}
+[56.798008] (-) TimerEvent: {}
+[56.898269] (-) TimerEvent: {}
+[56.998501] (-) TimerEvent: {}
+[57.095463] (finger_control) StdoutLine: {'line': b'[ 42%] \x1b[32m\x1b[1mLinking CXX static library libfingerlib.a\x1b[0m\n'}
+[57.098618] (-) TimerEvent: {}
+[57.194939] (finger_control) StdoutLine: {'line': b'[ 42%] Built target fingerlib\n'}
+[57.198686] (-) TimerEvent: {}
+[57.218943] (finger_control) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/finger_pd_control.dir/src/finger_pd_control.cpp.o\x1b[0m\n'}
+[57.219149] (finger_control) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/finger_motor_control.dir/src/finger_motor_control.cpp.o\x1b[0m\n'}
+[57.298817] (-) TimerEvent: {}
+[57.399120] (-) TimerEvent: {}
+[57.499397] (-) TimerEvent: {}
+[57.599695] (-) TimerEvent: {}
+[57.699957] (-) TimerEvent: {}
+[57.800239] (-) TimerEvent: {}
+[57.900579] (-) TimerEvent: {}
+[58.001052] (-) TimerEvent: {}
+[58.101326] (-) TimerEvent: {}
+[58.201620] (-) TimerEvent: {}
+[58.301910] (-) TimerEvent: {}
+[58.402180] (-) TimerEvent: {}
+[58.502490] (-) TimerEvent: {}
+[58.602758] (-) TimerEvent: {}
+[58.703031] (-) TimerEvent: {}
+[58.803310] (-) TimerEvent: {}
+[58.903576] (-) TimerEvent: {}
+[59.003854] (-) TimerEvent: {}
+[59.104132] (-) TimerEvent: {}
+[59.204445] (-) TimerEvent: {}
+[59.304727] (-) TimerEvent: {}
+[59.405011] (-) TimerEvent: {}
+[59.505297] (-) TimerEvent: {}
+[59.605573] (-) TimerEvent: {}
+[59.705859] (-) TimerEvent: {}
+[59.806137] (-) TimerEvent: {}
+[59.906438] (-) TimerEvent: {}
+[60.006729] (-) TimerEvent: {}
+[60.107008] (-) TimerEvent: {}
+[60.207288] (-) TimerEvent: {}
+[60.307556] (-) TimerEvent: {}
+[60.407824] (-) TimerEvent: {}
+[60.508094] (-) TimerEvent: {}
+[60.608363] (-) TimerEvent: {}
+[60.708610] (-) TimerEvent: {}
+[60.808877] (-) TimerEvent: {}
+[60.909145] (-) TimerEvent: {}
+[61.009461] (-) TimerEvent: {}
+[61.109822] (-) TimerEvent: {}
+[61.210131] (-) TimerEvent: {}
+[61.310580] (-) TimerEvent: {}
+[61.410965] (-) TimerEvent: {}
+[61.512659] (-) TimerEvent: {}
+[61.612976] (-) TimerEvent: {}
+[61.713234] (-) TimerEvent: {}
+[61.813573] (-) TimerEvent: {}
+[61.913878] (-) TimerEvent: {}
+[62.014167] (-) TimerEvent: {}
+[62.114420] (-) TimerEvent: {}
+[62.214674] (-) TimerEvent: {}
+[62.314939] (-) TimerEvent: {}
+[62.415201] (-) TimerEvent: {}
+[62.515506] (-) TimerEvent: {}
+[62.615756] (-) TimerEvent: {}
+[62.716045] (-) TimerEvent: {}
+[62.816328] (-) TimerEvent: {}
+[62.916646] (-) TimerEvent: {}
+[63.016921] (-) TimerEvent: {}
+[63.117199] (-) TimerEvent: {}
+[63.217494] (-) TimerEvent: {}
+[63.317841] (-) TimerEvent: {}
+[63.418144] (-) TimerEvent: {}
+[63.518403] (-) TimerEvent: {}
+[63.618643] (-) TimerEvent: {}
+[63.718995] (-) TimerEvent: {}
+[63.819369] (-) TimerEvent: {}
+[63.919956] (-) TimerEvent: {}
+[64.020316] (-) TimerEvent: {}
+[64.120794] (-) TimerEvent: {}
+[64.221148] (-) TimerEvent: {}
+[64.321534] (-) TimerEvent: {}
+[64.422026] (-) TimerEvent: {}
+[64.522295] (-) TimerEvent: {}
+[64.622788] (-) TimerEvent: {}
+[64.723272] (-) TimerEvent: {}
+[64.823749] (-) TimerEvent: {}
+[64.924224] (-) TimerEvent: {}
+[65.024822] (-) TimerEvent: {}
+[65.125189] (-) TimerEvent: {}
+[65.225694] (-) TimerEvent: {}
+[65.326272] (-) TimerEvent: {}
+[65.426763] (-) TimerEvent: {}
+[65.527018] (-) TimerEvent: {}
+[65.627520] (-) TimerEvent: {}
+[65.727886] (-) TimerEvent: {}
+[65.828370] (-) TimerEvent: {}
+[65.928751] (-) TimerEvent: {}
+[66.029170] (-) TimerEvent: {}
+[66.129696] (-) TimerEvent: {}
+[66.230029] (-) TimerEvent: {}
+[66.330578] (-) TimerEvent: {}
+[66.431146] (-) TimerEvent: {}
+[66.531738] (-) TimerEvent: {}
+[66.632341] (-) TimerEvent: {}
+[66.732933] (-) TimerEvent: {}
+[66.833529] (-) TimerEvent: {}
+[66.934223] (-) TimerEvent: {}
+[67.034879] (-) TimerEvent: {}
+[67.135641] (-) TimerEvent: {}
+[67.236074] (-) TimerEvent: {}
+[67.906717] (-) TimerEvent: {}
+[68.007330] (-) TimerEvent: {}
+[68.107993] (-) TimerEvent: {}
+[68.208543] (-) TimerEvent: {}
+[68.309194] (-) TimerEvent: {}
+[68.409875] (-) TimerEvent: {}
+[68.510547] (-) TimerEvent: {}
+[68.611120] (-) TimerEvent: {}
+[68.711607] (-) TimerEvent: {}
+[68.812168] (-) TimerEvent: {}
+[68.912755] (-) TimerEvent: {}
+[69.013343] (-) TimerEvent: {}
+[69.113914] (-) TimerEvent: {}
+[69.214255] (-) TimerEvent: {}
+[69.314857] (-) TimerEvent: {}
+[69.415508] (-) TimerEvent: {}
+[69.516093] (-) TimerEvent: {}
+[69.616687] (-) TimerEvent: {}
+[69.717268] (-) TimerEvent: {}
+[69.817862] (-) TimerEvent: {}
+[69.918443] (-) TimerEvent: {}
+[70.019019] (-) TimerEvent: {}
+[70.119542] (-) TimerEvent: {}
+[70.220009] (-) TimerEvent: {}
+[70.656989] (-) TimerEvent: {}
+[70.757567] (-) TimerEvent: {}
+[70.858139] (-) TimerEvent: {}
+[70.958783] (-) TimerEvent: {}
+[71.059384] (-) TimerEvent: {}
+[71.159966] (-) TimerEvent: {}
+[71.260307] (-) TimerEvent: {}
+[71.360640] (-) TimerEvent: {}
+[71.461240] (-) TimerEvent: {}
+[71.561810] (-) TimerEvent: {}
+[71.662385] (-) TimerEvent: {}
+[71.762988] (-) TimerEvent: {}
+[71.863561] (-) TimerEvent: {}
+[71.963969] (-) TimerEvent: {}
+[72.064223] (-) TimerEvent: {}
+[72.164588] (-) TimerEvent: {}
+[72.265109] (-) TimerEvent: {}
+[72.365479] (-) TimerEvent: {}
+[72.466051] (-) TimerEvent: {}
+[72.566754] (-) TimerEvent: {}
+[72.667301] (-) TimerEvent: {}
+[72.767810] (-) TimerEvent: {}
+[72.868230] (-) TimerEvent: {}
+[72.968641] (-) TimerEvent: {}
+[73.069201] (-) TimerEvent: {}
+[73.169742] (-) TimerEvent: {}
+[73.270171] (-) TimerEvent: {}
+[73.370527] (-) TimerEvent: {}
+[73.471054] (-) TimerEvent: {}
+[73.571686] (-) TimerEvent: {}
+[73.671944] (-) TimerEvent: {}
+[73.772225] (-) TimerEvent: {}
+[73.872501] (-) TimerEvent: {}
+[73.972868] (-) TimerEvent: {}
+[74.073461] (-) TimerEvent: {}
+[74.173981] (-) TimerEvent: {}
+[74.274640] (-) TimerEvent: {}
+[74.375344] (-) TimerEvent: {}
+[74.475676] (-) TimerEvent: {}
+[74.576111] (-) TimerEvent: {}
+[74.676471] (-) TimerEvent: {}
+[74.776980] (-) TimerEvent: {}
+[74.877496] (-) TimerEvent: {}
+[74.977813] (-) TimerEvent: {}
+[75.078183] (-) TimerEvent: {}
+[75.178810] (-) TimerEvent: {}
+[75.279172] (-) TimerEvent: {}
+[75.379816] (-) TimerEvent: {}
+[77.057708] (-) TimerEvent: {}
+[77.158206] (-) TimerEvent: {}
+[77.258814] (-) TimerEvent: {}
+[77.359431] (-) TimerEvent: {}
+[77.460076] (-) TimerEvent: {}
+[77.560693] (-) TimerEvent: {}
+[77.661288] (-) TimerEvent: {}
+[77.761938] (-) TimerEvent: {}
+[77.862437] (-) TimerEvent: {}
+[77.962775] (-) TimerEvent: {}
+[78.063350] (-) TimerEvent: {}
+[78.163923] (-) TimerEvent: {}
+[78.264640] (-) TimerEvent: {}
+[78.365205] (-) TimerEvent: {}
+[78.465701] (-) TimerEvent: {}
+[78.566000] (-) TimerEvent: {}
+[78.666464] (-) TimerEvent: {}
+[78.767038] (-) TimerEvent: {}
+[78.867522] (-) TimerEvent: {}
+[78.967953] (-) TimerEvent: {}
+[79.068463] (-) TimerEvent: {}
+[79.168700] (-) TimerEvent: {}
+[79.269133] (-) TimerEvent: {}
+[79.369777] (-) TimerEvent: {}
+[79.470269] (-) TimerEvent: {}
+[79.570711] (-) TimerEvent: {}
+[79.671153] (-) TimerEvent: {}
+[79.771650] (-) TimerEvent: {}
+[79.872025] (-) TimerEvent: {}
+[79.972551] (-) TimerEvent: {}
+[80.072922] (-) TimerEvent: {}
+[80.173458] (-) TimerEvent: {}
+[80.273722] (-) TimerEvent: {}
+[80.374018] (-) TimerEvent: {}
+[80.474413] (-) TimerEvent: {}
+[80.574767] (-) TimerEvent: {}
+[80.675307] (-) TimerEvent: {}
+[80.775711] (-) TimerEvent: {}
+[80.876085] (-) TimerEvent: {}
+[80.976572] (-) TimerEvent: {}
+[81.076916] (-) TimerEvent: {}
+[81.177523] (-) TimerEvent: {}
+[81.278115] (-) TimerEvent: {}
+[81.378670] (-) TimerEvent: {}
+[81.479236] (-) TimerEvent: {}
+[81.579843] (-) TimerEvent: {}
+[81.680909] (-) TimerEvent: {}
+[81.781370] (-) TimerEvent: {}
+[81.881975] (-) TimerEvent: {}
+[81.982226] (-) TimerEvent: {}
+[82.082500] (-) TimerEvent: {}
+[82.182779] (-) TimerEvent: {}
+[82.283058] (-) TimerEvent: {}
+[82.383361] (-) TimerEvent: {}
+[82.483706] (-) TimerEvent: {}
+[82.584017] (-) TimerEvent: {}
+[82.684396] (-) TimerEvent: {}
+[82.784911] (-) TimerEvent: {}
+[82.885270] (-) TimerEvent: {}
+[82.985604] (-) TimerEvent: {}
+[83.086025] (-) TimerEvent: {}
+[83.186481] (-) TimerEvent: {}
+[83.286913] (-) TimerEvent: {}
+[83.387486] (-) TimerEvent: {}
+[83.488110] (-) TimerEvent: {}
+[83.588425] (-) TimerEvent: {}
+[83.688748] (-) TimerEvent: {}
+[83.789091] (-) TimerEvent: {}
+[83.889447] (-) TimerEvent: {}
+[83.990075] (-) TimerEvent: {}
+[84.401957] (-) TimerEvent: {}
+[84.502524] (-) TimerEvent: {}
+[84.603540] (-) TimerEvent: {}
+[84.703976] (-) TimerEvent: {}
+[84.804748] (-) TimerEvent: {}
+[84.905535] (-) TimerEvent: {}
+[85.005849] (-) TimerEvent: {}
+[85.106095] (-) TimerEvent: {}
+[85.206435] (-) TimerEvent: {}
+[85.306710] (-) TimerEvent: {}
+[85.406974] (-) TimerEvent: {}
+[85.507243] (-) TimerEvent: {}
+[85.607477] (-) TimerEvent: {}
+[85.707786] (-) TimerEvent: {}
+[85.808136] (-) TimerEvent: {}
+[85.908436] (-) TimerEvent: {}
+[86.008728] (-) TimerEvent: {}
+[86.108990] (-) TimerEvent: {}
+[86.209259] (-) TimerEvent: {}
+[86.309488] (-) TimerEvent: {}
+[86.409759] (-) TimerEvent: {}
+[86.509994] (-) TimerEvent: {}
+[86.610250] (-) TimerEvent: {}
+[86.717018] (-) TimerEvent: {}
+[86.817289] (-) TimerEvent: {}
+[86.917550] (-) TimerEvent: {}
+[87.017816] (-) TimerEvent: {}
+[87.118083] (-) TimerEvent: {}
+[87.218362] (-) TimerEvent: {}
+[87.318625] (-) TimerEvent: {}
+[87.418881] (-) TimerEvent: {}
+[87.519126] (-) TimerEvent: {}
+[87.619427] (-) TimerEvent: {}
+[87.719709] (-) TimerEvent: {}
+[87.820067] (-) TimerEvent: {}
+[87.920644] (-) TimerEvent: {}
+[88.021262] (-) TimerEvent: {}
+[88.121822] (-) TimerEvent: {}
+[88.222108] (-) TimerEvent: {}
+[88.322352] (-) TimerEvent: {}
+[88.422684] (-) TimerEvent: {}
+[88.523281] (-) TimerEvent: {}
+[88.623549] (-) TimerEvent: {}
+[88.723922] (-) TimerEvent: {}
+[88.824556] (-) TimerEvent: {}
+[88.925086] (-) TimerEvent: {}
+[89.025562] (-) TimerEvent: {}
+[89.125860] (-) TimerEvent: {}
+[89.226181] (-) TimerEvent: {}
+[89.326920] (-) TimerEvent: {}
+[89.427525] (-) TimerEvent: {}
+[89.528078] (-) TimerEvent: {}
+[89.628655] (-) TimerEvent: {}
+[89.729219] (-) TimerEvent: {}
+[89.829592] (-) TimerEvent: {}
+[89.930174] (-) TimerEvent: {}
+[90.030756] (-) TimerEvent: {}
+[90.131510] (-) TimerEvent: {}
+[90.231909] (-) TimerEvent: {}
+[90.332259] (-) TimerEvent: {}
+[90.432770] (-) TimerEvent: {}
+[90.533244] (-) TimerEvent: {}
+[90.633604] (-) TimerEvent: {}
+[90.733905] (-) TimerEvent: {}
+[90.834190] (-) TimerEvent: {}
+[90.934524] (-) TimerEvent: {}
+[91.035054] (-) TimerEvent: {}
+[91.135468] (-) TimerEvent: {}
+[91.236081] (-) TimerEvent: {}
+[91.336342] (-) TimerEvent: {}
+[91.436790] (-) TimerEvent: {}
+[91.537374] (-) TimerEvent: {}
+[91.638080] (-) TimerEvent: {}
+[91.738712] (-) TimerEvent: {}
+[91.839316] (-) TimerEvent: {}
+[91.939853] (-) TimerEvent: {}
+[92.040567] (-) TimerEvent: {}
+[92.141077] (-) TimerEvent: {}
+[92.241330] (-) TimerEvent: {}
+[92.341632] (-) TimerEvent: {}
+[92.441898] (-) TimerEvent: {}
+[92.542219] (-) TimerEvent: {}
+[92.642511] (-) TimerEvent: {}
+[92.742837] (-) TimerEvent: {}
+[92.843127] (-) TimerEvent: {}
+[92.943457] (-) TimerEvent: {}
+[93.043698] (-) TimerEvent: {}
+[93.143971] (-) TimerEvent: {}
+[93.244280] (-) TimerEvent: {}
+[93.344554] (-) TimerEvent: {}
+[93.444828] (-) TimerEvent: {}
+[93.545103] (-) TimerEvent: {}
+[93.645529] (-) TimerEvent: {}
+[93.746265] (-) TimerEvent: {}
+[93.846967] (-) TimerEvent: {}
+[93.947534] (-) TimerEvent: {}
+[94.048020] (-) TimerEvent: {}
+[94.148365] (-) TimerEvent: {}
+[94.248708] (-) TimerEvent: {}
+[94.349079] (-) TimerEvent: {}
+[94.449468] (-) TimerEvent: {}
+[94.549961] (-) TimerEvent: {}
+[94.650228] (-) TimerEvent: {}
+[94.750485] (-) TimerEvent: {}
+[94.850730] (-) TimerEvent: {}
+[94.951002] (-) TimerEvent: {}
+[95.051251] (-) TimerEvent: {}
+[95.151500] (-) TimerEvent: {}
+[95.251768] (-) TimerEvent: {}
+[95.352105] (-) TimerEvent: {}
+[95.452555] (-) TimerEvent: {}
+[95.552814] (-) TimerEvent: {}
+[95.653085] (-) TimerEvent: {}
+[95.753324] (-) TimerEvent: {}
+[95.853607] (-) TimerEvent: {}
+[95.953854] (-) TimerEvent: {}
+[96.054138] (-) TimerEvent: {}
+[96.154442] (-) TimerEvent: {}
+[96.244877] (finger_control) StdoutLine: {'line': b'[ 85%] \x1b[32m\x1b[1mLinking CXX executable finger_pd_control\x1b[0m\n'}
+[96.254550] (-) TimerEvent: {}
+[96.354869] (-) TimerEvent: {}
+[96.455168] (-) TimerEvent: {}
+[96.555631] (-) TimerEvent: {}
+[96.655992] (-) TimerEvent: {}
+[96.736748] (finger_control) StdoutLine: {'line': b'[ 85%] Built target finger_pd_control\n'}
+[96.756112] (-) TimerEvent: {}
+[96.856348] (-) TimerEvent: {}
+[96.956627] (-) TimerEvent: {}
+[97.056869] (-) TimerEvent: {}
+[97.157109] (-) TimerEvent: {}
+[97.257391] (-) TimerEvent: {}
+[97.357727] (-) TimerEvent: {}
+[97.457974] (-) TimerEvent: {}
+[97.558250] (-) TimerEvent: {}
+[97.658499] (-) TimerEvent: {}
+[97.758746] (-) TimerEvent: {}
+[97.858975] (-) TimerEvent: {}
+[97.959240] (-) TimerEvent: {}
+[98.059499] (-) TimerEvent: {}
+[98.159728] (-) TimerEvent: {}
+[98.260002] (-) TimerEvent: {}
+[98.360315] (-) TimerEvent: {}
+[98.460573] (-) TimerEvent: {}
+[98.560819] (-) TimerEvent: {}
+[98.661109] (-) TimerEvent: {}
+[98.761359] (-) TimerEvent: {}
+[98.861686] (-) TimerEvent: {}
+[98.961926] (-) TimerEvent: {}
+[99.062180] (-) TimerEvent: {}
+[99.162459] (-) TimerEvent: {}
+[99.262728] (-) TimerEvent: {}
+[99.362989] (-) TimerEvent: {}
+[99.463245] (-) TimerEvent: {}
+[99.563527] (-) TimerEvent: {}
+[99.663790] (-) TimerEvent: {}
+[99.764050] (-) TimerEvent: {}
+[99.864329] (-) TimerEvent: {}
+[99.964625] (-) TimerEvent: {}
+[100.064886] (-) TimerEvent: {}
+[100.165161] (-) TimerEvent: {}
+[100.265468] (-) TimerEvent: {}
+[100.365836] (-) TimerEvent: {}
+[100.466119] (-) TimerEvent: {}
+[100.566386] (-) TimerEvent: {}
+[100.666705] (-) TimerEvent: {}
+[100.766964] (-) TimerEvent: {}
+[100.867226] (-) TimerEvent: {}
+[100.967482] (-) TimerEvent: {}
+[101.067730] (-) TimerEvent: {}
+[101.168009] (-) TimerEvent: {}
+[101.268387] (-) TimerEvent: {}
+[101.368642] (-) TimerEvent: {}
+[101.468903] (-) TimerEvent: {}
+[101.569255] (-) TimerEvent: {}
+[101.669480] (-) TimerEvent: {}
+[101.769767] (-) TimerEvent: {}
+[101.870054] (-) TimerEvent: {}
+[101.970320] (-) TimerEvent: {}
+[102.070612] (-) TimerEvent: {}
+[102.170892] (-) TimerEvent: {}
+[102.271172] (-) TimerEvent: {}
+[102.371466] (-) TimerEvent: {}
+[102.471705] (-) TimerEvent: {}
+[102.572010] (-) TimerEvent: {}
+[102.672312] (-) TimerEvent: {}
+[102.772722] (-) TimerEvent: {}
+[102.873223] (-) TimerEvent: {}
+[102.973517] (-) TimerEvent: {}
+[103.073763] (-) TimerEvent: {}
+[103.174028] (-) TimerEvent: {}
+[103.274289] (-) TimerEvent: {}
+[103.374585] (-) TimerEvent: {}
+[103.474846] (-) TimerEvent: {}
+[103.575137] (-) TimerEvent: {}
+[103.675474] (-) TimerEvent: {}
+[103.775742] (-) TimerEvent: {}
+[103.876030] (-) TimerEvent: {}
+[103.976312] (-) TimerEvent: {}
+[104.071453] (finger_control) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable finger_motor_control\x1b[0m\n'}
+[104.076499] (-) TimerEvent: {}
+[104.176786] (-) TimerEvent: {}
+[104.277098] (-) TimerEvent: {}
+[104.377399] (-) TimerEvent: {}
+[104.477755] (-) TimerEvent: {}
+[104.578032] (-) TimerEvent: {}
+[104.676663] (finger_control) StdoutLine: {'line': b'[100%] Built target finger_motor_control\n'}
+[104.678139] (-) TimerEvent: {}
+[104.689513] (finger_control) CommandEnded: {'returncode': 0}
+[104.690327] (finger_control) JobProgress: {'identifier': 'finger_control', 'progress': 'install'}
+[104.690937] (finger_control) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'env': OrderedDict({'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_control', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor:/opt/ros/kilted'}), 'shell': False}
+[104.699796] (finger_control) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[104.700063] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/finger_control/finger_target_gui.py\n'}
+[104.700333] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/finger_control/finger_torque_gui.py\n'}
+[104.700555] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/finger_control/finger_pd_control\n'}
+[104.705095] (finger_control) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/finger_control/finger_pd_control" to ""\n'}
+[104.705460] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/finger_control/finger_motor_control\n'}
+[104.715051] (finger_control) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/lib/finger_control/finger_motor_control" to ""\n'}
+[104.715433] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/launch\n'}
+[104.715567] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/config\n'}
+[104.715676] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/config/finger_pd_control.yaml\n'}
+[104.732868] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/ament_index/resource_index/package_run_dependencies/finger_control\n'}
+[104.733249] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/ament_index/resource_index/parent_prefix_path/finger_control\n'}
+[104.733510] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/environment/ament_prefix_path.sh\n'}
+[104.733741] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/environment/ament_prefix_path.dsv\n'}
+[104.734019] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/environment/path.sh\n'}
+[104.734211] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/environment/path.dsv\n'}
+[104.734388] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/local_setup.bash\n'}
+[104.734569] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/local_setup.sh\n'}
+[104.734780] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/local_setup.zsh\n'}
+[104.734955] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/local_setup.dsv\n'}
+[104.735116] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.dsv\n'}
+[104.735318] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/ament_index/resource_index/packages/finger_control\n'}
+[104.735656] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/cmake/finger_controlConfig.cmake\n'}
+[104.735869] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/cmake/finger_controlConfig-version.cmake\n'}
+[104.736046] (finger_control) StdoutLine: {'line': b'-- Installing: /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control/share/finger_control/package.xml\n'}
+[104.738186] (finger_control) CommandEnded: {'returncode': 0}
+[104.752773] (finger_control) JobEnded: {'identifier': 'finger_control', 'rc': 0}
+[104.753139] (finger_sim) JobStarted: {'identifier': 'finger_sim'}
+[104.778224] (-) TimerEvent: {}
+[104.878489] (-) TimerEvent: {}
+[104.978735] (-) TimerEvent: {}
+[105.079025] (-) TimerEvent: {}
+[105.179348] (-) TimerEvent: {}
+[105.279620] (-) TimerEvent: {}
+[105.379887] (-) TimerEvent: {}
+[105.480149] (-) TimerEvent: {}
+[105.580446] (-) TimerEvent: {}
+[105.680734] (-) TimerEvent: {}
+[105.781008] (-) TimerEvent: {}
+[105.881296] (-) TimerEvent: {}
+[105.981586] (-) TimerEvent: {}
+[106.081853] (-) TimerEvent: {}
+[106.182115] (-) TimerEvent: {}
+[106.189875] (finger_sim) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../build/finger_sim', 'build', '--build-base', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build', 'install', '--record', '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/finger_sim', 'env': {'RDS_SRC': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'jarmibe7', 'XDG_SEAT': 'seat0', 'GIT_EDITOR': ':', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/drake/lib:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib:/opt/ros/kilted/opt/zenoh_cpp_vendor/lib:/opt/ros/kilted/opt/gz_math_vendor/lib:/opt/ros/kilted/opt/gz_utils_vendor/lib:/opt/ros/kilted/opt/rviz_ogre_vendor/lib:/opt/ros/kilted/lib/x86_64-linux-gnu:/opt/ros/kilted/opt/gz_cmake_vendor/lib:/opt/ros/kilted/lib', 'HOME': '/home/jarmibe7', 'CHROME_DESKTOP': 'code.desktop', 'TERM_PROGRAM_VERSION': '1.115.0', 'DESKTOP_SESSION': 'i3', 'ROS_PYTHON_VERSION': '3', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'BUNDLED_DEBUGPY_PATH': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/jarmibe7/ws_drake_ros/install', 'ROS_DISTRO': 'kilted', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'jarmibe7', 'ONSHAPE_SECRET_KEY': 'voRQ7SdUGGZwxoajTFShXmebmS2D77MMSDFcCYZywuBx2Jns', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'jarmibe7', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'FC_FONTATIONS': '1', 'HISTCONTROL': 'ignorespace', 'WINDOWPATH': '2', 'PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib/bin:/opt/drake/bin:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/jarmibe7/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/opt/drake/bin:/opt/ros/kilted/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/jarmibe7/.dotnet/tools:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.local/bin:/home/jarmibe7/.platformio/penv/bin:/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts:/home/jarmibe7/.local/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':1', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/jarmibe7/.vscode/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-b5f0011dea1e648f.txt', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'i3', 'PYTHONSTARTUP': '/home/jarmibe7/.config/Code/User/workspaceStorage/b5087814f10589c3e41db48feba93135/ms-python.python/pythonrc.py', 'DOTNET_BUNDLE_EXTRACT_BASE_DIR': '/home/jarmibe7/.cache/dotnet_bundle_extract', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'i3', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-aa20ec2841.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/gnupg/S.gpg-agent.ssh', 'ROS_DOMAIN_ID': '77', 'AMENT_PREFIX_PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'i3', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '2', 'PWD': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim', 'GIT_MERGE_AUTOEDIT': 'no', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-i3:/etc/xdg', 'ONSHAPE_ACCESS_KEY': 'on_J6BlXePuefFyEUHKoShLV', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/i3:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/home/jarmibe7/ws_drake_ros/install/drake_ros/lib/python3.12/site-packages:/opt/drake/lib/python3.12/site-packages:/opt/ros/kilted/lib/python3.12/site-packages', 'I3SOCK': '/run/user/1000/i3/ipc-socket.3002', 'ONSHAPE_API': 'https://cad.onshape.com', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_control:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/fingerlib:/home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_description:/home/jarmibe7/ws_drake_ros/install/drake_ros:/opt/ros/kilted/opt/gz_math_vendor:/opt/ros/kilted/opt/gz_utils_vendor:/opt/ros/kilted/opt/gz_cmake_vendor'}, 'shell': False}
+[106.282224] (-) TimerEvent: {}
+[106.382494] (-) TimerEvent: {}
+[106.482734] (-) TimerEvent: {}
+[106.582965] (-) TimerEvent: {}
+[106.609389] (finger_sim) StdoutLine: {'line': b'running egg_info\n'}
+[106.609922] (finger_sim) StdoutLine: {'line': b'creating ../build/finger_sim/finger_sim.egg-info\n'}
+[106.646991] (finger_sim) StdoutLine: {'line': b'writing ../build/finger_sim/finger_sim.egg-info/PKG-INFO\n'}
+[106.647371] (finger_sim) StdoutLine: {'line': b'writing dependency_links to ../build/finger_sim/finger_sim.egg-info/dependency_links.txt\n'}
+[106.647759] (finger_sim) StdoutLine: {'line': b'writing entry points to ../build/finger_sim/finger_sim.egg-info/entry_points.txt\n'}
+[106.648138] (finger_sim) StdoutLine: {'line': b'writing requirements to ../build/finger_sim/finger_sim.egg-info/requires.txt\n'}
+[106.648403] (finger_sim) StdoutLine: {'line': b'writing top-level names to ../build/finger_sim/finger_sim.egg-info/top_level.txt\n'}
+[106.648559] (finger_sim) StdoutLine: {'line': b"writing manifest file '../build/finger_sim/finger_sim.egg-info/SOURCES.txt'\n"}
+[106.683083] (-) TimerEvent: {}
+[106.721816] (finger_sim) StdoutLine: {'line': b"reading manifest file '../build/finger_sim/finger_sim.egg-info/SOURCES.txt'\n"}
+[106.722681] (finger_sim) StdoutLine: {'line': b"writing manifest file '../build/finger_sim/finger_sim.egg-info/SOURCES.txt'\n"}
+[106.723014] (finger_sim) StdoutLine: {'line': b'running build\n'}
+[106.723312] (finger_sim) StdoutLine: {'line': b'running build_py\n'}
+[106.723537] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build\n'}
+[106.723811] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib\n'}
+[106.723930] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim\n'}
+[106.724061] (finger_sim) StdoutLine: {'line': b'copying finger_sim/build_simulator.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim\n'}
+[106.770262] (finger_sim) StdoutLine: {'line': b'copying finger_sim/drake_core_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim\n'}
+[106.783267] (-) TimerEvent: {}
+[106.789863] (finger_sim) StdoutLine: {'line': b'copying finger_sim/main.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim\n'}
+[106.803386] (finger_sim) StdoutLine: {'line': b'copying finger_sim/drake_ros_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim\n'}
+[106.808226] (finger_sim) StdoutLine: {'line': b'copying finger_sim/__init__.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim\n'}
+[106.808590] (finger_sim) StdoutLine: {'line': b'running install\n'}
+[106.816325] (finger_sim) StdoutLine: {'line': b'running install_lib\n'}
+[106.853684] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim\n'}
+[106.853964] (finger_sim) StdoutLine: {'line': b'copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/build_simulator.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim\n'}
+[106.854238] (finger_sim) StdoutLine: {'line': b'copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/drake_core_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim\n'}
+[106.854424] (finger_sim) StdoutLine: {'line': b'copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/main.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim\n'}
+[106.854525] (finger_sim) StdoutLine: {'line': b'copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/drake_ros_systems.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim\n'}
+[106.854660] (finger_sim) StdoutLine: {'line': b'copying /home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/build/lib/finger_sim/__init__.py -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim\n'}
+[106.855265] (finger_sim) StdoutLine: {'line': b'byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/build_simulator.py to build_simulator.cpython-312.pyc\n'}
+[106.857696] (finger_sim) StdoutLine: {'line': b'byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/drake_core_systems.py to drake_core_systems.cpython-312.pyc\n'}
+[106.858946] (finger_sim) StdoutLine: {'line': b'byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/main.py to main.cpython-312.pyc\n'}
+[106.859475] (finger_sim) StdoutLine: {'line': b'byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/drake_ros_systems.py to drake_ros_systems.cpython-312.pyc\n'}
+[106.860811] (finger_sim) StdoutLine: {'line': b'byte-compiling /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim/__init__.py to __init__.cpython-312.pyc\n'}
+[106.861102] (finger_sim) StdoutLine: {'line': b'running install_data\n'}
+[106.861499] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index\n'}
+[106.861798] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index/resource_index\n'}
+[106.862020] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index/resource_index/packages\n'}
+[106.862144] (finger_sim) StdoutLine: {'line': b'copying resource/finger_sim -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/ament_index/resource_index/packages\n'}
+[106.862244] (finger_sim) StdoutLine: {'line': b'copying package.xml -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim\n'}
+[106.862358] (finger_sim) StdoutLine: {'line': b'creating /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/launch\n'}
+[106.862459] (finger_sim) StdoutLine: {'line': b'copying launch/sim.launch.xml -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/launch\n'}
+[106.862538] (finger_sim) StdoutLine: {'line': b'copying launch/sim_tendon.launch.xml -> /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/share/finger_sim/launch\n'}
+[106.883389] (-) TimerEvent: {}
+[106.884301] (finger_sim) StdoutLine: {'line': b'running install_egg_info\n'}
+[106.922548] (finger_sim) StdoutLine: {'line': b'Copying ../build/finger_sim/finger_sim.egg-info to /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/python3.12/site-packages/finger_sim-0.0.1-py3.12.egg-info\n'}
+[106.923711] (finger_sim) StdoutLine: {'line': b'running install_scripts\n'}
+[106.983471] (-) TimerEvent: {}
+[107.083700] (-) TimerEvent: {}
+[107.131829] (finger_sim) StdoutLine: {'line': b'Installing main script to /home/jarmibe7/ws_rds/src/rds-powerhouse-software/install/finger_sim/lib/finger_sim\n'}
+[107.132305] (finger_sim) StdoutLine: {'line': b"writing list of installed files to '/home/jarmibe7/ws_rds/src/rds-powerhouse-software/build/finger_sim/install.log'\n"}
+[107.166905] (finger_sim) CommandEnded: {'returncode': 0}
+[107.172382] (finger_sim) JobEnded: {'identifier': 'finger_sim', 'rc': 0}
+[107.173483] (-) EventReactorShutdown: {}

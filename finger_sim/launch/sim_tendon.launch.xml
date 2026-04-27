@@ -13,7 +13,9 @@
   <node pkg="finger_control" exec="finger_target_gui.py" output="screen"/>
 
   <!-- Joint-space PD controller -->
-  <node pkg="finger_control" exec="finger_pd_control" output="screen"/>
+  <node pkg="finger_control" exec="finger_pd_control" output="screen">
+    <param from="$(find-pkg-share finger_control)/config/finger_pd_control.yaml"/>
+  </node>
 
   <!-- Motor control mapper to map motor torques to joint torques -->
   <node pkg="finger_control" exec="finger_motor_control" output="screen">

@@ -7,8 +7,8 @@ from sensor_msgs.msg import JointState
 import tkinter as tk
 
 JOINTS = ["mcp_splay", "mcp_flexion", "pip_flexion"]
-Q_MIN  = [-0.175, 0.0, 0.0]
-Q_MAX  = [ 0.175, 1.57, 1.57]
+Q_MIN  = [-0.175, -0.785, 0.0]
+Q_MAX  = [ 0.175, 0.785, 1.57]
 
 class FingerTargetGUI(Node):
     def __init__(self):

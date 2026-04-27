@@ -2,8 +2,10 @@
 /// \brief Position PD control node for the powerhouse finger for testing and stuff
 ///
 /// PARAMETERS:
-///     kp            (double): Proportional gain, actuated joints. Default: 10.0
-///     kd            (double): Derivative gain, actuated joints.   Default: 0.5
+///     kp            (double[]): Proportional gains for actuated joints, in order.
+///                               Default: [0.1, 0.1, 0.1]
+///     kd            (double[]): Derivative gains for actuated joints, in order.
+///                               Default: [0.0025, 0.0025, 0.0025]
 ///     tau_max       (double): Torque clamp, actuated joints [N·m]. Default: 5.0
 ///     vel_alpha (double): Velocity LPF alpha in [0, 1]. Default: 0.2
 ///     branch        (int):    Four-bar branch selector (+1 or -1). Default: +1
@@ -24,7 +26,9 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <sstream>
 #include <string>
+#include <vector>
 
 #include "fingerlib/simple_pd.hpp"
 
@@ -50,15 +54,15 @@ public:
   , state_received_(false)
   {
     // Parameters
-    declare_parameter("kp", 0.1);
-    declare_parameter("kd", 0.0025);
+    declare_parameter<std::vector<double>>("kp", std::vector<double>(N_FULL, 0.1));
+    declare_parameter<std::vector<double>>("kd", std::vector<double>(N_FULL, 0.0025));
     declare_parameter("tau_max", 8.0);
     declare_parameter("vel_alpha", 0.3);
     declare_parameter("branch", 1);
     declare_parameter("publish_rate", 100.0);
 
-    const double kp = get_parameter("kp").as_double();
-    const double kd = get_parameter("kd").as_double();
+    const std::vector<double> kp = get_parameter("kp").as_double_array();
+    const std::vector<double> kd = get_parameter("kd").as_double_array();
     const double tau_max = get_parameter("tau_max").as_double();
     const double vel_alpha = get_parameter("vel_alpha").as_double();
     const double rate_hz = get_parameter("publish_rate").as_double();
@@ -88,11 +92,14 @@ public:
       period, std::bind(&FingerPDControl::control_loop, this)
     );
 
+    const auto kp_str = vec_to_string(kp);
+    const auto kd_str = vec_to_string(kd);
+
     RCLCPP_INFO(get_logger(),
       "finger_pd_control ready | "
-      "kp=%.2f kd=%.2f tau_max=%.2f vel_alpha=%.2f | "
+      "kp=%s kd=%s tau_max=%.2f vel_alpha=%.2f | "
       "rate=%.0f Hz",
-      kp, kd, tau_max, vel_alpha_, rate_hz);
+      kp_str.c_str(), kd_str.c_str(), tau_max, vel_alpha_, rate_hz);
   }
 
 private:
@@ -101,7 +108,7 @@ private:
   bool   dq_initialized_{false};
   double vel_alpha_{0.2};
 
-  // State storage TODO: Change to 3
+  // State storage
   Eigen::Matrix<double, N_FULL, 1> q_measured_ = Eigen::Matrix<double, N_FULL, 1>::Zero();
   Eigen::Matrix<double, N_FULL, 1> dq_measured_ = Eigen::Matrix<double, N_FULL, 1>::Zero();
 
@@ -116,6 +123,7 @@ private:
 
   // Extract a single named joint's position and optional velocity from a JointState.
   // Returns false if the joint is not present.
+  // Return by ref
   bool extract_joint(
     const sensor_msgs::msg::JointState & msg,
     const std::string & name,
@@ -132,10 +140,25 @@ private:
     return true;
   }
 
+  static std::string vec_to_string(const std::vector<double> & values)
+  {
+    std::ostringstream oss;
+    oss << "[";
+    for (std::size_t i = 0; i < values.size(); ++i) {
+      if (i > 0) {
+        oss << ", ";
+      }
+      oss << values[i];
+    }
+    oss << "]";
+    return oss.str();
+  }
+
   // Callbacks
   // Receive sim encoder pos/vel data
   void state_callback(const sensor_msgs::msg::JointState::SharedPtr msg)
   {
+    // Read joint states and check for errors
     bool ok = true;
     Eigen::Matrix<double, N_FULL, 1> dq_raw = Eigen::Matrix<double, N_FULL, 1>::Zero();
     for (int i = 0; i < N_FULL; ++i) {
@@ -169,6 +192,7 @@ private:
     Eigen::Matrix<double, N_FULL, 1> q_des = Eigen::Matrix<double, N_FULL, 1>::Zero();
     Eigen::Matrix<double, N_FULL, 1> dq_des = Eigen::Matrix<double, N_FULL, 1>::Zero();
 
+    // Read target joint positions and look for errors
     for (int i = 0; i < N_FULL; ++i) {
       double* vel_ptr = has_vel ? &dq_des[i] : nullptr;
       ok &= extract_joint(*msg, ALL_JOINTS[i], q_des[i], vel_ptr);

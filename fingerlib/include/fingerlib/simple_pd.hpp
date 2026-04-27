@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 namespace fingerlib {
 
@@ -46,6 +47,12 @@ public:
         validate();
     }
 
+    /// \brief Construct from standard vectors for ROS parameters or config files.
+    PDController(const std::vector<double>& kp, const std::vector<double>& kd, double tau_max)
+        : PDController(to_vec(kp, "kp"), to_vec(kd, "kd"), Vec::Constant(tau_max))
+    {
+    }
+
     // ── Setters ──────────────────────────────────────────────────────────────
 
     /// \brief Set the desired joint positions [rad].
@@ -64,6 +71,10 @@ public:
     /// \brief Update proportional gains at runtime (e.g. gain scheduling).
     void set_kp(const Vec& kp) { kp_ = kp; validate(); }
     void set_kd(const Vec& kd) { kd_ = kd; validate(); }
+
+    /// \brief Update proportional gains from standard vectors.
+    void set_kp(const std::vector<double>& kp) { kp_ = to_vec(kp, "kp"); validate(); }
+    void set_kd(const std::vector<double>& kd) { kd_ = to_vec(kd, "kd"); validate(); }
 
     // ── Compute ───────────────────────────────────────────────────────────────
 
@@ -87,6 +98,19 @@ public:
     const Vec& tau_max()         const { return tau_max_; }
 
 private:
+    static Vec to_vec(const std::vector<double>& values, const char* name) {
+        if (values.size() != static_cast<std::size_t>(N)) {
+            throw std::invalid_argument(
+                std::string("PDController: ") + name + " must have length " + std::to_string(N));
+        }
+
+        Vec out;
+        for (int i = 0; i < N; ++i) {
+            out[i] = values[static_cast<std::size_t>(i)];
+        }
+        return out;
+    }
+
     void validate() const {
         if ((tau_max_.array() <= 0.0).any())
             throw std::invalid_argument("PDController: tau_max must be > 0 for all joints");

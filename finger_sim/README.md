@@ -19,6 +19,13 @@ To run the simulation with simulated tendon PD control:
 ros2 launch finger_sim sim_tendon.launch.xml
 ```
 
+The simulator publishes tendon stress estimates on `/finger/tendon_stress` as a `std_msgs/Float64MultiArray`. Use the following command to visualize:
+```
+rqt_plot /finger/tendon_stress/data[0] /finger/tendon_stress/data[1] /finger/tendon_stress/data[2] /finger/tendon_stress/data[3]
+
+rqt_plot "/finger/tendon_tension/data[0]" "/finger/tendon_tension/data[1]" "/finger/tendon_tension/data[2]" "/finger/tendon_tension/data[3]"
+```
+
 #### Software Structure
 * launch/ - Contains all launch files.
 * finger_sim/ - Python package containing all of the simulation code.

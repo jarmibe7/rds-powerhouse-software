@@ -1,27 +1,28 @@
 #pragma once
 #include "motor.hpp"
 
+enum class MotorID {
+    Motor0,
+    Motor1,
+    Motor2,
+    Motor3
+};
+
 class MotorController {
   public:
     MotorController();
     MotorController(uint8_t numMotors, FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf);
     void addMotor(Motor& motor);
     float getMotorBusVoltage(uint8_t motorID);
-    float getMotorBusCurrent(uint8_t motorID);
     void clearMotorErrors(uint8_t motorID);
-    void setMotorState(uint8_t motorID, enum ODriveAxisState state);
-    void setMotorPosition(uint8_t motorID, float position, float velocity_feedforward = 0.0, float torque_feedforward = 0.0);
-    void setMotorVelocity(uint8_t motorID, float velocity, float torque_feedforward = 0.0);
     void setMotorTorque(uint8_t motorID, float torque);
     float getMotorPosition(uint8_t motorID);
     float getMotorVelocity(uint8_t motorID);
     uint8_t getMotorState(uint8_t  motorID);
-    bool checkHeartbeat(uint8_t motorID);
-    bool checkFeedback(uint8_t motorID);
-    void setupOnReceive(const CanMsg& msg);
     void setTorque(std::vector<float> torque);
     std::vector<float> getTorque();
     void setup();
+    void parseCanMsg(const CanMsg& msg);
   private:
     std::vector<Motor> motorList;
     int numMotors;

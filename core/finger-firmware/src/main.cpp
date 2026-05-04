@@ -2,9 +2,10 @@
 #include <Arduino.h>
 #include "motor_can_handler.hpp"
 #include "joint_controller.hpp"
-
+#include "fingerlib/kinematics.hpp"
 
 JointController jc(motors);
+
 
 // Documentation for this example can be found here:
 // https://docs.odriverobotics.com/v/latest/guides/arduino-can-guide.html
@@ -21,14 +22,14 @@ void setup() {
   delay(200);
 
 
-  Serial.println("Starting ODriveCAN demo");
+  Serial.println("Starting NNLS demo");
 
-  // Configure and initialize the CAN bus interface. This function depends on
-  // your hardware and the CAN stack that you're using.
-  if (!setupCan()) {
-    Serial.println("CAN failed to initialize: reset required");
-    while (true); // spin indefinitely
-  }
+//   // Configure and initialize the CAN bus interface. This function depends on
+//   // your hardware and the CAN stack that you're using.
+//   if (!setupCan()) {
+//     Serial.println("CAN failed to initialize: reset required");
+//     while (true); // spin indefinitely
+//   }
 
   // Serial.println("Waiting for ODrive...");
   // // NEED TO FIX THIS SO THAT onHeartbeat actually updates the object's heartbeat state
@@ -39,8 +40,8 @@ void setup() {
   // Serial.println("found ODrive");
 
 
-  motors.setup();
-  jc.setup();
+//   motors.setup();
+//   jc.setup();
 
 
 
@@ -74,12 +75,31 @@ void setup() {
 
 
 void loop() {
-  pumpEvents(can_intf); // This is required on some platforms to handle incoming feedback CAN messages
-                        // Note that on MCP2515-based platforms, this will delay for a fixed 10ms.
-                        //
-                        // This has been found to reduce the number of dropped messages, however it can be removed
-                        // for applications requiring loop times over 100Hz.
+  // pumpEvents(can_intf); // This is required on some platforms to handle incoming feedback CAN messages
+  //                       // Note that on MCP2515-based platforms, this will delay for a fixed 10ms.
+  //                       //
+  //                       // This has been found to reduce the number of dropped messages, however it can be removed
+  //                       // for applications requiring loop times over 100Hz.
 
+    Eigen::Matrix<double, 4, 3> J;
+    J << 1.0, 0.5, 0.2,
+         0.2, 1.0, 0.8,
+         0.8, 0.3, 0.6,
+         0.4, 0.7, 0.9;
+
+  Eigen::Matrix<double, 4, 1> tau;
+  tau << 1.0, 0.8, 0.6, 0.4;
+
+    const auto T = fingerlib::tendon_tensions(tau, J);
+
+    Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f]\n",
+         T(0),
+         T(1),
+         T(2));
+
+  
+
+         
   float SINE_PERIOD = 0.5f; // Period of the position command sine wave in seconds
 
   float t = 0.001 * millis();
@@ -101,5 +121,6 @@ void loop() {
   
   Serial.printf(">joint_angle:%0.4f\n", jc.getAngles(0).angle);
   Serial.printf(">commanded_angle:%0.4f\n", targetAngle.angle);
+
   delayMicroseconds(10000);
 }

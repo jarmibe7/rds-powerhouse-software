@@ -3,8 +3,12 @@
 #include "motor_can_handler.hpp"
 #include "joint_controller.hpp"
 #include "fingerlib/kinematics.hpp"
+#include "fingerlib/jacobian_lookup.hpp"
 
 JointController jc(motors);
+
+// fingerlib::JacobianLookup jacobian_lookup = fingerlib::JacobianLookup("jacobian_transposes.csv");
+Eigen::Matrix<double, 4, 3> J;
 
 
 // Documentation for this example can be found here:
@@ -70,9 +74,21 @@ void setup() {
   // }
 
   // Serial.println("ODrive running!");
+  // Eigen::Matrix<double, 4, 3> J;
+  //   J << 1.0, 0.5, 0.2,
+  //        0.2, 1.0, 0.8,
+  //        0.8, 0.3, 0.6,
+  //        0.4, 0.7, 0.9;
+
+    J << -0.00706, 0.00473, 0.00799, -0.00216,
+        -0.026, -0.026, 0.026, -0.026,
+        -0.039959,-0.039959, 0.0, 0.039959;
+
+  // fingerlib::JacobianLookup jacobian_lookup = fingerlib::JacobianLookup("jacobian_transposes.csv");
+  
+  // auto J = jacobian_lookup.jacobian_for_angle_deg(45.0f);
+  
 }
-
-
 
 void loop() {
   // pumpEvents(can_intf); // This is required on some platforms to handle incoming feedback CAN messages
@@ -81,46 +97,43 @@ void loop() {
   //                       // This has been found to reduce the number of dropped messages, however it can be removed
   //                       // for applications requiring loop times over 100Hz.
 
-    Eigen::Matrix<double, 4, 3> J;
-    J << 1.0, 0.5, 0.2,
-         0.2, 1.0, 0.8,
-         0.8, 0.3, 0.6,
-         0.4, 0.7, 0.9;
+    
 
-  Eigen::Matrix<double, 4, 1> tau;
-  tau << 1.0, 0.8, 0.6, 0.4;
+  Eigen::Matrix<double, 3, 1> tau;
+  tau << 0.0, 0.0, 0.0;
 
     const auto T = fingerlib::tendon_tensions(tau, J);
 
-    Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f]\n",
+    Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f, %0.4f]\n",
          T(0),
          T(1),
-         T(2));
+         T(2),
+         T(3));
 
   
 
          
-  float SINE_PERIOD = 0.5f; // Period of the position command sine wave in seconds
+  // float SINE_PERIOD = 0.5f; // Period of the position command sine wave in seconds
 
-  float t = 0.001 * millis();
+  // float t = 0.001 * millis();
   
-  float phase = t * (TWO_PI / SINE_PERIOD);
+  // float phase = t * (TWO_PI / SINE_PERIOD);
 
-  JointAngle targetAngle = {
-    ((float)0.40*sin(phase)) + 5.6F, // position
-    ((float)0.40*cos(phase) )* (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
-  };
+  // JointAngle targetAngle = {
+  //   ((float)0.40*sin(phase)) + 5.6F, // position
+  //   ((float)0.40*cos(phase) )* (float)(TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+  // };
 
-  std::array<JointAngle, NUM_JOINTS> targetConfiguration = {targetAngle};
+  // std::array<JointAngle, NUM_JOINTS> targetConfiguration = {targetAngle};
 
-  // TODO: Have joint controller class handle this automatically
-  // joint0->setTargetAngle(targetAngle);
-  jc.setTargetConfiguration(targetConfiguration);
-  jc.readAngles();
-  jc.runPID();
+  // // TODO: Have joint controller class handle this automatically
+  // // joint0->setTargetAngle(targetAngle);
+  // jc.setTargetConfiguration(targetConfiguration);
+  // jc.readAngles();
+  // jc.runPID();
   
-  Serial.printf(">joint_angle:%0.4f\n", jc.getAngles(0).angle);
-  Serial.printf(">commanded_angle:%0.4f\n", targetAngle.angle);
+  // Serial.printf(">joint_angle:%0.4f\n", jc.getAngles(0).angle);
+  // Serial.printf(">commanded_angle:%0.4f\n", targetAngle.angle);
 
   delayMicroseconds(10000);
 }

@@ -8,7 +8,7 @@
 JointController jc(motors);
 
 // fingerlib::JacobianLookup jacobian_lookup = fingerlib::JacobianLookup("jacobian_transposes.csv");
-Eigen::Matrix<double, 4, 3> J;
+Eigen::MatrixXd J(3, 4);
 
 
 // Documentation for this example can be found here:
@@ -99,16 +99,16 @@ void loop() {
 
     
 
-  Eigen::Matrix<double, 3, 1> tau;
+  Eigen::VectorXd tau(3);
   tau << 0.0, 0.0, 0.0;
 
-    const auto T = fingerlib::tendon_tensions(tau, J);
+  const auto T = fingerlib::tendon_tensions(tau, J);
 
-    Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f, %0.4f]\n",
-         T(0),
-         T(1),
-         T(2),
-         T(3));
+  Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f, %0.4f]\n",
+        T(0),
+        T(1),
+        T(2),
+        T(3));
 
   
 

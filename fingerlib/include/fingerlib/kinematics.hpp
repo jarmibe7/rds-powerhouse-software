@@ -38,8 +38,8 @@ namespace fingerlib {
   /// \param desired_torques A vector of desired joint torques.
   /// \param J The Jacobian matrix mapping tendon tensions to joint torques.
   /// \return A vector of tendon tensions.
-  Eigen::VectorXd tendon_tensions(Eigen::Matrix<double, 4, 1> desired_torques,
-                                  Eigen::Matrix<double, 4, 3> J);
+  Eigen::VectorXd tendon_tensions(Eigen::VectorXd desired_torques,
+                                  Eigen::MatrixXd J);
 
 } 
 #endif

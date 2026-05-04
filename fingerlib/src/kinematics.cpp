@@ -29,23 +29,25 @@ namespace fingerlib {
     return qd;
   }
 
-  Eigen::Vector3d tendon_tensions(Eigen::Matrix<double, 4, 1> desired_torques,
+  Eigen::VectorXd tendon_tensions(Eigen::Matrix<double, 4, 1> desired_torques,
                                   Eigen::Matrix<double, 4, 3> J)
   {
     fingerlib::NNLS<Eigen::Matrix<double, 4, 3>> nnls(J);
+
+    // Eigen::VectorXd shift = Eigen::VectorXd::Constant(4, 25);
 
     // Solve NNLS for tendon tensions
     nnls.solve(desired_torques);
     if (nnls.info() == Eigen::Success) {
       const Eigen::VectorXd T = nnls.x();
-      if (T.size() >= 3) {
-        return T.head<3>();
+      if (T.size() >= 4) {
+        return T.head<4>();
       }
     } else {
       std::cerr << "NNLS did not converge!" << std::endl;
     }
 
-    return Eigen::Vector3d::Zero();
+    return Eigen::VectorXd::Zero();
   }
 
 }

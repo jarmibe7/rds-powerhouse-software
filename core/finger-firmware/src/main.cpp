@@ -102,7 +102,7 @@ void loop() {
   Eigen::VectorXd tau(3);
   tau << 0.0, -6.4, 0.0;
 
-  const auto T = fingerlib::tendon_tensions(tau, J);
+  const auto T = fingerlib::tendon_tensions_soft_constraint(tau, J);
 
   Serial.printf("Proxy tendon tensions: [%0.4f, %0.4f, %0.4f, %0.4f]\n",
         T(0),

@@ -18,6 +18,13 @@ add_executable(precompute_jacobian
 target_link_libraries(precompute_jacobian PRIVATE fingerlib)
 target_compile_features(precompute_jacobian PRIVATE cxx_std_23)
 
+# Simple tension demo executable (build for local testing without firmware)
+add_executable(tension_demo
+    src/tension_demo.cpp
+)
+target_link_libraries(tension_demo PRIVATE fingerlib)
+target_compile_features(tension_demo PRIVATE cxx_std_23)
+
 # To build documentation pass -DBUILD_DOCS=ON when generating the build system
 option(BUILD_DOCS "Build the documentation" OFF)
 if(${DOXYGEN_FOUND} AND ${BUILD_DOCS})
@@ -81,6 +88,10 @@ install(TARGETS fingerlib
 )
 
 install(TARGETS precompute_jacobian
+    RUNTIME DESTINATION bin
+)
+
+install(TARGETS tension_demo
     RUNTIME DESTINATION bin
 )
 

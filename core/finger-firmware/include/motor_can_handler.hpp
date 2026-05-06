@@ -6,7 +6,7 @@
 FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> can_intf;
 
 // Create motor controller object
-MotorController motors(1, can_intf);
+MotorController motors(4, can_intf);
 
 // Called for every message that arrives on the CAN bus
 void onCanMessage(const CanMsg& msg) {

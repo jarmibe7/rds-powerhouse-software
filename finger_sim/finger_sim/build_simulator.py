@@ -38,7 +38,12 @@ from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 from rclpy.type_support import check_for_type_support
 
 # Custom imports
-from finger_sim.drake_core_systems import MultiArrayToVector, MotorTorqueToJointTorque
+from finger_sim.drake_core_systems import (
+    MultiArrayToVector,
+    MotorTorqueToJointTorque,
+    TendonTensionToStress,
+    VectorToMultiArray,
+)
 from finger_sim.drake_ros_systems import FingerJointStatePublisher
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -180,21 +185,23 @@ def build_plant(builder, mesh_ext):
     )
 
     # ── Ground plane ──────────────────────────────────────────────────────────
-    # ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
-    # plant.RegisterCollisionGeometry(
-    #     plant.world_body(),
-    #     RigidTransform(p=[0, 0, -0.01]),
-    #     Box(2.0, 2.0, 0.02),
-    #     "ground_collision",
-    #     ground_friction,
-    # )
-    # plant.RegisterVisualGeometry(
-    #     plant.world_body(),
-    #     RigidTransform(p=[0, 0, -0.01]),
-    #     Box(2.0, 2.0, 0.02),
-    #     "ground_visual",
-    #     [0.5, 0.5, 0.5, 1.0],
-    # )
+    ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
+    box_pos = RigidTransform(p=[0.1, 0, 0.05])
+    box_size = [0.15, 0.5, 0.02]
+    plant.RegisterCollisionGeometry(
+        plant.world_body(),
+        box_pos,
+        Box(*box_size),
+        "ground_collision",
+        ground_friction,
+    )
+    plant.RegisterVisualGeometry(
+        plant.world_body(),
+        box_pos,
+        Box(*box_size),
+        "ground_visual",
+        [0.5, 0.5, 0.5, 1.0],
+    )
 
     # plant.set_discrete_contact_approximation(DiscreteContactApproximation.kSap)
     # plant.set_sap_near_rigid_threshold(0.0001)
@@ -203,7 +210,16 @@ def build_plant(builder, mesh_ext):
     print(f"[finger_sim] Actuators: {plant.num_actuators()}")
     return plant, scene_graph, finger_model
 
-def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serializer, finger_model):
+def build_ros(
+    builder,
+    plant,
+    scene_graph,
+    joint_state_serializer,
+    torque_serializer,
+    stress_serializer,
+    tension_serializer,
+    finger_model,
+):
     # ── tf broadcaster ─────────────────────────────────────────────────────────
     ros_interface_system = builder.AddSystem(RosInterfaceSystem("finger_sim"))
     drake_ros = ros_interface_system.get_ros_interface()
@@ -271,13 +287,47 @@ def build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serial
     tendon_map = builder.AddSystem(
         MotorTorqueToJointTorque(jacobian_csv_path, num_q, pip_position_index)
     )
+    tendon_stress = builder.AddSystem(TendonTensionToStress())
+    tendon_tension_converter = builder.AddSystem(VectorToMultiArray(4))
 
-    builder.Connect(torque_sub.get_output_port(0),         torque_converter.get_input_port(0))
-    builder.Connect(torque_converter.get_output_port(0),   tendon_map.get_input_port(0))
-    builder.Connect(demux.get_output_port(0),              tendon_map.get_input_port(1))
-    builder.Connect(tendon_map.get_output_port(0),         plant.get_actuation_input_port())
+    builder.Connect(torque_sub.get_output_port(0), torque_converter.get_input_port(0))
+    builder.Connect(torque_converter.get_output_port(0), tendon_map.get_input_port(0))
+    builder.Connect(demux.get_output_port(0), tendon_map.get_input_port(1))
+    builder.Connect(tendon_map.get_output_port(0), plant.get_actuation_input_port())
 
-def build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_serializer):
+    tendon_stress_pub = builder.AddSystem(
+        RosPublisherSystem(
+            stress_serializer,
+            "/finger/tendon_stress",
+            joint_qos,
+            drake_ros,
+            {TriggerType.kPeriodic},
+            0.01,
+        )
+    )
+    tendon_tension_pub = builder.AddSystem(
+        RosPublisherSystem(
+            tension_serializer,
+            "/finger/tendon_tension",
+            joint_qos,
+            drake_ros,
+            {TriggerType.kPeriodic},
+            0.01,
+        )
+    )
+    builder.Connect(tendon_map.get_output_port(1), tendon_stress.get_input_port(0))
+    builder.Connect(tendon_stress.get_output_port(0), tendon_stress_pub.get_input_port(0))
+    builder.Connect(tendon_map.get_output_port(1), tendon_tension_converter.get_input_port(0))
+    builder.Connect(tendon_tension_converter.get_output_port(0), tendon_tension_pub.get_input_port(0))
+
+def build_and_run(
+    sim_duration,
+    mesh_ext,
+    joint_state_serializer,
+    torque_serializer,
+    stress_serializer,
+    tension_serializer,
+):
     """
     Main function for building the Drake finger simulation.
 
@@ -305,7 +355,16 @@ def build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_seriali
         ),
     )
 
-    build_ros(builder, plant, scene_graph, joint_state_serializer, torque_serializer, finger_model)
+    build_ros(
+        builder,
+        plant,
+        scene_graph,
+        joint_state_serializer,
+        torque_serializer,
+        stress_serializer,
+        tension_serializer,
+        finger_model,
+    )
 
     # ── Build and render diagram vis ────────────────────────────────────────────────────
     diagram  = builder.Build()

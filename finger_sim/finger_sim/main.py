@@ -40,9 +40,18 @@ def main(args=None):
     joint_state_serializer = PySerializer(JointState)
     check_for_type_support(Float64MultiArray)
     torque_serializer = PySerializer(Float64MultiArray)
+    stress_serializer = PySerializer(Float64MultiArray)
+    tension_serializer = PySerializer(Float64MultiArray)
 
     try:
-        build_and_run(sim_duration, mesh_ext, joint_state_serializer, torque_serializer)
+        build_and_run(
+            sim_duration,
+            mesh_ext,
+            joint_state_serializer,
+            torque_serializer,
+            stress_serializer,
+            tension_serializer,
+        )
     finally:
         shutdown()
 

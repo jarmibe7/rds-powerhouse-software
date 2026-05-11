@@ -25,6 +25,26 @@ class MultiArrayToVector(LeafSystem):
         )
 
 
+class VectorToMultiArray(LeafSystem):
+    """Converts a Drake vector to std_msgs/Float64MultiArray."""
+
+    def __init__(self, size):
+        super().__init__()
+        self.size = int(size)
+        self.DeclareVectorInputPort("vector", BasicVector(self.size))
+        self.DeclareAbstractOutputPort(
+            "msg",
+            lambda: AbstractValue.Make(Float64MultiArray()),
+            self.calc_output,
+        )
+
+    def calc_output(self, context, output):
+        vec = np.array(self.get_input_port(0).Eval(context), dtype=float)
+        msg = Float64MultiArray()
+        msg.data = vec.tolist()
+        output.set_value(msg)
+
+
 class MotorTorqueToJointTorque(LeafSystem):
     """Maps motor torques -> tendon tensions -> joint torques."""
 
@@ -33,6 +53,7 @@ class MotorTorqueToJointTorque(LeafSystem):
         self.DeclareVectorInputPort("motor_torque", BasicVector(4))
         self.DeclareVectorInputPort("joint_positions", BasicVector(num_positions))
         self.DeclareVectorOutputPort("joint_torque", BasicVector(3), self.calc_output)
+        self.DeclareVectorOutputPort("tendon_tension", BasicVector(4), self.calc_tendon_tension)
 
         self._pip_position_index = int(pip_position_index)
         self._min_degree, self._max_degree, self._jacobians = self._load_jacobians(jacobian_csv_path)
@@ -41,6 +62,18 @@ class MotorTorqueToJointTorque(LeafSystem):
         #   tension = motor_torque / radius
         #   joint_torque = J(q_pip) * tension
         self._radius = np.array([1.0, 1.0, 1.0, 1.0], dtype=float)
+
+    def _calc_tension_and_joint_torque(self, context):
+        motor_tau = np.array(self.get_input_port(0).Eval(context), dtype=float)
+        q = np.array(self.get_input_port(1).Eval(context), dtype=float)
+
+        pip_deg = int(round(np.rad2deg(q[self._pip_position_index])))
+        pip_deg = int(np.clip(pip_deg, self._min_degree, self._max_degree))
+        J = self._jacobians[pip_deg - self._min_degree]
+
+        tension = np.divide(motor_tau, self._radius)
+        joint_tau = -(J @ tension)  # Make negative joint torques be flexion at each joint
+        return tension, joint_tau
 
     def _load_jacobians(self, csv_path):
         """Loads Jacobian matrices from the CSV file."""
@@ -76,13 +109,33 @@ class MotorTorqueToJointTorque(LeafSystem):
         return min_degree, max_degree, jacobians
 
     def calc_output(self, context, output):
-        motor_tau = np.array(self.get_input_port(0).Eval(context), dtype=float)
-        q = np.array(self.get_input_port(1).Eval(context), dtype=float)
-
-        pip_deg = int(round(np.rad2deg(q[self._pip_position_index])))
-        pip_deg = int(np.clip(pip_deg, self._min_degree, self._max_degree))
-        J = self._jacobians[pip_deg - self._min_degree]
-
-        tension = np.divide(motor_tau, self._radius)
-        joint_tau = J @ tension
+        _, joint_tau = self._calc_tension_and_joint_torque(context)
         output.SetFromVector(joint_tau.tolist())
+
+    def calc_tendon_tension(self, context, output):
+        tension, _ = self._calc_tension_and_joint_torque(context)
+        output.SetFromVector(tension.tolist())
+
+
+class TendonTensionToStress(LeafSystem):
+    """Converts tendon tensions to nominal tendon stresses."""
+
+    def __init__(self, tendon_area=1.0e-6):
+        super().__init__()
+        if tendon_area <= 0.0:
+            raise ValueError("tendon_area must be positive")
+
+        self._tendon_area = float(tendon_area)
+        self.DeclareVectorInputPort("tendon_tension", BasicVector(4))
+        self.DeclareAbstractOutputPort(
+            "tendon_stress",
+            lambda: AbstractValue.Make(Float64MultiArray()),
+            self.calc_output,
+        )
+
+    def calc_output(self, context, output):
+        tension = np.array(self.get_input_port(0).Eval(context), dtype=float)
+        stress = tension / self._tendon_area
+        msg = Float64MultiArray()
+        msg.data = stress.tolist()
+        output.set_value(msg)

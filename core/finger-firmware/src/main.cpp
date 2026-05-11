@@ -29,11 +29,11 @@ void setup() {
   Serial.println("Starting NNLS demo");
 
 //   // Configure and initialize the CAN bus interface. This function depends on
-//   // your hardware and the CAN stack that you're using.
-//   if (!setupCan()) {
-//     Serial.println("CAN failed to initialize: reset required");
-//     while (true); // spin indefinitely
-//   }
+  // your hardware and the CAN stack that you're using.
+  if (!setupCan()) {
+    Serial.println("CAN failed to initialize: reset required");
+    while (true); // spin indefinitely
+  }
 
   // Serial.println("Waiting for ODrive...");
   // // NEED TO FIX THIS SO THAT onHeartbeat actually updates the object's heartbeat state
@@ -44,7 +44,7 @@ void setup() {
   // Serial.println("found ODrive");
 
 
-//   motors.setup();
+  motors.setup();
 //   jc.setup();
 
 
@@ -98,9 +98,18 @@ void loop() {
   //                       // for applications requiring loop times over 100Hz.
 
     
+  float splayPot = (float)analogRead(A10);
+  float MCPPot = (float)analogRead(A11);
+  float PIPPot = (float)analogRead(A12);
+
+  float splayTorque = (1.2 * (splayPot - 512.0f) / 512.0f);
+  float MCPTorque = (1.2 * (MCPPot - 512.0f) / 512.0f);
+  float PIPTorque = (1.2 * (PIPPot - 512.0f) / 512.0f);
+
+  Serial.printf("Splay Torque: %0.4f, MCP Torque: %0.4f, PIP Torque: %0.4f\n", splayTorque, MCPTorque, PIPTorque);
 
   Eigen::VectorXd tau(3);
-  tau << 0.0, -6.4, 0.0;
+  tau << splayTorque, MCPTorque, PIPTorque;
 
   const auto T = fingerlib::tendon_tensions_soft_constraint(tau, J);
 
@@ -110,7 +119,14 @@ void loop() {
         T(2),
         T(3));
 
-  
+  float motorTorques[4] = {(T(0)) * 0.006f, (T(1)) * 0.006f, (T(2)) * 0.006f, (T(3)) * 0.006f};
+
+  Serial.printf("Motor Torques: [");
+  for(int i = 0; i < 4; i++) {
+    Serial.printf("%0.2f ", motorTorques[i]);
+    motors.setMotorTorque(i, motorTorques[i]);
+  }
+  Serial.printf("\n");
 
          
   // float SINE_PERIOD = 0.5f; // Period of the position command sine wave in seconds

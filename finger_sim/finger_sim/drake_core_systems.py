@@ -12,6 +12,8 @@ import numpy as np # type: ignore
 
 from std_msgs.msg import Float64MultiArray
 
+MOTOR_PULLEY_RADIUS_M = 0.006       # Motor pulley radius in meters. Matches fingerlib constant
+
 class MultiArrayToVector(LeafSystem):
     """Converts std_msgs/Float64MultiArray to a Drake vector output."""
     def __init__(self, size):
@@ -60,10 +62,7 @@ class MotorTorqueToJointTorque(LeafSystem):
         self._pip_position_index = int(pip_position_index)
         self._min_degree, self._max_degree, self._jacobians = self._load_jacobians(jacobian_csv_path)
 
-        # Simple proxy model:
-        #   tension = motor_torque / radius
-        #   joint_torque = J(q_pip) * tension
-        self._radius = np.array([1.0, 1.0, 1.0, 1.0], dtype=float)
+        self._radius = np.full(4, MOTOR_PULLEY_RADIUS_M, dtype=float)
 
     def _calc_tension_and_joint_torque(self, context):
         motor_tau = np.array(self.get_input_port(0).Eval(context), dtype=float)

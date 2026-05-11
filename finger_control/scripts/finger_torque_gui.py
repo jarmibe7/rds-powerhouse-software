@@ -8,8 +8,8 @@ from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
 
 JOINTS = ['mcp_splay', 'mcp_flexion', 'pip_flexion']
-TAU_MIN = [-0.5, -0.5, -0.5]
-TAU_MAX = [0.5, 0.5, 0.5]
+TAU_MIN = [-0.5, -7.0, -0.5]
+TAU_MAX = [0.5, 7.0, 0.5]
 
 
 class FingerTorqueGUI(Node):

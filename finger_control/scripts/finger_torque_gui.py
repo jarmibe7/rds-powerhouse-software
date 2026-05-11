@@ -16,7 +16,7 @@ class FingerTorqueGUI(Node):
 
     def __init__(self):
         super().__init__('finger_torque_gui')
-        self.pub = self.create_publisher(Float64MultiArray, '/finger/torque_commands', 10)
+        self.pub = self.create_publisher(Float64MultiArray, '/finger/desired_joint_torques', 10)
 
     def publish(self, torques):
         msg = Float64MultiArray()

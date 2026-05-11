@@ -1,6 +1,6 @@
 /// \file
 /// \brief Converts desired joint torques into motor torque commands using
-///        a tendon-tension intermediary solved with NNLS.
+///        tendon tensions from fingerlib::tendon_tensions.
 ///
 /// PIPELINE:
 ///   desired joint torques -> tendon tensions -> motor torques
@@ -26,7 +26,6 @@
 #include "fingerlib/constants.hpp"
 #include "fingerlib/kinematics.hpp"
 #include "fingerlib/jacobian_lookup.hpp"
-#include "fingerlib/nnls.h"
 
 class FingerMotorControl : public rclcpp::Node {
 public:
@@ -43,7 +42,7 @@ public:
         e.what());
     }
 
-    declare_parameter("pulley_radius", 5.0);
+    declare_parameter("pulley_radius", fingerlib::R_MOTOR);
     declare_parameter("jacobian_csv_path", default_csv_path);
 
     pulley_radius_ = get_parameter("pulley_radius").as_double();
@@ -128,12 +127,9 @@ private:
       J_ = jacobian_lookup_->jacobian_for_angle_deg(static_cast<float>(pip_angle_deg_));
     }
 
-    // Solve NNLS for 4 tendon tensions from 3 desired joint torques
-    // NNLS enforces nonnegative tensions
-    Eigen::MatrixXd J_dynamic = J_.cast<double>();
-    Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
-    fingerlib::NNLS<Eigen::MatrixXd> nnls(J_dynamic);
-    const Eigen::VectorXd tensions = nnls.solve(tau_dynamic);
+    const Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
+    const Eigen::MatrixXd J_dynamic = J_.cast<double>();
+    const Eigen::VectorXd tensions = fingerlib::tendon_tensions(tau_dynamic, J_dynamic);
 
     const Eigen::Matrix<double, 4, 1> motor_torques = tensions.head<4>() * pulley_radius_;
 

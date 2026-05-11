@@ -39,6 +39,7 @@ from rclpy.type_support import check_for_type_support
 
 # Custom imports
 from finger_sim.drake_core_systems import (
+    FingertipContactForceReporter,
     MultiArrayToVector,
     MotorTorqueToJointTorque,
     TendonTensionToStress,
@@ -186,7 +187,7 @@ def build_plant(builder, mesh_ext):
 
     # ── Ground plane ──────────────────────────────────────────────────────────
     ground_friction = CoulombFriction(static_friction=0.7, dynamic_friction=0.5)
-    box_pos = RigidTransform(p=[0.1, 0, 0.05])
+    box_pos = RigidTransform(p=[0.2, 0, 0.05])
     box_size = [0.15, 0.5, 0.02]
     plant.RegisterCollisionGeometry(
         plant.world_body(),
@@ -289,11 +290,14 @@ def build_ros(
     )
     tendon_stress = builder.AddSystem(TendonTensionToStress())
     tendon_tension_converter = builder.AddSystem(VectorToMultiArray(4))
+    fingertip_force = builder.AddSystem(FingertipContactForceReporter(plant))
 
     builder.Connect(torque_sub.get_output_port(0), torque_converter.get_input_port(0))
     builder.Connect(torque_converter.get_output_port(0), tendon_map.get_input_port(0))
     builder.Connect(demux.get_output_port(0), tendon_map.get_input_port(1))
     builder.Connect(tendon_map.get_output_port(0), plant.get_actuation_input_port())
+    builder.Connect(plant.get_contact_results_output_port(), fingertip_force.get_input_port(0))
+    builder.Connect(scene_graph.get_query_output_port(), fingertip_force.get_input_port(1))
 
     tendon_stress_pub = builder.AddSystem(
         RosPublisherSystem(
@@ -319,6 +323,18 @@ def build_ros(
     builder.Connect(tendon_stress.get_output_port(0), tendon_stress_pub.get_input_port(0))
     builder.Connect(tendon_map.get_output_port(1), tendon_tension_converter.get_input_port(0))
     builder.Connect(tendon_tension_converter.get_output_port(0), tendon_tension_pub.get_input_port(0))
+
+    fingertip_force_pub = builder.AddSystem(
+        RosPublisherSystem(
+            torque_serializer,
+            "/finger/fingertip_contact_force",
+            joint_qos,
+            drake_ros,
+            {TriggerType.kPeriodic},
+            0.01,
+        )
+    )
+    builder.Connect(fingertip_force.get_output_port(0), fingertip_force_pub.get_input_port(0))
 
 def build_and_run(
     sim_duration,

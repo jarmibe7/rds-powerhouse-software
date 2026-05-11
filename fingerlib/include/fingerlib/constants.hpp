@@ -14,8 +14,9 @@ namespace fingerlib {
   // Physical constants
   inline constexpr double PI = 3.14159265358979;
 
-  // Min tendon tension [N]
-  inline constexpr double T_MIN = 25.0;
+  
+  inline constexpr double T_MIN = 25.0;     // Minimum tendon tension [N]
+  inline constexpr double R_MOTOR = 0.006;  // Motor pulley radius [m]
 
   /// \brief Approximately compare two floating-point numbers using
   ///        an absolute comparison

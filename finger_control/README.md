@@ -6,7 +6,7 @@ This Python ROS2 package contains functionality for wrapping `fingerlib` control
 #### Commands
 To command a raw torque:
 ```
-ros2 topic pub /finger/torque_commands std_msgs/msg/Float64MultiArray   "data: [0.0, 0.0, 5.0]" --rate 1000
+ros2 topic pub /finger/desired_joint_torques std_msgs/msg/Float64MultiArray   "data: [0.0, 0.0, 5.0]" --rate 1000
 ```
 
 #### Software Structure

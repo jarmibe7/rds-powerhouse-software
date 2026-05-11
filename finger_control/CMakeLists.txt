@@ -41,7 +41,6 @@ endif()
 # Add dependencies to nodes
 add_executable(finger_pd_control src/finger_pd_control.cpp)
 add_executable(finger_motor_control src/finger_motor_control.cpp)
-add_executable(finger_joint_torque_control src/finger_joint_torque_control.cpp)
 target_link_libraries(finger_pd_control PUBLIC
     ${sensor_msgs_TARGETS}
     ${std_msgs_TARGETS}
@@ -50,14 +49,6 @@ target_link_libraries(finger_pd_control PUBLIC
     fingerlib
 )
 target_link_libraries(finger_motor_control PUBLIC
-  ament_index_cpp::ament_index_cpp
-  ${sensor_msgs_TARGETS}
-  ${std_msgs_TARGETS}
-  Eigen3::Eigen
-  rclcpp::rclcpp
-  fingerlib
-)
-target_link_libraries(finger_joint_torque_control PUBLIC
   ament_index_cpp::ament_index_cpp
   ${sensor_msgs_TARGETS}
   ${std_msgs_TARGETS}
@@ -85,10 +76,6 @@ set_target_properties(finger_motor_control PROPERTIES
   CXX_STANDARD 23
   CXX_STANDARD_REQUIRED YES
 )
-set_target_properties(finger_joint_torque_control PROPERTIES
-  CXX_STANDARD 23
-  CXX_STANDARD_REQUIRED YES
-)
 set_target_properties(fingerlib PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED YES
@@ -101,7 +88,6 @@ install(PROGRAMS
 
 install(TARGETS finger_pd_control
   finger_motor_control
-  finger_joint_torque_control
   DESTINATION lib/${PROJECT_NAME}
 )
 

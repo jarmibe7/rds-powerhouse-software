@@ -1,6 +1,6 @@
 /// \file
 /// \brief Converts desired joint torques into motor torque commands using
-///        a tendon-tension intermediary solved with NNLS.
+///        tendon tensions from fingerlib::tendon_tensions.
 ///
 /// PIPELINE:
 ///   desired joint torques -> tendon tensions -> motor torques
@@ -20,13 +20,14 @@
 #include <Eigen/Core>
 #include <array>
 #include <algorithm>
+#include <cmath>
 #include <memory>
+#include <sstream>
 #include <string>
 
 #include "fingerlib/constants.hpp"
 #include "fingerlib/kinematics.hpp"
 #include "fingerlib/jacobian_lookup.hpp"
-#include "fingerlib/nnls.h"
 
 class FingerMotorControl : public rclcpp::Node {
 public:
@@ -43,7 +44,7 @@ public:
         e.what());
     }
 
-    declare_parameter("pulley_radius", 5.0);
+    declare_parameter("pulley_radius", fingerlib::R_MOTOR);
     declare_parameter("jacobian_csv_path", default_csv_path);
 
     pulley_radius_ = get_parameter("pulley_radius").as_double();
@@ -86,7 +87,7 @@ public:
 private:
   Eigen::Matrix<double, 3, 4> J_;
   std::unique_ptr<fingerlib::JacobianLookup> jacobian_lookup_;
-  double pulley_radius_{1.0};
+  double pulley_radius_{fingerlib::R_MOTOR};
   double pip_angle_deg_{0.0};
   bool has_joint_state_{false};
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr motor_torque_pub_;
@@ -127,15 +128,63 @@ private:
     if (jacobian_lookup_ && has_joint_state_) {
       J_ = jacobian_lookup_->jacobian_for_angle_deg(static_cast<float>(pip_angle_deg_));
     }
+        
+    const Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
+    const Eigen::MatrixXd J_dynamic = J_.cast<double>();
+    const Eigen::VectorXd tensions = fingerlib::tendon_tensions(tau_dynamic, J_dynamic);
 
-    // Solve NNLS for 4 tendon tensions from 3 desired joint torques
-    // NNLS enforces nonnegative tensions
-    Eigen::MatrixXd J_dynamic = J_.cast<double>();
-    Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
-    fingerlib::NNLS<Eigen::MatrixXd> nnls(J_dynamic);
-    const Eigen::VectorXd tensions = nnls.solve(tau_dynamic);
+    // Check for out-of-range tensions and log if necessary
+    {
+      bool tension_out_of_range = false;
+      std::ostringstream tension_stream;
+      tension_stream << "[";
+      for (int i = 0; i < tensions.size(); ++i) {
+        if (i > 0) {
+          tension_stream << ", ";
+        }
+        tension_stream << tensions[i];
+        if (!std::isfinite(tensions[i]) ||
+          tensions[i] < fingerlib::T_MIN || tensions[i] > fingerlib::T_MAX)
+        {
+          tension_out_of_range = true;
+        }
+      }
+      tension_stream << "]";
+
+      if (tension_out_of_range) {
+        RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000,
+          "Tendon tensions outside [%0.3f, %0.3f] N: %s",
+          fingerlib::T_MIN, fingerlib::T_MAX, tension_stream.str().c_str());
+      }
+    }
 
     const Eigen::Matrix<double, 4, 1> motor_torques = tensions.head<4>() * pulley_radius_;
+
+    // Check for out-of-range motor torques and log if necessary
+    {
+      bool motor_torque_out_of_range = false;
+      std::ostringstream torque_stream;
+      torque_stream << "[";
+      for (int i = 0; i < motor_torques.size(); ++i) {
+        if (i > 0) {
+          torque_stream << ", ";
+        }
+        torque_stream << motor_torques[i];
+        if (!std::isfinite(motor_torques[i]) ||
+          motor_torques[i] < fingerlib::MOTOR_TAU_MIN ||
+          motor_torques[i] > fingerlib::MOTOR_TAU_MAX)
+        {
+          motor_torque_out_of_range = true;
+        }
+      }
+      torque_stream << "]";
+
+      if (motor_torque_out_of_range) {
+        RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000,
+          "Motor torques outside [%0.3f, %0.3f] N·m: %s",
+          fingerlib::MOTOR_TAU_MIN, fingerlib::MOTOR_TAU_MAX, torque_stream.str().c_str());
+      }
+    }
 
     std_msgs::msg::Float64MultiArray out;
     out.data = {motor_torques[0], motor_torques[1], motor_torques[2], motor_torques[3]};

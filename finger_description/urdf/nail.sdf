@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <model name="nail">
+    <link name="nail">
+      <visual name="nail_visual">
+        <geometry>
+          <mesh>
+            <uri>package://finger_description/meshes/nail.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="nail_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>package://finger_description/meshes/nail.obj</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

@@ -8,15 +8,15 @@ from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
 
 JOINTS = ['mcp_splay', 'mcp_flexion', 'pip_flexion']
-TAU_MIN = [-0.5, -0.5, -0.5]
-TAU_MAX = [0.5, 0.5, 0.5]
+TAU_MIN = [-0.5, -7.0, -0.5]
+TAU_MAX = [0.5, 7.0, 0.5]
 
 
 class FingerTorqueGUI(Node):
 
     def __init__(self):
         super().__init__('finger_torque_gui')
-        self.pub = self.create_publisher(Float64MultiArray, '/finger/torque_commands', 10)
+        self.pub = self.create_publisher(Float64MultiArray, '/finger/desired_joint_torques', 10)
 
     def publish(self, torques):
         msg = Float64MultiArray()

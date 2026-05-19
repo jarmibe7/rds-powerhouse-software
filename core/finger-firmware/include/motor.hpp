@@ -7,6 +7,12 @@
 #include <Arduino.h>  
 #include <FlexCAN_T4.h>
 #include "ODriveFlexCAN.hpp"
+#include "can_handler.hpp"
+
+
+#define GEAR_RATIO 10.0f
+#define POLE_PAIRS 14.0f
+#define MOTOR_KT 0.056f
 
 
 struct ODriveUserData {
@@ -21,28 +27,27 @@ void onFeedback(Get_Encoder_Estimates_msg_t& msg, void* user_data);
 
 class Motor {
   public:
-    Motor(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int node_id);
-    void setFeedback();
-    void setStatus();
-    float getBusVoltage();
-    float getBusCurrent();
-    void clearErrors();
-    void setMotorState(enum ODriveAxisState state);
-    void setPosition(float position, float velocity_feedforward = 0.0, float torque_feedforward = 0.0);
-    void setVelocity(float velocity, float torque_feedforward = 0.0);
+    Motor(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, int motor_id);
+    void setup();
     void setTorque(float torque);
     float getMotorPosition();
     float getMotorVelocity();
-    uint8_t getMotorState();
-    bool checkHeartbeat();
-    bool checkFeedback();
-    ODriveCAN* getODrive();
-    void setup();
+    float getMotorCurrent();
+    float getMotorTemperature();
+    uint8_t getMotorError();
+    void updateFeedback(float position, float velocity, float current, float temperature, uint8_t error);
 
   private:
     FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf;
-    int nodeId;
-    ODriveCAN odrive{wrap_can_intf(can_intf), static_cast<uint32_t>(nodeId)};
-    Get_Bus_Voltage_Current_msg_t vbus;
-    ODriveUserData user_data;
+    int motorId;
+    float position;
+    float velocity;
+    float current;
+    float temperature;
+    uint8_t error;
 };
+
+void pack_cmd(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, uint8_t motorID, float p_des, float v_des, float kp, float kd, float t_ff);
+void enterMotorControlMode(FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16>& can_intf, uint8_t motorID);
+
+int float_to_uint(float x, float x_min, float x_max, unsigned int bits);

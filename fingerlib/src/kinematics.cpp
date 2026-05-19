@@ -29,23 +29,57 @@ namespace fingerlib {
     return qd;
   }
 
-  Eigen::Vector3d tendon_tensions(Eigen::Matrix<double, 4, 1> desired_torques,
-                                  Eigen::Matrix<double, 4, 3> J)
+  Eigen::VectorXd tendon_tensions(Eigen::VectorXd desired_torques,
+                                  Eigen::MatrixXd J)
   {
-    fingerlib::NNLS<Eigen::Matrix<double, 4, 3>> nnls(J);
+    fingerlib::NNLS<Eigen::MatrixXd> nnls(J);
+
+    Eigen::VectorXd shift = Eigen::VectorXd::Constant(4, fingerlib::T_MIN); // Min tendon tension
 
     // Solve NNLS for tendon tensions
-    nnls.solve(desired_torques);
+    nnls.solve(desired_torques - J * shift);
     if (nnls.info() == Eigen::Success) {
-      const Eigen::VectorXd T = nnls.x();
-      if (T.size() >= 3) {
-        return T.head<3>();
+      const Eigen::VectorXd T = nnls.x() + shift;
+      if (T.size() >= 4) {
+        return T.head(4);
       }
     } else {
       std::cerr << "NNLS did not converge!" << std::endl;
     }
 
-    return Eigen::Vector3d::Zero();
+    return Eigen::VectorXd::Zero(4);
+  }
+
+  Eigen::VectorXd tendon_tensions_soft_constraint(Eigen::VectorXd desired_torques,
+                                                  Eigen::MatrixXd J)
+  {
+
+    // Soft constraint T0==T1 by adding a small penalty alpha*(T0-T1)^2 to cost func
+    Eigen::RowVector4d C; C << 1.0, -1.0, 0.0, 0.0;
+    const double alpha = 0.1;
+    Eigen::MatrixXd J_aug(J.rows() + 1, J.cols());
+    J_aug.topRows(J.rows()) = J;
+    J_aug.row(J.rows()) = std::sqrt(alpha) * C;
+    Eigen::VectorXd b_aug(desired_torques.size() + 1);
+    b_aug.head(desired_torques.size()) = desired_torques;
+    b_aug.tail(1).setZero();
+
+    fingerlib::NNLS<Eigen::MatrixXd> nnls(J_aug);
+
+    Eigen::VectorXd shift = Eigen::VectorXd::Constant(4, fingerlib::T_MIN); // Min tendon tension
+
+    // Solve NNLS for tendon tensions
+    nnls.solve(b_aug - J_aug * shift);
+    if (nnls.info() == Eigen::Success) {
+      const Eigen::VectorXd T = nnls.x() + shift;
+      if (T.size() >= 4) {
+        return T.head(4);
+      }
+    } else {
+      std::cerr << "NNLS did not converge!" << std::endl;
+    }
+
+    return Eigen::VectorXd::Zero(4);
   }
 
 }

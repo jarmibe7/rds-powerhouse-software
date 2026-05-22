@@ -1,0 +1,33 @@
+<launch>
+  <arg name="sim_duration" default="9999.0" description="How long (seconds) to run the Drake simulation"/>
+  <arg name="plant_time_step" default="1e-2" description="Discrete timestep used by the Drake plant for contact resolution"/>
+  <arg name="demo_name" default="catapult" description="Optional demo scene to load: none, table, or weight"/>
+
+  <!-- robot_state_publisher: publishes /robot_description and static URDF tf frames -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <param name="robot_description"
+           value="$(command 'xacro $(find-pkg-share finger_description)/urdf/powerhouse_finger.urdf.xacro')"/>
+  </node>
+
+  <!-- Fingertip position target GUI -->
+  <node pkg="finger_control" exec="fingertip_target_gui.py" output="screen"/>
+
+  <!-- Fingertip-position controller -->
+  <node pkg="finger_control" exec="fingertip_position_control" output="screen">
+    <param from="$(find-pkg-share finger_control)/config/fingertip_position_control.yaml"/>
+  </node>
+
+  <!-- Desired joint torque -> tendon tension -> motor torque command -->
+  <node pkg="finger_control" exec="finger_motor_control" output="screen">
+    <param name="jacobian_csv_path"
+           value="$(find-pkg-share finger_control)/config/jacobian_transposes.csv"/>
+  </node>
+
+  <!-- Drake sim node -->
+  <node pkg="finger_sim" exec="main" output="screen" emulate_tty="true">
+    <env name="SIM_DURATION" value="$(var sim_duration)"/>
+    <env name="SIM_PLANT_TIME_STEP" value="$(var plant_time_step)"/>
+    <env name="SIM_DEMO_NAME" value="$(var demo_name)"/>
+    <env name="MESH_EXT" value="gltf"/>
+  </node>
+</launch>

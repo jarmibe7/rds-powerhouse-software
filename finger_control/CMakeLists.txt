@@ -8,6 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(ament_index_cpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -41,6 +42,7 @@ endif()
 # Add dependencies to nodes
 add_executable(finger_pd_control src/finger_pd_control.cpp)
 add_executable(finger_motor_control src/finger_motor_control.cpp)
+add_executable(fingertip_position_control src/fingertip_position_control.cpp)
 target_link_libraries(finger_pd_control PUBLIC
     ${sensor_msgs_TARGETS}
     ${std_msgs_TARGETS}
@@ -50,6 +52,14 @@ target_link_libraries(finger_pd_control PUBLIC
 )
 target_link_libraries(finger_motor_control PUBLIC
   ament_index_cpp::ament_index_cpp
+  ${sensor_msgs_TARGETS}
+  ${std_msgs_TARGETS}
+  Eigen3::Eigen
+  rclcpp::rclcpp
+  fingerlib
+)
+target_link_libraries(fingertip_position_control PUBLIC
+  ${geometry_msgs_TARGETS}
   ${sensor_msgs_TARGETS}
   ${std_msgs_TARGETS}
   Eigen3::Eigen
@@ -76,18 +86,25 @@ set_target_properties(finger_motor_control PROPERTIES
   CXX_STANDARD 23
   CXX_STANDARD_REQUIRED YES
 )
+set_target_properties(fingertip_position_control PROPERTIES
+  CXX_STANDARD 23
+  CXX_STANDARD_REQUIRED YES
+)
 set_target_properties(fingerlib PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED YES
 )
 
 install(PROGRAMS
-  scripts/finger_target_gui.py scripts/finger_torque_gui.py
+  scripts/finger_target_gui.py
+  scripts/finger_torque_gui.py
+  scripts/fingertip_target_gui.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(TARGETS finger_pd_control
   finger_motor_control
+  fingertip_position_control
   DESTINATION lib/${PROJECT_NAME}
 )
 

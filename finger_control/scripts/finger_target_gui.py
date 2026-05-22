@@ -43,6 +43,14 @@ def main():
         s.grid(row=i, column=1, padx=8)
         sliders.append(s)
 
+    def zero_all():
+        for s in sliders:
+            s.set(0.0)
+
+    tk.Button(root, text='Zero All', command=zero_all).grid(
+        row=len(JOINTS), column=0, columnspan=2, pady=8
+    )
+
     def tick():
         positions = [s.get() for s in sliders]
         node.publish(positions)

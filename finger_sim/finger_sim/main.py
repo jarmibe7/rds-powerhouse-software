@@ -33,6 +33,8 @@ def main(args=None):
     init(argv)
     sim_duration = float(os.environ.get("SIM_DURATION", "120.0"))
     mesh_ext = os.environ.get("MESH_EXT", "gltf")
+    plant_time_step = float(os.environ.get("SIM_PLANT_TIME_STEP", "1e-4"))
+    demo_name = os.environ.get("SIM_DEMO_NAME", "none")
     print(f"[finger_sim] Starting finger test scene (sim_duration={sim_duration} s")
 
     # Create all serializers in top-level scope for drake_ros
@@ -51,6 +53,8 @@ def main(args=None):
             torque_serializer,
             stress_serializer,
             tension_serializer,
+            plant_time_step,
+            demo_name,
         )
     finally:
         shutdown()

@@ -17,7 +17,7 @@ namespace fingerlib {
   
   inline constexpr double T_MAX = 300.0;         // Maximum tendon tension [N]
   inline constexpr double T_MIN = 25.0;          // Minimum tendon tension [N]
-  inline constexpr double R_MOTOR = 0.006;       // Motor pulley radius [m]
+  inline constexpr double R_MOTOR = 0.004;       // Motor pulley radius [m]
   inline constexpr double MOTOR_TAU_MAX = 1.3;   // Max continuous motor torque [Nm]
   inline constexpr double MOTOR_TAU_MIN = -1.3;  // Max continuous motor torque [Nm]
 

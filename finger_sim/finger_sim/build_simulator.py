@@ -52,9 +52,6 @@ from finger_sim.drake_core_systems import (
 )
 from finger_sim.drake_ros_systems import FingerJointStatePublisher
 
-# Hard-coded demo selection. Options: 'none', 'table', 'holes', 'hammer', or 'weight'.
-DEMO_NAME = "weight"
-
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def resolve_package_path(package_name, relative_path):
     from ament_index_python.packages import get_package_share_directory
@@ -121,16 +118,26 @@ def load_pin_offsets(axes_yaml_path):
     right_bar_dip_from_bar    = right_bar_pip_world  + P_RightBar_DipPin
     right_bar_dip_from_distal = dip_flex_world       + P_Distal_RightPin
 
-    print(f"[finger_sim] Right DIP pin from bar frame:    {right_bar_dip_from_bar}")
-    print(f"[finger_sim] Right DIP pin from distal frame: {right_bar_dip_from_distal}")
-    print(f"[finger_sim] Constraint gap at rest:          {right_bar_dip_from_bar - right_bar_dip_from_distal}")
+    # print(f"[finger_sim] Right DIP pin from bar frame:    {right_bar_dip_from_bar}")
+    # print(f"[finger_sim] Right DIP pin from distal frame: {right_bar_dip_from_distal}")
+    # print(f"[finger_sim] Constraint gap at rest:          {right_bar_dip_from_bar - right_bar_dip_from_distal}")
 
     return P_LeftBar_DipPin, P_RightBar_DipPin, P_Distal_LeftPin, P_Distal_RightPin
 
 
 # ── Main Building Functions ───────────────────────────────────────────────────────────────────
-def build_plant(builder, mesh_ext):
-    plant, scene_graph = AddMultibodyPlantSceneGraph(builder, time_step=1e-4)
+def build_plant(builder, mesh_ext, plant_time_step=1e-4, demo_name="none"):
+    """
+    Build the MultibodyPlant for the finger simulation, including loading the URDF, 
+    adding actuators, and setting up loop closure constraints.
+
+    Args:
+        builder: The MultibodyPlant builder.
+        mesh_ext: What mesh file type extension to pass into the robot .xacro
+        plant_time_step: Time step for the MultibodyPlant's discrete update (contact resolution)
+        demo_name: Optional name of a demo scene to load
+    """
+    plant, scene_graph = AddMultibodyPlantSceneGraph(builder, time_step=plant_time_step)
 
     parser = Parser(plant)
     parser.package_map().PopulateFromEnvironment("AMENT_PREFIX_PATH")
@@ -169,10 +176,10 @@ def build_plant(builder, mesh_ext):
         P_Distal_RightPin,
     ) = load_pin_offsets(axes_yaml_path)
 
-    print(f"[finger_sim] Left  bar DIP pin offset in bar frame:     {P_LeftBar_DipPin}")
-    print(f"[finger_sim] Right bar DIP pin offset in bar frame:     {P_RightBar_DipPin}")
-    print(f"[finger_sim] Left  DIP pin offset in distal frame:      {P_Distal_LeftPin}")
-    print(f"[finger_sim] Right DIP pin offset in distal frame:      {P_Distal_RightPin}")
+    # print(f"[finger_sim] Left  bar DIP pin offset in bar frame:     {P_LeftBar_DipPin}")
+    # print(f"[finger_sim] Right bar DIP pin offset in bar frame:     {P_RightBar_DipPin}")
+    # print(f"[finger_sim] Left  DIP pin offset in distal frame:      {P_Distal_LeftPin}")
+    # print(f"[finger_sim] Right DIP pin offset in distal frame:      {P_Distal_RightPin}")
 
     left_bar_body  = plant.GetBodyByName("left_bar",       finger_model)
     right_bar_body = plant.GetBodyByName("right_bar",      finger_model)
@@ -195,7 +202,6 @@ def build_plant(builder, mesh_ext):
 
 
     # Optional demo setup (create board, nails, etc.)
-    demo_name = DEMO_NAME
     if demo_name and demo_name.lower() != "none":
         setup_demo(demo_name.lower(), builder, plant, scene_graph, finger_model, mesh_ext)
 
@@ -226,59 +232,10 @@ def setup_demo(demo_name, builder, plant, scene_graph, finger_model, mesh_ext):
     fn(builder, plant, scene_graph, finger_model, mesh_ext)
 
 
-def _add_board(plant, center=[0.15, 0.0, 0.05], rpy_deg=None, friction=None):
-    """
-    Add the board to the simulator with rigid hydroelastic contact.
-    This preserves the original mesh geometry (including holes) without convex-hulling.
-    
-    Args:
-        plant: MultibodyPlant instance
-        center: [x, y, z] position of board center
-        rpy_deg: [roll, pitch, yaw] rotation in degrees, or None for identity rotation
-        friction: CoulombFriction object (used for visual only; hydroelastic ignores it)
-    """
-    if friction is None:
-        friction = CoulombFriction(static_friction=0.9, dynamic_friction=0.5)
-    
-    # Build rotation matrix from roll-pitch-yaw if provided
-    if rpy_deg is None:
-        R = RotationMatrix()  # Identity rotation
-    else:
-        # Convert degrees to radians
-        roll_rad = np.radians(rpy_deg[0])
-        pitch_rad = np.radians(rpy_deg[1])
-        yaw_rad = np.radians(rpy_deg[2])
-        rpy = RollPitchYaw(roll_rad, pitch_rad, yaw_rad)
-        R = RotationMatrix(rpy)
-    
-    pose = RigidTransform(R=R, p=center)
-    table_mesh_path = resolve_package_path("finger_description", "meshes/table.obj")
-    
-    # Register visual geometry (standard mesh)
-    plant.RegisterVisualGeometry(plant.world_body(), pose, Mesh(table_mesh_path), 
-                                 "demo_board_visual", [0.6, 0.3, 0.2, 1.0])
-    
-    # Register collision geometry with rigid hydroelastic contact
-    # This preserves the actual mesh topology (including holes) instead of convex-hulling
-    proximity_props = ProximityProperties()
-    AddRigidHydroelasticProperties(properties=proximity_props)
-    plant.RegisterCollisionGeometry(plant.world_body(), pose, Mesh(table_mesh_path),
-                                    "demo_board_collision", proximity_props)
-
-
 def _add_table(plant, center=[0.15, 0.0, 0.05], rpy_deg=None, size=[0.5, 0.5, 0.02], friction=None):
-    """
-    Add a simple box-shaped table to act as the ground plane.
-
-    Args:
-        plant: MultibodyPlant instance
-        center: [x, y, z] position of the box center
-        rpy_deg: [roll, pitch, yaw] rotation in degrees, or None for identity rotation
-        size: [x_size, y_size, z_size] full extents of the box (meters)
-        friction: CoulombFriction (optional)
-    """
+    """Add a simple box-shaped table to act as the ground plane."""
     if friction is None:
-        friction = CoulombFriction(static_friction=1.5, dynamic_friction=1.0)
+        friction = CoulombFriction(static_friction=10.0, dynamic_friction=10.0)
 
     # Build rotation matrix from roll-pitch-yaw if provided
     if rpy_deg is None:
@@ -304,66 +261,8 @@ def _add_table(plant, center=[0.15, 0.0, 0.05], rpy_deg=None, size=[0.5, 0.5, 0.
                                     "demo_table_collision", proximity_props)
 
 
-def _add_nail(plant, name, world_pos, weld=True, mass=0.1, friction=None, model_instance=None):
-    if friction is None:
-        friction = CoulombFriction(static_friction=0.3, dynamic_friction=0.2)
-
-    # Estimate inertia from nail mesh (0.0556m long, 0.00318m radius cylinder)
-    length = 0.0556
-    radius = 0.00318
-    inertia = SpatialInertia(mass, np.zeros(3), UnitInertia.SolidCylinder(radius, length, np.array([0.0, 0.0, 1.0])))
-
-    global _DEMO_MODEL_INSTANCE
-    if model_instance is None:
-        if _DEMO_MODEL_INSTANCE is None:
-            _DEMO_MODEL_INSTANCE = plant.AddModelInstance("demo_objects")
-        body = plant.AddRigidBody(name, _DEMO_MODEL_INSTANCE, inertia)
-    else:
-        body = plant.AddRigidBody(name, model_instance, inertia)
-
-    geom_pose = RigidTransform()
-    nail_mesh_path = resolve_package_path("finger_description", "meshes/nail.obj")
-    # For collision, use a simple cylinder that matches the OBJ geometry
-    # Use rigid hydroelastic for consistency with the board
-    proximity_props = ProximityProperties()
-    AddRigidHydroelasticProperties(properties=proximity_props)
-    plant.RegisterCollisionGeometry(body, geom_pose, Cylinder(radius, length), f"{name}_collision", proximity_props)
-    plant.RegisterVisualGeometry(body, geom_pose, Mesh(nail_mesh_path), f"{name}_visual", [0.8, 0.8, 0.8, 1.0])
-
-    # Position nail at world_pos (assumes world_pos is the base position)
-    X_WB = RigidTransform(p=world_pos)
-
-    if weld:
-        plant.WeldFrames(plant.world_frame(), body.body_frame(), X_WB)
-    else:
-        # Nail is a free body; save its initial pose to be applied after finalize
-        _DEMO_FREE_BODY_INIT_POSES.append((name, X_WB))
-
 def setup_table(builder, plant, scene_graph, finger_model, mesh_ext):
     _add_table(plant)
-
-def setup_holes(builder, plant, scene_graph, finger_model, mesh_ext):
-    """Create a board with nails already inserted (welded)."""
-    board_center = [0.15, 0.0, 0.05]
-    _add_board(plant, board_center)
-
-    # Create 3 nails spaced 0.25m apart in y, symmetric about origin
-    nail_y_positions = [-0.125, 0.0, 0.125]
-    for i, y in enumerate(nail_y_positions):
-        nail_world = [board_center[0], board_center[1] + y, board_center[2]]
-        _add_nail(plant, f"nail_{i}", nail_world, weld=True)
-
-
-def setup_hammer(builder, plant, scene_graph, finger_model, mesh_ext):
-    """Create a board and nails that are dynamic (so the finger can hammer them)."""
-    board_center = [0.15, 0.0, 0.05]
-    _add_board(plant, board_center)
-
-    # Create 3 dynamic nails spaced 0.25m apart in y, symmetric about origin
-    nail_y_positions = [-0.125, 0.0, 0.125]
-    for i, y in enumerate(nail_y_positions):
-        nail_world = [board_center[0], board_center[1] + y, board_center[2] + 0.2]
-        _add_nail(plant, f"nail_{i}", nail_world, weld=False)
 
 
 def setup_weight(builder, plant, scene_graph, finger_model, mesh_ext, center=None, rpy_deg=None, weld=False):
@@ -372,7 +271,7 @@ def setup_weight(builder, plant, scene_graph, finger_model, mesh_ext, center=Non
     _add_table(plant, center=table_center, size=[2.0, 2.0, 0.2])
 
     if center is None:
-        center = table_center + np.array([0.0, 0.0, 0.8])
+        center = table_center + np.array([0.0, 0.0, 0.9])
 
     if rpy_deg is None:
         R = RotationMatrix()
@@ -408,6 +307,17 @@ def build_ros(
     tension_serializer,
     finger_model,
 ):
+    """
+    Build the ROS interface systems for the finger simulation, including publishers for joint states, 
+    tendon stress/tension, and fingertip contact forces, as well as a subscriber for motor torque commands.
+
+    Args:
+        builder: The DiagramBuilder to add systems to.
+        plant: The MultibodyPlant containing the finger model.
+        scene_graph: The SceneGraph for geometry queries.
+        *_serializer: PySerializers for the respective ROS messages.
+        finger_model: The ModelInstanceIndex of the finger in the plant.
+    """
     # ── tf broadcaster ─────────────────────────────────────────────────────────
     ros_interface_system = builder.AddSystem(RosInterfaceSystem("finger_sim"))
     drake_ros = ros_interface_system.get_ros_interface()
@@ -453,7 +363,7 @@ def build_ros(
             joint_qos,
             drake_ros,
             {TriggerType.kPeriodic},
-            0.01,
+            0.001,  
         )
     )
     builder.Connect(joint_state_src.get_output_port(0), joint_state_pub.get_input_port(0))
@@ -530,18 +440,22 @@ def build_and_run(
     torque_serializer,
     stress_serializer,
     tension_serializer,
+    plant_time_step=1e-4,
+    demo_name="none",
 ):
     """
-    Main function for building the Drake finger simulation.
+    Main function for building the Drake finger simulation, and running the simulation.
 
     Args:
         sim_duration: How many seconds to run the sim for
         mesh_ext: What mesh file type extension to pass into the robot .xacro
         *_serializer: ROS2 data type serializers to work with drake_ros
+        plant_time_step: Time step for the MultibodyPlant's discrete update (contact resolution)
+        demo_name: Optional name of a demo scene to load
     """
 
     builder = DiagramBuilder()
-    plant, scene_graph, finger_model = build_plant(builder, mesh_ext)
+    plant, scene_graph, finger_model = build_plant(builder, mesh_ext, plant_time_step, demo_name)
 
     # ── Meshcat ───────────────────────────────────────────────────────────────
     meshcat = Meshcat(port=7000)
@@ -594,14 +508,13 @@ def build_and_run(
 
     # ── Simulate ────────────────────────────────────────────────────
     simulator = Simulator(diagram)
-    simulator.Initialize()
-    meshcat.SetProperty("collision", "visible", False)
     simulator.set_target_realtime_rate(1.0)
-    initial_context = simulator.get_context().Clone()
 
-    # Apply poses to dynamic demo objects
+    # Apply poses to dynamic demo objects before initializing simulator
+    sim_context = simulator.get_mutable_context()
+
     if _DEMO_FREE_BODY_INIT_POSES:
-        plant_context = diagram.GetMutableSubsystemContext(plant, initial_context)
+        plant_context = diagram.GetMutableSubsystemContext(plant, sim_context)
         for body_name, X_WB in _DEMO_FREE_BODY_INIT_POSES:
             try:
                 body = plant.GetBodyByName(body_name)
@@ -611,7 +524,7 @@ def build_and_run(
                 print(f"[finger_sim] Warning: could not place demo body '{body_name}': {e}")
 
     if _DEMO_JOINT_INIT_POSITIONS:
-        plant_context = diagram.GetMutableSubsystemContext(plant, initial_context)
+        plant_context = diagram.GetMutableSubsystemContext(plant, sim_context)
         for joint_name, position in _DEMO_JOINT_INIT_POSITIONS:
             try:
                 joint = plant.GetJointByName(joint_name)
@@ -620,44 +533,23 @@ def build_and_run(
             except Exception as e:
                 print(f"[finger_sim] Warning: could not place demo joint '{joint_name}': {e}")
 
+    simulator.Initialize()
+    meshcat.SetProperty("collision", "visible", False)
+    initial_context = simulator.get_context().Clone()
+
     meshcat.AddButton("Reset Simulation")
     reset_clicks = 0
 
     print(f"[finger_sim] sim_duration={sim_duration} s")
     print(f"[finger_sim] Simulating ...  (Ctrl-C to stop early)")
     try:
-        dt = 1e-4
+        dt = 1e-2
         while simulator.get_context().get_time() < sim_duration:
             t_now = simulator.get_context().get_time()
-            try:
-                simulator.AdvanceTo(min(sim_duration, t_now + dt))
-                # plant_context = diagram.GetSubsystemContext(plant, simulator.get_context())
-                # state = plant.GetPositionsAndVelocities(plant_context)
-                # print(state)
-            except Exception as e:
-                plant_context = diagram.GetSubsystemContext(plant, simulator.get_context())
-                state = plant.GetPositionsAndVelocities(plant_context)
-                print("[finger_sim] AdvanceTo failed at t=", simulator.get_context().get_time())
-                print(f"[finger_sim] Exception: {e}")
-                print("[finger_sim] Plant state at failure:")
-                print(state)
-                if _DEMO_FREE_BODY_INIT_POSES:
-                    print("[finger_sim] Demo body poses at failure:")
-                    for body_name, _ in _DEMO_FREE_BODY_INIT_POSES:
-                        try:
-                            body = plant.GetBodyByName(body_name)
-                            X_WB = plant.GetFreeBodyPose(plant_context, body)
-                            print(f"[finger_sim]   {body_name}: translation={X_WB.translation()}")
-                        except Exception as body_error:
-                            print(f"[finger_sim]   {body_name}: could not read pose ({body_error})")
-                raise
-
-            plant_context = diagram.GetSubsystemContext(plant, simulator.get_context())
-            state = plant.GetPositionsAndVelocities(plant_context)
-            if not np.all(np.isfinite(state)):
-                print("[finger_sim] NON-FINITE PLANT STATE at t=", simulator.get_context().get_time())
-                print(state)
-                break
+            simulator.AdvanceTo(min(sim_duration, t_now + dt))
+            # plant_context = diagram.GetSubsystemContext(plant, simulator.get_context())
+            # state = plant.GetPositionsAndVelocities(plant_context)
+            # print(state)
             clicks = meshcat.GetButtonClicks("Reset Simulation")
             if clicks > reset_clicks:
                 simulator.get_mutable_context().SetTimeStateAndParametersFrom(initial_context)

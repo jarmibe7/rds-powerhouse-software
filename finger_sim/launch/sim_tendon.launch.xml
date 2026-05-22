@@ -1,5 +1,7 @@
 <launch>
   <arg name="sim_duration" default="9999.0" description="How long (seconds) to run the Drake simulation"/>
+  <arg name="plant_time_step" default="1e-2" description="Discrete timestep used by the Drake plant for contact resolution"/>
+  <arg name="demo_name" default="none" description="Optional demo scene to load: none, table, or weight"/>
   <arg name="use_jsp_gui" default="true" description="Whether joint_state_publisher_gui is used to control joint states"/>
 
 
@@ -26,6 +28,8 @@
   <!-- Drake sim node -->
   <node pkg="finger_sim" exec="main" output="screen" emulate_tty="true">
     <env name="SIM_DURATION" value="$(var sim_duration)"/>
+    <env name="SIM_PLANT_TIME_STEP" value="$(var plant_time_step)"/>
+    <env name="SIM_DEMO_NAME" value="$(var demo_name)"/>
     <env name="MESH_EXT" value="gltf"/>
   </node>
 </launch>

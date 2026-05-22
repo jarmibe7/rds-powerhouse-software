@@ -154,10 +154,14 @@ def build_plant(builder, mesh_ext, plant_time_step=1e-4, demo_name="none"):
     finger_model = models[0]
 
     # ── Weld base to world ────────────────────────────────────────────────────
+    if demo_name in ["weight"]:
+        finger_rot = [np.radians(180.0), np.radians(0.0), np.radians(0.0)]
+    else:
+        finger_rot = [np.radians(0.0), np.radians(0.0), np.radians(0.0)]
     plant.WeldFrames(
         plant.world_frame(),
         plant.GetFrameByName("base_link", finger_model),
-        RigidTransform(RotationMatrix(RollPitchYaw(np.radians(180.0), np.radians(0.0), np.radians(0.0))), p=[0.0,0.0,0.0]),
+        RigidTransform(RotationMatrix(RollPitchYaw(*finger_rot)), p=[0.0,0.0,0.0]),
     )
 
     # ── Actuators ─────────────────────────────────────────────────────────────
@@ -304,7 +308,7 @@ def setup_catapult(builder, plant, scene_graph, finger_model, mesh_ext, center=N
     """Load the catapult SDF onto a table and place its projectile for demos."""
     # Create a table for the catapult to sit on
     table_height = 0.02
-    table_center = [0.10, 0.0, 0.05]
+    table_center = [0.15, 0.2, -0.002]
     _add_table(plant, center=table_center, size=[0.2, 0.5, table_height])
 
     # Compute a sensible default placement on the table if not provided

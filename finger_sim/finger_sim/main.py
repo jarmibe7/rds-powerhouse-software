@@ -42,7 +42,6 @@ def main(args=None):
     joint_state_serializer = PySerializer(JointState)
     check_for_type_support(Float64MultiArray)
     torque_serializer = PySerializer(Float64MultiArray)
-    stress_serializer = PySerializer(Float64MultiArray)
     tension_serializer = PySerializer(Float64MultiArray)
 
     try:
@@ -51,7 +50,6 @@ def main(args=None):
             mesh_ext,
             joint_state_serializer,
             torque_serializer,
-            stress_serializer,
             tension_serializer,
             plant_time_step,
             demo_name,

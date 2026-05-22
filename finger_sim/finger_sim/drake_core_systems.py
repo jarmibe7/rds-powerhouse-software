@@ -129,31 +129,6 @@ class MotorTorqueToJointTorque(LeafSystem):
         tension, _ = self._calc_tension_and_joint_torque(context)
         output.SetFromVector(tension.tolist())
 
-
-class TendonTensionToStress(LeafSystem):
-    """Converts tendon tensions to nominal tendon stresses."""
-
-    def __init__(self, tendon_area=1.0e-6):
-        super().__init__()
-        if tendon_area <= 0.0:
-            raise ValueError("tendon_area must be positive")
-
-        self._tendon_area = float(tendon_area)
-        self.DeclareVectorInputPort("tendon_tension", BasicVector(4))
-        self.DeclareAbstractOutputPort(
-            "tendon_stress",
-            lambda: AbstractValue.Make(Float64MultiArray()),
-            self.calc_output,
-        )
-
-    def calc_output(self, context, output):
-        tension = np.array(self.get_input_port(0).Eval(context), dtype=float)
-        stress = tension / self._tendon_area
-        msg = Float64MultiArray()
-        msg.data = stress.tolist()
-        output.set_value(msg)
-
-
 class FingertipContactForceReporter(LeafSystem):
     """Reports the net force the fingertip applies on an object in simulation."""
 

@@ -24,7 +24,9 @@ from pydrake.geometry import (
     ProximityProperties,
     Role,
     Rgba,
+    AddContactMaterial,
     AddRigidHydroelasticProperties,
+    AddCompliantHydroelasticProperties,
 )
 
 from pydrake.multibody.tree import PrismaticJoint, SpatialInertia, UnitInertia
@@ -47,7 +49,6 @@ from finger_sim.drake_core_systems import (
     FingertipContactForceReporter,
     MultiArrayToVector,
     MotorTorqueToJointTorque,
-    TendonTensionToStress,
     VectorToMultiArray,
 )
 from finger_sim.drake_ros_systems import FingerJointStatePublisher
@@ -235,7 +236,7 @@ def setup_demo(demo_name, builder, plant, scene_graph, finger_model, mesh_ext):
 def _add_table(plant, center=[0.15, 0.0, 0.05], rpy_deg=None, size=[0.5, 0.5, 0.02], friction=None):
     """Add a simple box-shaped table to act as the ground plane."""
     if friction is None:
-        friction = CoulombFriction(static_friction=10.0, dynamic_friction=10.0)
+        friction = CoulombFriction(static_friction=50.0, dynamic_friction=50.0)
 
     # Build rotation matrix from roll-pitch-yaw if provided
     if rpy_deg is None:
@@ -254,9 +255,10 @@ def _add_table(plant, center=[0.15, 0.0, 0.05], rpy_deg=None, size=[0.5, 0.5, 0.
     plant.RegisterVisualGeometry(plant.world_body(), pose, box,
                                  "demo_table_visual", [0.6, 0.3, 0.2, 1.0])
 
-    # Register collision geometry with rigid hydroelastic contact
+    # Register collision geometry with compliant hydroelastic contact
     proximity_props = ProximityProperties()
-    AddRigidHydroelasticProperties(properties=proximity_props)
+    AddContactMaterial(properties=proximity_props, friction=friction)
+    AddCompliantHydroelasticProperties(0.003, 1e7, proximity_props)
     plant.RegisterCollisionGeometry(plant.world_body(), pose, box,
                                     "demo_table_collision", proximity_props)
 
@@ -279,6 +281,7 @@ def setup_weight(builder, plant, scene_graph, finger_model, mesh_ext, center=Non
         rpy = RollPitchYaw(np.radians(rpy_deg[0]), np.radians(rpy_deg[1]), np.radians(rpy_deg[2]))
         R = RotationMatrix(rpy)
 
+    # Load the weight SDF from the description package
     weight_sdf_path = resolve_package_path("finger_description", "urdf/weight.sdf")
 
     parser = Parser(plant)
@@ -297,19 +300,88 @@ def setup_weight(builder, plant, scene_graph, finger_model, mesh_ext, center=Non
         _DEMO_FREE_BODY_INIT_POSES.append(("weight_body", X_WB))
 
 
+def setup_catapult(builder, plant, scene_graph, finger_model, mesh_ext, center=None, rpy_deg=None, weld=True):
+    """Load the catapult SDF onto a table and place its projectile for demos."""
+    # Create a table for the catapult to sit on
+    table_height = 0.02
+    table_center = [0.10, 0.0, 0.05]
+    _add_table(plant, center=table_center, size=[0.2, 0.5, table_height])
+
+    # Compute a sensible default placement on the table if not provided
+    if center is None:
+        table_top_z = table_center[2] + table_height / 2.0
+        base_height = 0.025
+        base_center_z = table_top_z + base_height / 2.0
+        # place the catapult center on the table, positioned to be reached by the finger
+        center = np.array([table_center[0], table_center[1] - 0.1, base_center_z])
+
+    if rpy_deg is None:
+        R = RotationMatrix()
+    else:
+        rpy = RollPitchYaw(np.radians(rpy_deg[0]), np.radians(rpy_deg[1]), np.radians(rpy_deg[2]))
+        R = RotationMatrix(rpy)
+
+    # Load catapult SDF from the description package (assets live in finger_description/urdf)
+    catapult_sdf_path = resolve_package_path("finger_description", "urdf/catapult.sdf")
+
+    parser = Parser(plant)
+    parser.package_map().PopulateFromEnvironment("AMENT_PREFIX_PATH")
+    models = parser.AddModels(catapult_sdf_path)
+    if not models:
+        print("[finger_sim] Warning: no models were loaded from catapult.sdf")
+        return
+
+    cat_model = models[0]
+
+    X_WB = RigidTransform(R=R, p=center)
+
+    # Add a rigid stop on the table so the free arm cannot drift sideways.
+    stop_height = 0.002
+    stop_pose = RigidTransform(p=[center[0], table_center[1] + 0.1, table_center[2] + (table_height / 2) + (stop_height / 2.0)])
+    stop_box = Box(0.04, 0.02, stop_height)
+    stop_props = ProximityProperties()
+    AddContactMaterial(properties=stop_props, friction=CoulombFriction(static_friction=1.0, dynamic_friction=1.0))
+    AddRigidHydroelasticProperties(stop_props)
+    plant.RegisterVisualGeometry(plant.world_body(), stop_pose, stop_box,
+                                 "catapult_table_stop_visual", [0.15, 0.15, 0.15, 1.0])
+    plant.RegisterCollisionGeometry(plant.world_body(), stop_pose, stop_box,
+                                    "catapult_table_stop_collision", stop_props)
+
+    # Weld base to the world so catapult doesn't slide off the table
+    try:
+        base_body = plant.GetBodyByName("base", cat_model)
+        if weld:
+            plant.WeldFrames(plant.world_frame(), base_body.body_frame(), X_WB)
+        else:
+            # If not welded, place base as a free body
+            _DEMO_FREE_BODY_INIT_POSES.append(("base", X_WB))
+    except Exception as e:
+        print(f"[finger_sim] Warning: could not weld/place catapult base: {e}")
+
+    # Place the projectile near the cup end of the lever arm.
+    arm_offset = np.array([0.0, 0.0, 0.01])
+    arm_world = RigidTransform(R=R, p=(np.array(center) + arm_offset))
+    _DEMO_FREE_BODY_INIT_POSES.append(("arm", arm_world))
+
+
+    # Place the projectile near the cup end of the lever arm.
+    proj_offset = np.array([0.0, 0.11, 0.037])
+    proj_world = RigidTransform(R=R, p=(np.array(center) + arm_offset + proj_offset))
+    _DEMO_FREE_BODY_INIT_POSES.append(("projectile", proj_world))
+
+
 def build_ros(
     builder,
     plant,
     scene_graph,
     joint_state_serializer,
     torque_serializer,
-    stress_serializer,
     tension_serializer,
     finger_model,
 ):
     """
     Build the ROS interface systems for the finger simulation, including publishers for joint states, 
-    tendon stress/tension, and fingertip contact forces, as well as a subscriber for motor torque commands.
+    tendon tension, and fingertip contact forces, as well as a subscriber for motor torque commands.
 
     Args:
         builder: The DiagramBuilder to add systems to.
@@ -385,7 +457,6 @@ def build_ros(
     tendon_map = builder.AddSystem(
         MotorTorqueToJointTorque(jacobian_csv_path, num_q, pip_position_index)
     )
-    tendon_stress = builder.AddSystem(TendonTensionToStress())
     tendon_tension_converter = builder.AddSystem(VectorToMultiArray(4))
     fingertip_force = builder.AddSystem(FingertipContactForceReporter(plant))
 
@@ -396,16 +467,6 @@ def build_ros(
     builder.Connect(plant.get_contact_results_output_port(), fingertip_force.get_input_port(0))
     builder.Connect(scene_graph.get_query_output_port(), fingertip_force.get_input_port(1))
 
-    tendon_stress_pub = builder.AddSystem(
-        RosPublisherSystem(
-            stress_serializer,
-            "/finger/tendon_stress",
-            joint_qos,
-            drake_ros,
-            {TriggerType.kPeriodic},
-            0.01,
-        )
-    )
     tendon_tension_pub = builder.AddSystem(
         RosPublisherSystem(
             tension_serializer,
@@ -416,8 +477,6 @@ def build_ros(
             0.01,
         )
     )
-    builder.Connect(tendon_map.get_output_port(1), tendon_stress.get_input_port(0))
-    builder.Connect(tendon_stress.get_output_port(0), tendon_stress_pub.get_input_port(0))
     builder.Connect(tendon_map.get_output_port(1), tendon_tension_converter.get_input_port(0))
     builder.Connect(tendon_tension_converter.get_output_port(0), tendon_tension_pub.get_input_port(0))
 
@@ -438,7 +497,6 @@ def build_and_run(
     mesh_ext,
     joint_state_serializer,
     torque_serializer,
-    stress_serializer,
     tension_serializer,
     plant_time_step=1e-4,
     demo_name="none",
@@ -478,7 +536,6 @@ def build_and_run(
         scene_graph,
         joint_state_serializer,
         torque_serializer,
-        stress_serializer,
         tension_serializer,
         finger_model,
     )

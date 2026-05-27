@@ -1,17 +1,17 @@
 # Finger Description
-#### Authors: Cole Abbott, Heinrich Asbury, Jared Berry, Evan Bulatek, and Benji Sobeloff-Gittes
+## Authors: Cole Abbott, Heinrich Asbury, Jared Berry, Evan Bulatek, and Benji Sobeloff-Gittes
 
-This C++ ROS2 package contains functionality visualizing the finger and loading it into `rviz2`.
+This C++ ROS2 package contains functionality for converting the finger assembly export from Onshape into URDFs compatible with `rviz2` and Drake.
 
-#### Software Structure
+## Software Structure
 * config/ - Contains visualization param and `rviz2` config files.
 * launch/ - Contains all launch files.
-* meshes/ - Finger meshes
-* urdf/ - Finger URDF files for visualization.
-* src/ - A node for simulating the four bar position in `rviz2`
+* meshes/ - Finger and demo object meshes
+* urdf/ - Finger URDF and demo object SDF files.
+* src/ - A node for visualizing the four bar position in `rviz2` without dynamic simulation.
 * segment.blend - The blender file used for the URDF generation, including the script. Info can also be found in a [separate repository.](https://github.com/jarmibe7/onshape-blender-urdf-export)
 
-#### Export from Onshape Instructions
+## Export from Onshape Instructions
 1. Export full assembly from onshape as STL file
 2. Import as STL to blender in `segment_linkage.blend`
 3. Click on full STL -> `Edit mode -> A -> P -> Separate by loose parts`

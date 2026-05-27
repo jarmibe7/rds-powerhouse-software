@@ -277,7 +277,7 @@ def setup_weight(builder, plant, scene_graph, finger_model, mesh_ext, center=Non
     _add_table(plant, center=table_center, size=[2.0, 2.0, 0.2])
 
     if center is None:
-        center = table_center + np.array([0.0, 0.0, 0.9])
+        center = table_center + np.array([-0.05, 0.0, 0.9])
 
     if rpy_deg is None:
         R = RotationMatrix()

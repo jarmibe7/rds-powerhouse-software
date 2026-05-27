@@ -11,6 +11,26 @@ namespace fingerlib {
   inline constexpr double L_LEN = 0.010888;      // Distance between PIP and exterior bar attachment on proximal member
   inline constexpr double B_LEN = 0.036299;      // Exterior bar length, center to center
 
+    // Fingertip kinematics geometry [m]
+    inline constexpr double MCP_SPLAY_ORIGIN_X = 0.0195;
+    inline constexpr double MCP_SPLAY_ORIGIN_Y = 0.0;
+    inline constexpr double MCP_SPLAY_ORIGIN_Z = 0.0983;
+
+    inline constexpr double MCP_FLEX_ORIGIN_X = 0.013;
+    inline constexpr double MCP_FLEX_ORIGIN_Y = 0.0;
+    inline constexpr double MCP_FLEX_ORIGIN_Z = -0.0006;
+
+    inline constexpr double PIP_ORIGIN_X = 0.065;
+    inline constexpr double PIP_ORIGIN_Y = 0.0014;
+    inline constexpr double PIP_ORIGIN_Z = 0.0004;
+
+    inline constexpr double DIP_ORIGIN_X = 0.04;
+    inline constexpr double DIP_ORIGIN_Y = 0.0019;
+    inline constexpr double DIP_ORIGIN_Z = 0.0002;
+
+    inline constexpr double FINGERTIP_DEFAULT_OFFSET_M = 0.03;
+    inline constexpr double FINGERTIP_JACOBIAN_EPS = 1.0e-6;
+
   // Physical constants
   inline constexpr double PI = 3.14159265358979;
 

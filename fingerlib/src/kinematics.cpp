@@ -11,24 +11,7 @@
 
 namespace fingerlib {
   namespace {
-    constexpr double kMcpSplayOriginX = 0.0195;
-    constexpr double kMcpSplayOriginY = 0.0;
-    constexpr double kMcpSplayOriginZ = 0.0983;
-
-    constexpr double kMcpFlexOriginX = 0.013;
-    constexpr double kMcpFlexOriginY = 0.0;
-    constexpr double kMcpFlexOriginZ = -0.0006;
-
-    constexpr double kPipOriginX = 0.065;
-    constexpr double kPipOriginY = 0.0014;
-    constexpr double kPipOriginZ = 0.0004;
-
-    constexpr double kDipOriginX = 0.04;
-    constexpr double kDipOriginY = 0.0019;
-    constexpr double kDipOriginZ = 0.0002;
-
-    constexpr double kFiniteDifferenceEps = 1.0e-6;
-
+    // Create a translation transformation matrix from a translation vector
     Eigen::Matrix4d translate(const Eigen::Vector3d& xyz)
     {
       Eigen::Matrix4d transform = Eigen::Matrix4d::Identity();
@@ -36,6 +19,7 @@ namespace fingerlib {
       return transform;
     }
 
+    // Get the homogeneous transformation matrix for a joint rotation about a specified axis and translation
     Eigen::Matrix4d joint_transform(const Eigen::Vector3d& xyz,
                                     const Eigen::Vector3d& axis,
                                     double angle)
@@ -46,6 +30,7 @@ namespace fingerlib {
       return transform;
     }
 
+    // Convert a rotation matrix to a rotation vector
     Eigen::Vector3d rotation_vector(const Eigen::Matrix3d& rotation)
     {
       const Eigen::AngleAxisd angle_axis(rotation);
@@ -55,32 +40,37 @@ namespace fingerlib {
       return angle_axis.axis() * angle_axis.angle();
     }
 
+    // Compute FK: commanded joint positions -> end effector pose
     Eigen::Isometry3d fingertip_pose_internal(const Eigen::Vector3d& q_actuated,
                                               double tip_offset_m,
                                               int branch)
     {
+      // Extract each commanded joint angle
       const double q_mcp_splay = q_actuated[0];
       const double q_mcp_flexion = q_actuated[1];
       const double q_pip = q_actuated[2];
       const double q_dip = solve_dip_from_pip(rad2deg(q_pip), branch);
 
+      // Transform from base link to fingertip by chaining joint transforms
       Eigen::Matrix4d transform = Eigen::Matrix4d::Identity();
-      transform = transform * joint_transform(Eigen::Vector3d(kMcpSplayOriginX, kMcpSplayOriginY, kMcpSplayOriginZ),
+      transform = transform * joint_transform(Eigen::Vector3d(MCP_SPLAY_ORIGIN_X, MCP_SPLAY_ORIGIN_Y, MCP_SPLAY_ORIGIN_Z),
                                               Eigen::Vector3d::UnitZ(), q_mcp_splay);
-      transform = transform * joint_transform(Eigen::Vector3d(kMcpFlexOriginX, kMcpFlexOriginY, kMcpFlexOriginZ),
+      transform = transform * joint_transform(Eigen::Vector3d(MCP_FLEX_ORIGIN_X, MCP_FLEX_ORIGIN_Y, MCP_FLEX_ORIGIN_Z),
                                               Eigen::Vector3d::UnitY(), q_mcp_flexion);
-      transform = transform * joint_transform(Eigen::Vector3d(kPipOriginX, kPipOriginY, kPipOriginZ),
+      transform = transform * joint_transform(Eigen::Vector3d(PIP_ORIGIN_X, PIP_ORIGIN_Y, PIP_ORIGIN_Z),
                                               Eigen::Vector3d::UnitY(), q_pip);
-      transform = transform * joint_transform(Eigen::Vector3d(kDipOriginX, kDipOriginY, kDipOriginZ),
+      transform = transform * joint_transform(Eigen::Vector3d(DIP_ORIGIN_X, DIP_ORIGIN_Y, DIP_ORIGIN_Z),
                                               Eigen::Vector3d::UnitY(), q_dip);
       transform = transform * translate(Eigen::Vector3d(tip_offset_m, 0.0, 0.0));
 
+      // Return pose
       Eigen::Isometry3d pose = Eigen::Isometry3d::Identity();
       pose.linear() = transform.topLeftCorner<3, 3>();
       pose.translation() = transform.topRightCorner<3, 1>();
       return pose;
     }
 
+    // Get error between two pose objects
     Eigen::Matrix<double, 6, 1> pose_error_body(const Eigen::Isometry3d& desired_pose,
                                                 const Eigen::Isometry3d& current_pose)
     {
@@ -114,6 +104,7 @@ namespace fingerlib {
     return qd;
   }
 
+  // Get fingertip pose from joint angles
   Eigen::Isometry3d fingertip_pose(const Eigen::Vector3d& q_actuated,
                                    double tip_offset_m,
                                    int branch)
@@ -121,6 +112,7 @@ namespace fingerlib {
     return fingertip_pose_internal(q_actuated, tip_offset_m, branch);
   }
 
+  // Get only fingertip position from joint angles
   Eigen::Vector3d fingertip_position(const Eigen::Vector3d& q_actuated,
                                      double tip_offset_m,
                                      int branch)
@@ -128,6 +120,7 @@ namespace fingerlib {
     return fingertip_pose_internal(q_actuated, tip_offset_m, branch).translation();
   }
 
+  // Compute the Jacobian of fingertip pose w.r.t joint angles using finite differences
   Eigen::Matrix<double, 6, 3> fingertip_pose_jacobian(const Eigen::Vector3d& q_actuated,
                                                       double tip_offset_m,
                                                       int branch)
@@ -140,8 +133,8 @@ namespace fingerlib {
     for (int i = 0; i < 3; ++i) {
       Eigen::Vector3d q_plus = q_actuated;
       Eigen::Vector3d q_minus = q_actuated;
-      q_plus[i] += kFiniteDifferenceEps;
-      q_minus[i] -= kFiniteDifferenceEps;
+      q_plus[i] += FINGERTIP_JACOBIAN_EPS;
+      q_minus[i] -= FINGERTIP_JACOBIAN_EPS;
 
       const auto pose_plus = fingertip_pose_internal(q_plus, tip_offset_m, branch);
       const auto pose_minus = fingertip_pose_internal(q_minus, tip_offset_m, branch);
@@ -151,30 +144,34 @@ namespace fingerlib {
       const Eigen::Matrix3d rot_plus_body = current_rotation.transpose() * pose_plus.linear();
       const Eigen::Matrix3d rot_minus_body = current_rotation.transpose() * pose_minus.linear();
 
-      J.block<3, 1>(0, i) = (pos_plus_body - pos_minus_body) / (2.0 * kFiniteDifferenceEps);
+      J.block<3, 1>(0, i) = (pos_plus_body - pos_minus_body) / (2.0 * FINGERTIP_JACOBIAN_EPS);
       J.block<3, 1>(3, i) = rotation_vector(rot_minus_body.transpose() * rot_plus_body)
-                          / (2.0 * kFiniteDifferenceEps);
+              / (2.0 * FINGERTIP_JACOBIAN_EPS);
     }
 
     return J;
   }
 
+  // Get the fingertip pose error between desired and current
   Eigen::Matrix<double, 6, 1> fingertip_pose_error(const Eigen::Isometry3d& desired_pose,
                                                    const Eigen::Isometry3d& current_pose)
   {
     return pose_error_body(desired_pose, current_pose);
   }
 
+  // Compute one step of joint angle increments to reduce fingertip pose error
   Eigen::Vector3d fingertip_pose_tracking_step(const Eigen::Vector3d& q_actuated,
                                                const Eigen::Isometry3d& desired_pose,
                                                const FingertipTrackingOptions& options)
   {
+    // Compute the current pose and error
     const auto current_pose = fingertip_pose_internal(q_actuated, options.tip_offset_m, options.branch);
 
     Eigen::Matrix<double, 6, 1> error = pose_error_body(desired_pose, current_pose);
     error.head<3>() *= options.position_weight;
     error.tail<3>() *= options.orientation_weight;
 
+    // Compute The jacobian
     Eigen::Matrix<double, 6, 3> J = fingertip_pose_jacobian(q_actuated, options.tip_offset_m, options.branch);
     J.topRows<3>() *= options.position_weight;
     J.bottomRows<3>() *= options.orientation_weight;
@@ -187,6 +184,7 @@ namespace fingerlib {
     return options.step_gain * step;
   }
 
+  // Iteratively solve for joint angles that achieve a desired fingertip pose
   Eigen::Vector3d fingertip_inverse_kinematics(const Eigen::Isometry3d& desired_pose,
                                                const Eigen::Vector3d& initial_guess,
                                                const FingertipTrackingOptions& options)
@@ -210,6 +208,10 @@ namespace fingerlib {
     return q;
   }
 
+  //
+  // Tendon Tension Solver
+  //
+  // Get necessary tendon tensions to achieve a desired joint torque using NNLS
   Eigen::VectorXd tendon_tensions(Eigen::VectorXd desired_torques,
                                   Eigen::MatrixXd J)
   {
@@ -231,6 +233,7 @@ namespace fingerlib {
     return Eigen::VectorXd::Zero(4);
   }
 
+  // Get necessary tendon tensions to achieve a desired joint torque using NNLS with soft constraint
   Eigen::VectorXd tendon_tensions_soft_constraint(Eigen::VectorXd desired_torques,
                                                   Eigen::MatrixXd J)
   {

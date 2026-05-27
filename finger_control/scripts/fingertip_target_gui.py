@@ -9,9 +9,9 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 
 AXES = ["x", "y", "z"]
-P_MIN = [0.08, -0.03, 0.04]
-P_MAX = [0.20, 0.03, 0.14]
-P_HOME = [0.1675, 0.0033, 0.0983]
+P_MIN = [0.08, -0.03, -0.03]
+P_MAX = [0.167, 0.028, 0.09]
+P_HOME = [0.16, 0.0, 0.0]
 
 
 class FingertipTargetGUI(Node):

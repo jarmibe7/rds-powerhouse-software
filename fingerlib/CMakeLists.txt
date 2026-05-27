@@ -18,6 +18,13 @@ add_executable(precompute_jacobian
 target_link_libraries(precompute_jacobian PRIVATE fingerlib)
 target_compile_features(precompute_jacobian PRIVATE cxx_std_23)
 
+# Workspace sweep utility for sampling reachable fingertip positions
+add_executable(workspace_sweep
+    src/workspace_sweep.cpp
+)
+target_link_libraries(workspace_sweep PRIVATE fingerlib)
+target_compile_features(workspace_sweep PRIVATE cxx_std_23)
+
 # Simple tension demo executable (build for local testing without firmware)
 add_executable(tension_demo
     src/tension_demo.cpp
@@ -88,6 +95,10 @@ install(TARGETS fingerlib
 )
 
 install(TARGETS precompute_jacobian
+    RUNTIME DESTINATION bin
+)
+
+install(TARGETS workspace_sweep
     RUNTIME DESTINATION bin
 )
 

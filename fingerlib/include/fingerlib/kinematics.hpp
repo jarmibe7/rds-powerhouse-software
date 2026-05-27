@@ -16,6 +16,8 @@
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
 
+#include "fingerlib/constants.hpp"
+
 #include <limits>
 
 #ifdef FINGERLIB_RESTORE_B1_MACRO
@@ -49,23 +51,23 @@ namespace fingerlib {
   double solve_dip_from_pip(double qP_deg, int branch = +1);
 
   /// \brief Forward kinematics from the three actuated joint angles to the fingertip pose.
-  /// \param q_actuated Joint vector [mcp_splay, mcp_flexion, pip_flexion] in radians.
+  /// \param q_actuated Commanded joint vector [mcp_splay, mcp_flexion, pip_flexion] in radians.
   /// \param tip_offset_m Distance from the DIP joint center to the fingertip along the distal phalanx.
   /// \param branch Assembly mode selector passed to the four-bar closure.
   /// \return Fingertip pose in the base_link frame.
   Eigen::Isometry3d fingertip_pose(const Eigen::Vector3d& q_actuated,
-                                   double tip_offset_m = 0.03,
+                                   double tip_offset_m = FINGERTIP_DEFAULT_OFFSET_M,
                                    int branch = +1);
 
   /// \brief Fingertip position extracted from fingertip_pose().
   Eigen::Vector3d fingertip_position(const Eigen::Vector3d& q_actuated,
-                                     double tip_offset_m = 0.03,
+                                     double tip_offset_m = FINGERTIP_DEFAULT_OFFSET_M,
                                      int branch = +1);
 
   /// \brief Body-frame pose Jacobian for the fingertip pose.
   /// \return 6x3 Jacobian mapping joint rates to body twist [vx, vy, vz, wx, wy, wz].
   Eigen::Matrix<double, 6, 3> fingertip_pose_jacobian(const Eigen::Vector3d& q_actuated,
-                                                     double tip_offset_m = 0.03,
+                                                     double tip_offset_m = FINGERTIP_DEFAULT_OFFSET_M,
                                                      int branch = +1);
 
   /// \brief Pose error used by the fingertip tracker.

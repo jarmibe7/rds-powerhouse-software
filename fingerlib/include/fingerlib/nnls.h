@@ -13,7 +13,7 @@
  *   Copyright (C) 2013 Hannes Matuschek <hannes.matuschek@uni-potsdam.de>
  * Internal Householder helper sourced from Eigen/src/QR/HouseholderQR.h:
  *   Copyright (C) 2008-2010 Gael Guennebaud <gael.guennebaud@inria.fr>
- * Code Generation:
+ * Code Conversion and Refactoring for FingerLib:
  *   Claude, Anthropic LLM (https://claude.ai) with human guidance/review/edits by Jared Berry
  *
  * This Source Code Form is subject to the terms of the Mozilla

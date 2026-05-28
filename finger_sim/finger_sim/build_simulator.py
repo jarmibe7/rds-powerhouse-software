@@ -16,8 +16,6 @@ from pydrake.systems.framework import DiagramBuilder
 from pydrake.math import RigidTransform, RotationMatrix, RollPitchYaw
 from pydrake.geometry import (
     Box,
-    Cylinder,
-    Mesh,
     Meshcat,
     MeshcatVisualizer,
     MeshcatVisualizerParams,
@@ -28,8 +26,6 @@ from pydrake.geometry import (
     AddRigidHydroelasticProperties,
     AddCompliantHydroelasticProperties,
 )
-
-from pydrake.multibody.tree import PrismaticJoint, SpatialInertia, UnitInertia
 
 # drake_ros imports
 from drake_ros.core import (
@@ -153,7 +149,7 @@ def build_plant(builder, mesh_ext, plant_time_step=1e-4, demo_name="none"):
     print(f"Loaded {len(models)} models")
     finger_model = models[0]
 
-    # ── Weld base to world ────────────────────────────────────────────────────
+    # ── Weld finger base to world ────────────────────────────────────────────────────
     if demo_name in ["weight"]:
         finger_rot = [np.radians(180.0), np.radians(0.0), np.radians(0.0)]
     else:
@@ -206,11 +202,11 @@ def build_plant(builder, mesh_ext, plant_time_step=1e-4, demo_name="none"):
     )
 
 
-    # Optional demo setup (create board, nails, etc.)
+    # Setup demo
     if demo_name and demo_name.lower() != "none":
         setup_demo(demo_name.lower(), builder, plant, scene_graph, finger_model, mesh_ext)
 
-    # Set contact model to hydroelastic with fallback for non-convex mesh collision
+    # Set contact model to hydroelastic
     plant.set_contact_model(ContactModel.kHydroelasticWithFallback)
     plant.set_discrete_contact_approximation(DiscreteContactApproximation.kSap)
     plant.set_sap_near_rigid_threshold(0.1e-3)
@@ -256,15 +252,13 @@ def _add_table(plant, center=[0.15, 0.0, 0.05], rpy_deg=None, size=[0.5, 0.5, 0.
 
     # Create box shape for visual and collision
     box = Box(size[0], size[1], size[2])
-    plant.RegisterVisualGeometry(plant.world_body(), pose, box,
-                                 "demo_table_visual", [0.6, 0.3, 0.2, 1.0])
+    plant.RegisterVisualGeometry(plant.world_body(), pose, box, "demo_table_visual", [0.6, 0.3, 0.2, 1.0])
 
     # Register collision geometry with compliant hydroelastic contact
     proximity_props = ProximityProperties()
     AddContactMaterial(properties=proximity_props, friction=friction)
     AddCompliantHydroelasticProperties(0.003, 1e7, proximity_props)
-    plant.RegisterCollisionGeometry(plant.world_body(), pose, box,
-                                    "demo_table_collision", proximity_props)
+    plant.RegisterCollisionGeometry(plant.world_body(), pose, box, "demo_table_collision", proximity_props)
 
 
 def setup_table(builder, plant, scene_graph, finger_model, mesh_ext):
@@ -394,10 +388,10 @@ def build_ros(
         *_serializer: PySerializers for the respective ROS messages.
         finger_model: The ModelInstanceIndex of the finger in the plant.
     """
-    # ── tf broadcaster ─────────────────────────────────────────────────────────
     ros_interface_system = builder.AddSystem(RosInterfaceSystem("finger_sim"))
     drake_ros = ros_interface_system.get_ros_interface()
 
+    # # ── tf broadcaster ─────────────────────────────────────────────────────────
     # tf_broadcaster = builder.AddSystem(
     #     SceneTfBroadcasterSystem(
     #         drake_ros,
@@ -455,7 +449,7 @@ def build_ros(
         )
     )
 
-    # Convert ROS message to 4-element vector
+    # Convert ROS2 message to 4-element vector
     torque_converter = builder.AddSystem(MultiArrayToVector(4))
     # Map 4 motor torques through tendons to 3 joint torques
     tendon_map = builder.AddSystem(
@@ -484,6 +478,7 @@ def build_ros(
     builder.Connect(tendon_map.get_output_port(1), tendon_tension_converter.get_input_port(0))
     builder.Connect(tendon_tension_converter.get_output_port(0), tendon_tension_pub.get_input_port(0))
 
+    # Estimate fingertip output force from contact results and publish
     fingertip_force_pub = builder.AddSystem(
         RosPublisherSystem(
             torque_serializer,

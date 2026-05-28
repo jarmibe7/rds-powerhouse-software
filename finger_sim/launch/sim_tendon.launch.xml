@@ -1,7 +1,7 @@
 <launch>
   <arg name="sim_duration" default="9999.0" description="How long (seconds) to run the Drake simulation"/>
   <arg name="plant_time_step" default="1e-2" description="Discrete timestep used by the Drake plant for contact resolution"/>
-  <arg name="demo_name" default="catapult" description="Optional demo scene to load: none, table, or weight"/>
+  <arg name="demo_name" default="catapult" description="Optional demo scene to load: none, table, weight, or catapult"/>
   <arg name="use_jsp_gui" default="true" description="Whether joint_state_publisher_gui is used to control joint states"/>
 
 

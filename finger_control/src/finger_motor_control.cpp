@@ -60,9 +60,11 @@ public:
         csv_path.c_str(), e.what());
     }
 
+    // Publisheres
     motor_torque_pub_ = create_publisher<std_msgs::msg::Float64MultiArray>(
       "/finger/motor_torque_commands", 10);
 
+    // Subscribers
     desired_joint_torque_sub_ = create_subscription<std_msgs::msg::Float64MultiArray>(
       "/finger/desired_joint_torques", 10,
       std::bind(&FingerMotorControl::desired_joint_torque_callback, this, std::placeholders::_1));
@@ -85,8 +87,8 @@ public:
   }
 
 private:
-  Eigen::Matrix<double, 3, 4> J_;
-  std::unique_ptr<fingerlib::JacobianLookup> jacobian_lookup_;
+  Eigen::Matrix<double, 3, 4> J_;                                                                   // Current jacobian
+  std::unique_ptr<fingerlib::JacobianLookup> jacobian_lookup_;                                      // Jacobian lookup table based on PIP angle
   double pulley_radius_{fingerlib::R_MOTOR};
   double pip_angle_deg_{0.0};
   bool has_joint_state_{false};
@@ -128,7 +130,6 @@ private:
     if (jacobian_lookup_ && has_joint_state_) {
       J_ = jacobian_lookup_->jacobian_for_angle_deg(static_cast<float>(pip_angle_deg_));
     }
-        
     const Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
     const Eigen::MatrixXd J_dynamic = J_.cast<double>();
     const Eigen::VectorXd tensions = fingerlib::tendon_tensions(tau_dynamic, J_dynamic);

@@ -28,8 +28,8 @@
 namespace fingerlib {
   
 
-  /// \brief Closed-form four-bar closure: solves qD given qP.
-  /// \param qP_deg Proximal joint angle in degrees.
+  /// \brief Closed-form four-bar closure: solve for DIP angle given PIP angle.
+  /// \param qP_deg PIP angle in degrees.
   /// \param branch Assembly mode selector: +1 or -1. Use +1 to match qD ≈ qP at 0°, 45°, 90°.
   /// \return DIP angle in radians, as a double
   double solve_dip_from_pip(double qP_deg, int branch = +1);

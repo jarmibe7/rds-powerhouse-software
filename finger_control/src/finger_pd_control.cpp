@@ -1,5 +1,5 @@
 /// \file
-/// \brief Position PD control node for the powerhouse finger for testing and stuff
+/// \brief Joint position PD control node for the powerhouse finger
 ///
 /// PARAMETERS:
 ///     kp            (double[]): Proportional gains for actuated joints, in order.
@@ -32,8 +32,6 @@
 
 #include "fingerlib/simple_pd.hpp"
 
-// ── Joint ordering ────────────────────────────────────────────────────────────
-
 // Full plant order published to Drake
 static constexpr std::array<const char *, 3> ALL_JOINTS = {
   "mcp_splay",
@@ -43,7 +41,6 @@ static constexpr std::array<const char *, 3> ALL_JOINTS = {
 
 static constexpr int N_FULL = static_cast<int>(ALL_JOINTS.size());
 
-// ── Node ─────────────────────────────────────────────────────────────────────
 
 class FingerPDControl : public rclcpp::Node
 {
@@ -103,10 +100,10 @@ public:
   }
 
 private:
-  fingerlib::PDController<N_FULL> ctrl_;
+  fingerlib::PDController<N_FULL> ctrl_;                                                        // fingerlib controller instance
   bool   state_received_;
   bool   dq_initialized_{false};
-  double vel_alpha_{0.2};
+  double vel_alpha_{0.2};                                                                       // Velocity low-pass filter alpha (0 = no update, 1 = raw velocity)
 
   // State storage
   Eigen::Matrix<double, N_FULL, 1> q_measured_ = Eigen::Matrix<double, N_FULL, 1>::Zero();
@@ -154,7 +151,6 @@ private:
     return oss.str();
   }
 
-  // Callbacks
   // Receive sim encoder pos/vel data
   void state_callback(const sensor_msgs::msg::JointState::SharedPtr msg)
   {

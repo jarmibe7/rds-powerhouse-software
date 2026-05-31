@@ -178,8 +178,13 @@ namespace fingerlib {
 
     const Eigen::Matrix<double, 6, 6> regularizer = (options.damping * options.damping)
                                                   * Eigen::Matrix<double, 6, 6>::Identity();
-    const Eigen::Matrix<double, 3, 1> step = J.transpose()
+    Eigen::Matrix<double, 3, 1> step = J.transpose()
       * (J * J.transpose() + regularizer).ldlt().solve(error);
+
+    const double step_norm = step.norm();
+    if (std::isfinite(step_norm) && step_norm > options.max_step_norm && options.max_step_norm > 0.0) {
+      step *= options.max_step_norm / step_norm;
+    }
 
     return options.step_gain * step;
   }
@@ -203,6 +208,12 @@ namespace fingerlib {
       }
 
       q += fingertip_pose_tracking_step(q, desired_pose, options);
+
+      if (options.has_joint_limits) {
+        for (int i = 0; i < 3; ++i) {
+          q[i] = std::clamp(q[i], options.q_min[i], options.q_max[i]);
+        }
+      }
     }
 
     return q;

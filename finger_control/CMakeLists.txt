@@ -22,6 +22,7 @@ include(CTest)
 add_library(fingerlib STATIC
     ../fingerlib/src/kinematics.cpp
   ../fingerlib/src/jacobian_lookup.cpp
+  ../fingerlib/src/workspace_lookup.cpp
 )
 target_include_directories(fingerlib PUBLIC ../fingerlib/include)
 target_link_libraries(fingerlib PUBLIC Eigen3::Eigen)
@@ -64,6 +65,7 @@ target_link_libraries(fingertip_position_control PUBLIC
   ${std_msgs_TARGETS}
   Eigen3::Eigen
   rclcpp::rclcpp
+  ament_index_cpp::ament_index_cpp
   fingerlib
 )
 
@@ -110,6 +112,12 @@ install(TARGETS finger_pd_control
 
 install(DIRECTORY launch config
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(FILES
+  ../fingerlib/jacobian_transposes.csv
+  ../fingerlib/workspace_samples.csv
+  DESTINATION share/${PROJECT_NAME}/config
 )
 
 ament_package()

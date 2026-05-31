@@ -3,12 +3,12 @@
 
 import tkinter as tk
 
-import rclpy
 from geometry_msgs.msg import PointStamped
+import rclpy
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 
-AXES = ["x", "y", "z"]
+AXES = ['x', 'y', 'z']
 P_MIN = [0.08, -0.03, -0.03]
 P_MAX = [0.167, 0.028, 0.09]
 P_HOME = [0.16, 0.0, 0.0]
@@ -17,8 +17,8 @@ P_HOME = [0.16, 0.0, 0.0]
 class FingertipTargetGUI(Node):
 
     def __init__(self):
-        super().__init__("fingertip_target_gui")
-        self.pub = self.create_publisher(PointStamped, "/finger/fingertip_target", 10)
+        super().__init__('fingertip_target_gui')
+        self.pub = self.create_publisher(PointStamped, '/finger/fingertip_target', 10)
         self.target_from_controller = None
 
         state_qos = QoSProfile(depth=1)
@@ -26,7 +26,7 @@ class FingertipTargetGUI(Node):
         state_qos.durability = DurabilityPolicy.TRANSIENT_LOCAL
         self.target_state_sub = self.create_subscription(
             PointStamped,
-            "/finger/gui_target_feedback",
+            '/finger/gui_target_feedback',
             self._on_target_state,
             state_qos,
         )
@@ -37,7 +37,7 @@ class FingertipTargetGUI(Node):
     def publish(self, position):
         msg = PointStamped()
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = "base_link"
+        msg.header.frame_id = 'base_link'
         msg.point.x = float(position[0])
         msg.point.y = float(position[1])
         msg.point.z = float(position[2])
@@ -49,11 +49,11 @@ def main():
     node = FingertipTargetGUI()
 
     root = tk.Tk()
-    root.title("Fingertip Position Target")
+    root.title('Fingertip Position Target')
 
     sliders = []
     for i, axis in enumerate(AXES):
-        tk.Label(root, text=f"{axis} [m]").grid(row=i, column=0, padx=8, pady=4, sticky="w")
+        tk.Label(root, text=f'{axis} [m]').grid(row=i, column=0, padx=8, pady=4, sticky='w')
         slider = tk.Scale(
             root,
             from_=P_MIN[i],
@@ -70,7 +70,7 @@ def main():
         for i, slider in enumerate(sliders):
             slider.set(P_HOME[i])
 
-    tk.Button(root, text="Home", command=home).grid(
+    tk.Button(root, text='Home', command=home).grid(
         row=len(AXES), column=0, columnspan=2, pady=8
     )
 
@@ -101,5 +101,5 @@ def main():
     rclpy.shutdown()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

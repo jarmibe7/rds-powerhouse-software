@@ -15,10 +15,15 @@
 #include <algorithm>
 #include <array>
 #include <string>
+#include <sstream>
 #include <vector>
+#include <filesystem>
+#include <memory>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 
 #include "fingerlib/kinematics.hpp"
 #include "fingerlib/simple_pd.hpp"
+#include "fingerlib/workspace_lookup.hpp"
 
 static constexpr std::array<const char *, 3> ALL_JOINTS = {
   "mcp_splay",
@@ -35,6 +40,28 @@ public:
   : Node("fingertip_position_control")
     , ctrl_(10.0, 0.5, 5.0)
   {
+    std::string default_csv_path = "../fingerlib/workspace_samples.csv";
+    try {
+      default_csv_path = ament_index_cpp::get_package_share_directory("finger_control") +
+        "/config/workspace_samples.csv";
+    } catch (const std::exception & e) {
+      RCLCPP_WARN(get_logger(),
+        "Unable to resolve finger_control share path for default workspace CSV: %s",
+        e.what());
+    }
+
+    declare_parameter("workspace_csv_path", default_csv_path);
+    const std::string csv_path = get_parameter("workspace_csv_path").as_string();
+
+    // Get workspace lookup
+    try {
+      workspace_lookup_ = std::make_unique<fingerlib::WorkspaceLookup>(csv_path);
+      RCLCPP_INFO(get_logger(), "Loaded workspace CSV: %s", csv_path.c_str());
+    } catch (const std::exception & e) {
+      workspace_lookup_.reset();
+      RCLCPP_WARN(get_logger(), "Failed to initialize workspace lookup from '%s': %s", csv_path.c_str(), e.what());
+    }
+
     declare_parameter<std::vector<double>>("kp", std::vector<double>(N_FULL, 0.2));
     declare_parameter<std::vector<double>>("kd", std::vector<double>(N_FULL, 0.01));
     declare_parameter("tau_max", 8.0);
@@ -98,12 +125,14 @@ public:
       get_logger(),
       "fingertip_position_control ready | kp=[%.3f %.3f %.3f] kd=[%.3f %.3f %.3f] "
       "tau_max=%.2f branch=%d tip_offset=%.3f rate=%.1fHz vel_alpha=%.2f vel_deadband=%.3f",
-      kp[0], kp[1], kp[2], kd[0], kd[1], kd[2], tau_max, branch_, tip_offset_m_, rate_hz, vel_alpha, vel_deadband);
+      kp[0], kp[1], kp[2], kd[0], kd[1], kd[2], tau_max, branch_, tip_offset_m_, rate_hz, vel_alpha,
+      vel_deadband);
   }
 
 private:
   fingerlib::PDController<N_FULL> ctrl_;
   fingerlib::FingertipTrackingOptions ik_options_;
+  std::unique_ptr<fingerlib::WorkspaceLookup> workspace_lookup_;
 
   bool state_received_{false};
   bool target_received_{false};
@@ -120,11 +149,9 @@ private:
   Eigen::Vector3d q_des_ = Eigen::Vector3d::Zero();
   Eigen::Vector3d target_position_ = Eigen::Vector3d::Zero();
 
-  // Out-of-workspace detection and damping
+  // Out-of-workspace detection
   double ik_error_threshold_{0.01};  // Consider unreachable if position error > this [m]
-  double ik_failure_damp_gain_{0.5};  // Reduce gains when unreachable
-  double last_ik_position_error_{0.0};  // Track IK solution residual
-  int ik_failure_count_{0};  // Consecutive iterations with large error
+  double ik_failure_damp_gain_{0.5};  // Reduce gains when unreachable (unused when lookup enabled)
 
   // Velocity deadband
   double vel_deadband_{0.01};  // Ignore velocity magnitude below this [rad/s]
@@ -150,9 +177,10 @@ private:
     target_state_pub_->publish(msg);
   }
 
-  static Eigen::Vector3d clamp_joints(const Eigen::Vector3d & q,
-                                      const Eigen::Vector3d & q_min,
-                                      const Eigen::Vector3d & q_max)
+  static Eigen::Vector3d clamp_joints(
+    const Eigen::Vector3d & q,
+    const Eigen::Vector3d & q_min,
+    const Eigen::Vector3d & q_max)
   {
     Eigen::Vector3d q_clamped = q;
     for (int i = 0; i < 3; ++i) {
@@ -216,7 +244,8 @@ private:
 
     if (!target_initialized_from_state_) {
       // Seed desired Cartesian target from measured startup pose to avoid initial jumps.
-      target_position_ = fingerlib::fingertip_pose(q_measured_, tip_offset_m_, branch_).translation();
+      target_position_ = fingerlib::fingertip_pose(q_measured_, tip_offset_m_,
+        branch_).translation();
       target_received_ = true;
       target_initialized_from_state_ = true;
       publish_target_state();
@@ -257,60 +286,65 @@ private:
     desired_pose.translation() = target_position_;
 
     const Eigen::Vector3d q_guess = q_des_initialized_ ? q_des_ : q_measured_;
-    Eigen::Vector3d q_des_unclamped = fingerlib::fingertip_inverse_kinematics(desired_pose, q_guess, ik_options_);
+    Eigen::Vector3d q_des_unclamped = fingerlib::fingertip_inverse_kinematics(desired_pose, q_guess,
+      ik_options_);
     Eigen::Vector3d q_des_clamped = clamp_joints(q_des_unclamped, q_min_, q_max_);
     q_des_ = q_des_clamped;
-
     // Detect if clamping occurred (joints hitting limits)
     bool joints_clamped = (q_des_unclamped - q_des_clamped).norm() > 1e-6;
+    if (joints_clamped) {
+      std::ostringstream unclamped_stream;
+      std::ostringstream clamped_stream;
+      unclamped_stream << "[" << q_des_unclamped.x() << ", " << q_des_unclamped.y() << ", "
+                       << q_des_unclamped.z() << "]";
+      clamped_stream << "[" << q_des_clamped.x() << ", " << q_des_clamped.y() << ", "
+                     << q_des_clamped.z() << "]";
 
-    // Compute achieved pose from clamped joints
-    const auto achieved_pose = fingerlib::fingertip_pose(q_des_clamped, tip_offset_m_, branch_);
-    const double ik_position_error = (achieved_pose.translation() - target_position_).norm();
-    last_ik_position_error_ = ik_position_error;
-
-    // If joints were clamped to limits, track the achievable position instead of the original target
-    // This prevents the controller from fighting against mechanical joint limits
-    if (joints_clamped && ik_position_error > ik_error_threshold_) {
-      // Target is unreachable within joint limits: dampen trajectory toward best-effort position
-      if (ik_failure_count_ == 0) {
-        RCLCPP_WARN_THROTTLE(
-          get_logger(), *get_clock(), 1000,
-          "Target requires joints beyond limits (error=%.4f m). Tracking constrained position.",
-          ik_position_error);
-      }
-      ik_failure_count_++;
-    } else if (ik_position_error > ik_error_threshold_) {
-      // Target is out-of-workspace (not due to limits)
-      ik_failure_count_++;
-    } else {
-      // Target is reachable
-      ik_failure_count_ = 0;
+      RCLCPP_INFO(
+        get_logger(),
+        "Desired joint target was clamped | original(rad)=%s clamped(rad)=%s",
+        unclamped_stream.str().c_str(), clamped_stream.str().c_str());
     }
 
-    // Apply trajectory damping for unreachable targets
-    if (ik_failure_count_ > 0) {
-      const double damp_factor = std::pow(ik_failure_damp_gain_, std::min(ik_failure_count_, 5));
-      
-      if (joints_clamped) {
-        // Dampen toward the clamped/achievable position, not the impossible target
-        const Eigen::Vector3d target_smoothed = current_pose.translation() + 
-                                                damp_factor * (achieved_pose.translation() - current_pose.translation());
-        Eigen::Isometry3d smoothed_pose = current_pose;
-        smoothed_pose.translation() = target_smoothed;
-        q_des_ = fingerlib::fingertip_inverse_kinematics(smoothed_pose, q_measured_, ik_options_);
-        q_des_ = clamp_joints(q_des_, q_min_, q_max_);
-      } else {
-        // Dampen toward the original target (out-of-workspace case)
-        const Eigen::Vector3d target_smoothed = current_pose.translation() + 
-                                                damp_factor * (target_position_ - current_pose.translation());
-        Eigen::Isometry3d smoothed_pose = current_pose;
-        smoothed_pose.translation() = target_smoothed;
-        q_des_ = fingerlib::fingertip_inverse_kinematics(smoothed_pose, q_measured_, ik_options_);
-        q_des_ = clamp_joints(q_des_, q_min_, q_max_);
+    // If joints are clamped and we have a workspace lookup, prefer the nearest
+    // sampled joint configuration instead of the unclamped IK solution.
+    if (joints_clamped && workspace_lookup_) {
+      RCLCPP_INFO(
+      get_logger(),
+      "Out of workspace");
+      try {
+        // Convert unclamped radians to degrees for lookup
+        Eigen::Vector3d q_deg_unclamped(
+          fingerlib::rad2deg(q_des_unclamped.x()),
+          fingerlib::rad2deg(q_des_unclamped.y()),
+          fingerlib::rad2deg(q_des_unclamped.z()));
+
+        const auto & sample = workspace_lookup_->sample_for_joint_angles_deg(q_deg_unclamped);
+
+        // Convert sampled degrees back to radians and clamp to limits
+        const Eigen::Vector3d q_sample_rad(
+          fingerlib::deg2rad(sample.q_deg.x()),
+          fingerlib::deg2rad(sample.q_deg.y()),
+          fingerlib::deg2rad(sample.q_deg.z()));
+
+        q_des_ = clamp_joints(q_sample_rad, q_min_, q_max_);
+        // Update the target position to the achievable sampled position
+        // target_position_ = sample.position_m;
+        publish_target_state();
+        RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 1000,
+                             "Using workspace lookup sample for clamped target.");
+      } catch (const std::exception & e) {
+        RCLCPP_WARN(get_logger(), "Workspace lookup failed: %s", e.what());
       }
     }
 
+    RCLCPP_INFO(
+      get_logger(),
+      "Desired joint target from fingertip IK (rad) (post lookup): [%.6f, %.6f, %.6f]",
+      q_des_.x(), q_des_.y(), q_des_.z());
+
+    // Compute achieved pose from desired joints (unused by lookup flow)
+    // const auto achieved_pose = fingerlib::fingertip_pose(q_des_, tip_offset_m_, branch_);
     ctrl_.set_target(q_des_);
     const Eigen::Vector3d tau = ctrl_.compute(q_measured_, dq_measured_);
 

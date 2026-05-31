@@ -9,6 +9,7 @@ find_package(Doxygen)
 add_library(fingerlib
     src/kinematics.cpp
     src/jacobian_lookup.cpp
+    src/workspace_lookup.cpp
 )
 
 # Utility executable for Jacobian precomputation
@@ -61,6 +62,7 @@ if(BUILD_TESTING)
     add_executable(fingerlib_tests
         tests/kinematics_tests.cpp
         tests/jacobian_lookup_tests.cpp
+        tests/workspace_lookup_tests.cpp
         tests/nnls_tests.cpp
     ) 
     target_link_libraries(fingerlib_tests PRIVATE Catch2::Catch2WithMain fingerlib)
@@ -106,7 +108,7 @@ install(TARGETS tension_demo
     RUNTIME DESTINATION bin
 )
 
-install(FILES jacobian_transposes.csv
+install(FILES jacobian_transposes.csv workspace_samples.csv
     DESTINATION share/${PROJECT_NAME}/config
 )
 

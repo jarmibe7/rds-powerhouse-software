@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 
 #include <cstddef>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -102,28 +103,30 @@ int main(int argc, char* argv[])
       return 1;
     }
 
-    const std::string output_path = (argc > 1) ? argv[1] : "workspace_samples.csv";
+    const std::filesystem::path default_output_path =
+      std::filesystem::path(__FILE__).parent_path() / "workspace_samples.csv";
+    const std::filesystem::path output_path = (argc > 1) ? argv[1] : default_output_path;
     std::ofstream out(output_path);
     if (!out.is_open()) {
-      std::cerr << "Failed to open output file: " << output_path << '\n';
+      std::cerr << "Failed to open output file: " << output_path.string() << '\n';
       return 1;
     }
 
     out << std::fixed << std::setprecision(9);
-    // out << "q0_deg,q1_deg,q2_deg,x_m,y_m,z_m\n";
-    // for (const auto& sample : samples) {
-    //   out << sample.q_deg.x() << ','
-    //       << sample.q_deg.y() << ','
-    //       << sample.q_deg.z() << ','
-    //       << sample.position_m.x() << ','
-    //       << sample.position_m.y() << ','
-    //       << sample.position_m.z() << '\n';
-    // }
+    out << "q0_deg,q1_deg,q2_deg,x_m,y_m,z_m\n";
+    for (const auto& sample : samples) {
+      out << sample.q_deg.x() << ','
+          << sample.q_deg.y() << ','
+          << sample.q_deg.z() << ','
+          << sample.position_m.x() << ','
+          << sample.position_m.y() << ','
+          << sample.position_m.z() << '\n';
+    }
 
     const Bounds bounds = compute_bounds(samples);
 
     std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Wrote " << samples.size() << " samples to " << output_path << '\n';
+    std::cout << "Wrote " << samples.size() << " samples to " << output_path.string() << '\n';
     if (skipped_samples > 0) {
       std::cout << "Skipped " << skipped_samples << " invalid samples\n";
     }

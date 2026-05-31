@@ -37,8 +37,12 @@ namespace fingerlib {
     int branch{+1};
     double position_weight{1.0};
     double orientation_weight{0.5};
-    double damping{1.0e-4};
+    double damping{1.0e-2};
     double step_gain{1.0};
+    double max_step_norm{0.25};
+    bool has_joint_limits{false};
+    Eigen::Vector3d q_min{Eigen::Vector3d::Zero()};
+    Eigen::Vector3d q_max{Eigen::Vector3d::Zero()};
     int max_iterations{50};
     double tolerance{1.0e-6};
   };

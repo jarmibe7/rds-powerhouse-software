@@ -6,8 +6,8 @@ fingertip_position_control:
     #   - Derivative term amplifies measurement noise and DIP closure singularities
     #   - If adding derivative, increase vel_alpha first to smooth velocity measurements
     #   - At joint limits: controller detects clamping and dampens trajectory toward achievable position
-    kp: [0.1, 1.0, 1.0]
-    kd: [0.01, 0.05, 0.00]  # Reduced MCP_flex kd from 0.1 to be more conservative
+    kp: [0.1, 1.0, 0.1]
+    kd: [0.01, 0.1, 0.00]
     tau_max: 8.0
 
     # Velocity estimation and deadbanding

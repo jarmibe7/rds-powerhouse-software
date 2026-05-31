@@ -44,10 +44,7 @@ public:
         e.what());
     }
 
-    declare_parameter("pulley_radius", fingerlib::R_MOTOR);
     declare_parameter("jacobian_csv_path", default_csv_path);
-
-    pulley_radius_ = get_parameter("pulley_radius").as_double();
     const std::string csv_path = get_parameter("jacobian_csv_path").as_string();
 
     // Get jacobian lookup
@@ -59,6 +56,9 @@ public:
         "Failed to initialize Jacobian lookup from '%s': %s. Using static Jacobian fallback.",
         csv_path.c_str(), e.what());
     }
+
+    declare_parameter("pulley_radius", fingerlib::R_MOTOR);
+    pulley_radius_ = get_parameter("pulley_radius").as_double();
 
     motor_torque_pub_ = create_publisher<std_msgs::msg::Float64MultiArray>(
       "/finger/motor_torque_commands", 10);
@@ -128,7 +128,7 @@ private:
     if (jacobian_lookup_ && has_joint_state_) {
       J_ = jacobian_lookup_->jacobian_for_angle_deg(static_cast<float>(pip_angle_deg_));
     }
-        
+
     const Eigen::VectorXd tau_dynamic = desired_joint_torques.cast<double>();
     const Eigen::MatrixXd J_dynamic = J_.cast<double>();
     const Eigen::VectorXd tensions = fingerlib::tendon_tensions(tau_dynamic, J_dynamic);

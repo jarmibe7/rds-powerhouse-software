@@ -1,0 +1,38 @@
+fingertip_position_control:
+  ros__parameters:
+    # PD control gains [N·m/rad] and [N·m·s/rad]
+    # Tuning notes:
+    #   - PIP joint (index 2) should have kd=0 initially to avoid spasming
+    #   - Derivative term amplifies measurement noise and DIP closure singularities
+    #   - If adding derivative, increase vel_alpha first to smooth velocity measurements
+    #   - At joint limits: controller detects clamping and dampens trajectory toward achievable position
+    kp: [0.1, 1.0, 0.1]
+    kd: [0.01, 0.1, 0.00]
+    tau_max: 8.0
+
+    # Velocity estimation and deadbanding
+    vel_alpha: 0.5  # Low-pass filter strength (0.5 = equal weight old/new). Higher = less smoothing
+    vel_deadband: 0.01  # Ignore velocity magnitudes below this (rad/s) to reduce noise
+
+    # Control loop rate
+    publish_rate: 100.0
+
+    # Kinematics configuration
+    branch: 1
+    tip_offset_m: 0.03
+
+    # IK solver parameters
+    ik_max_iterations: 20
+    ik_tolerance: 1.0e-6
+    ik_damping: 1.0e-4
+    ik_step_gain: 1.0
+
+    # Out-of-workspace handling and joint limit protection
+    # When IK solution has position error > this threshold, either:
+    # a) Target requires joints beyond mechanical limits (detected automatically)
+    # b) Target is physically unreachable even within limits
+    ik_error_threshold: 0.01  # 1 cm
+    # Damping factor for unreachable targets (reduces trajectory aggressiveness)
+    # Actual damp factor = gain^(number_of_consecutive_failures)
+    # At joint limits, this prevents fighting against mechanical stops
+    ik_failure_damp_gain: 0.5  # Reduces to 50%, 25%, 12.5%, ... with each iteration

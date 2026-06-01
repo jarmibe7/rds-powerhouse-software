@@ -1,0 +1,10 @@
+finger_pd_control:
+  ros__parameters:
+    kp: [0.1, 1.0, 0.1]  # dt=1e-2, upsdide-down
+    kd: [0.01, 0.1, 0.0]
+    # kp: [0.0, 0.0, 0.0]     # No gains
+    # kd: [0.0, 0.0, 0.0]
+    tau_max: 8.0
+    vel_alpha: 0.3
+    branch: 1
+    publish_rate: 100.0

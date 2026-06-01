@@ -1,1 +1,6 @@
 **/build/
+**/log/
+**/install/
+.vscode/
+.eggs/
+__pycache__/

@@ -26,6 +26,10 @@ rqt_plot /finger/tendon_stress/data[0] /finger/tendon_stress/data[1] /finger/ten
 rqt_plot "/finger/tendon_tension/data[0]" "/finger/tendon_tension/data[1]" "/finger/tendon_tension/data[2]" "/finger/tendon_tension/data[3]"
 ```
 
+```
+ros2 run rqt_plot rqt_plot /finger/fingertip_target/point/x /finger/fingertip_target/point/y /finger/fingertip_target/point/z/z
+```
+
 #### Software Structure
 * launch/ - Contains all launch files.
 * finger_sim/ - Python package containing all of the simulation code.

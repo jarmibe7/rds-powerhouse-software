@@ -101,6 +101,7 @@ install(PROGRAMS
   scripts/finger_target_gui.py
   scripts/finger_torque_gui.py
   scripts/fingertip_target_gui.py
+  scripts/fingertip_trajectory_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

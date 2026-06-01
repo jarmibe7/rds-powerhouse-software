@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Publish a fingertip target PointStamped on /finger/fingertip_target.
-
-Edit the `desired_position(t)` function to specify your own trajectory.
+"""
+Publish a fingertip target PointStamped on /finger/fingertip_target.
 """
 
 from math import sin, pi

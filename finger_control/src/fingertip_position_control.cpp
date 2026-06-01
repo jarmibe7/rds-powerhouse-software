@@ -59,7 +59,8 @@ public:
       RCLCPP_INFO(get_logger(), "Loaded workspace CSV: %s", csv_path.c_str());
     } catch (const std::exception & e) {
       workspace_lookup_.reset();
-      RCLCPP_WARN(get_logger(), "Failed to initialize workspace lookup from '%s': %s", csv_path.c_str(), e.what());
+      RCLCPP_WARN(get_logger(), "Failed to initialize workspace lookup from '%s': %s",
+        csv_path.c_str(), e.what());
     }
 
     declare_parameter<std::vector<double>>("kp", std::vector<double>(N_FULL, 0.2));

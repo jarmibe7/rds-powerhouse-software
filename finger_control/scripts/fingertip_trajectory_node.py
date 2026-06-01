@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-"""
-Publish a fingertip target PointStamped on /finger/fingertip_target.
-"""
+"""Publish a fingertip target PointStamped on /finger/fingertip_target."""
 
-from math import sin, pi
+from math import pi, sin
+
+from geometry_msgs.msg import PointStamped
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import PointStamped
 
 
 def desired_position(t: float):
-    """Return (x, y, z) fingertip target in meters for time t (seconds).
+    """
+    Return (x, y, z) fingertip target in meters for time t (seconds).
 
     Example trajectory: small circle in XY plane and sinusoidal Z motion.
     Edit this function to whatever open-loop function you want.
     """
     f = 0.5  # Hz
-    amp = 1.5  # 1.5 
+    amp = 1.5  # 1.5
     conv_to_meters = 0.01
     x_center = 0.12
     y_center = 0.0
@@ -29,11 +29,12 @@ def desired_position(t: float):
 
 
 class FingertipTrajectoryNode(Node):
+
     def __init__(self):
         super().__init__('fingertip_trajectory')
         self.pub = self.create_publisher(PointStamped, '/finger/fingertip_target', 10)
         self.start_time = self.get_clock().now()
-        freq = 50  # Hz    
+        freq = 50  # Hz
         timer_period = 1 / freq
         self.create_timer(timer_period, self.timer_callback)
 

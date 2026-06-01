@@ -76,18 +76,6 @@ class MotorTorqueToJointTorque(LeafSystem):
         joint_tau = -(J @ tension)  # Make negative joint torques be flexion at each joint
         return tension, joint_tau
 
-    def _calc_tension_and_joint_torque(self, context):
-        motor_tau = np.array(self.get_input_port(0).Eval(context), dtype=float)
-        q = np.array(self.get_input_port(1).Eval(context), dtype=float)
-
-        pip_deg = int(round(np.rad2deg(q[self._pip_position_index])))
-        pip_deg = int(np.clip(pip_deg, self._min_degree, self._max_degree))
-        J = self._jacobians[pip_deg - self._min_degree]
-
-        tension = np.divide(motor_tau, self._radius)
-        joint_tau = J @ tension
-        return tension, joint_tau
-
     def _load_jacobians(self, csv_path):
         """Loads Jacobian matrices from the CSV file."""
         rows = []

@@ -25,9 +25,6 @@ namespace fingerlib {
     /// \throws std::runtime_error If file cannot be opened or is malformed.
     explicit WorkspaceLookup(const std::string& csv_path);
 
-    /// \brief Return the nearest sample for a given joint-angle triple in degrees.
-    /// \param q_deg Measured joint angles in degrees.
-    /// \return Const reference to the nearest sampled workspace entry.
     /// \brief Return the fingertip position for a given joint-angle triple in degrees.
     /// \param q_deg Measured joint angles in degrees.
     /// \return Fingertip position (x,y,z) in meters (by value).

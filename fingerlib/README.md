@@ -6,7 +6,7 @@ This C++ library contains functions for controlling the figure, that can be used
 ## Software Structure
 * `kinematics.hpp` - Functions for calculating tendon tensions and forward/inverse kinematics.
 * `jacobian_lookup.hpp` - Class for containing the routing jacobian lookup table.
-* `nnlsh.hpp` - Non-negative least squares solver for computing tendon tensions from desired joint torques.
+* `nnls.hpp` - Non-negative least squares solver for computing tendon tensions from desired joint torques.
 * `constants.hpp` - Contains geometric constants and simple utility functions.
 
 ## Utilities

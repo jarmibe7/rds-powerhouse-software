@@ -86,7 +86,7 @@ ros2 launch finger_sim sim_tracking.launch.xml
 
 To plot fingertip position over time during the fingertip tracking test:
 ```
-ros2 run rqt_plot rqt_plot /finger/fingertip_target/point/x /finger/fingertip_target/point/y /finger/fingertip_target/point/z/z
+ros2 run rqt_plot rqt_plot /finger/fingertip_target/point/x /finger/fingertip_target/point/y /finger/fingertip_target/point/z
 ```
 
 ## Software Structure

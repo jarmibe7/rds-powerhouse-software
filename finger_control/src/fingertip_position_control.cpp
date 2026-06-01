@@ -338,10 +338,10 @@ private:
       }
     }
 
-    RCLCPP_INFO(
-      get_logger(),
-      "Desired joint target from fingertip IK (rad) (post lookup): [%.6f, %.6f, %.6f]",
-      q_des_.x(), q_des_.y(), q_des_.z());
+    // RCLCPP_INFO(
+    //   get_logger(),
+    //   "Desired joint target from fingertip IK (rad) (post lookup): [%.6f, %.6f, %.6f]",
+    //   q_des_.x(), q_des_.y(), q_des_.z());
 
     // Compute achieved pose from desired joints (unused by lookup flow)
     // const auto achieved_pose = fingerlib::fingertip_pose(q_des_, tip_offset_m_, branch_);

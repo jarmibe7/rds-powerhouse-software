@@ -89,7 +89,7 @@ public:
         return tau_raw.cwiseMax(-tau_max_).cwiseMin(tau_max_);
     }
 
-    // ── Accessors ─────────────────────────────────────────────────────────────
+    // ── Getters ──────────────────────────────────────────────────────────────
 
     const Vec& target_position() const { return q_des_; }
     const Vec& target_velocity() const { return dq_des_; }
@@ -125,10 +125,6 @@ private:
     Vec dq_des_;
     Vec tau_ff_;
 };
-
-// ── Convenience alias for powerhouse finger ─────────────────────────────────────
-// TODO: Make 3
-using FingerPDController = PDController<4>;
 
 }
 

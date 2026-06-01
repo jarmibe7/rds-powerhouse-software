@@ -7,6 +7,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 
+# Joint names and position limits
 JOINTS = ['mcp_splay', 'mcp_flexion', 'pip_flexion']
 Q_MIN = [-0.175, -0.785, 0.0]
 Q_MAX = [0.175, 0.785, 1.57]
